@@ -1,0 +1,12 @@
+export const SIGN_IN = 'SIGN_IN';
+export const SIGN_IN_ERROR = 'SIGN_IN_ERROR';
+export const SIGN_OUT = 'SIGN_OUT';
+export const UPDATE_TOKEN = 'UPDATE_TOKEN';
+export const GET_STATS = 'GET_STATS';
+export const GET_STATS_FAIL = 'GET_STATS_FAIL';
+export const GET_TASKS = 'GET_TASKS';
+export const GET_TASKS_FAIL = 'GET_TASKS_FAIL';
+export const CREATE_TASK = 'CREATE_TASK';
+export const FETCH_TASK = 'FETCH_TASK';
+export const DELETE_TASK = 'DELETE_TASK';
+export const EDIT_TASK = 'EDIT_TASK';
