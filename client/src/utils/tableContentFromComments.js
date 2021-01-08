@@ -1,14 +1,14 @@
-export default (tasks, filters, buttons) => {
+export default (comments, filters, buttons) => {
     const table_data = [];
 
-    if(!tasks)
+    if(!comments)
         return [];
 
-    tasks.map(task => {
+    comments.map(comment => {
         const object = {
-            title: task.title,
-            id: task._id,
-            image: task.image,
+            title: comment.title,
+            id: comment._id,
+            image: comment.image,
             contents: []
         }
         filters.map(filter => {
@@ -17,26 +17,26 @@ export default (tasks, filters, buttons) => {
                 case "users":
                     content = {
                         type:"avatar-group",
-                        task_id:task._id
+                        task_id:comment._id
                     };
                     break;
                 case "state":
                     content = {
                         type:"badge",
-                        value: getState(task.state).state,
-                        class: getState(task.state).class
+                        value: getState(comment.state).state,
+                        class: getState(comment.state).class
                     };
                     break;
                 case "progress":
                     content = {
                         type:"progress",
-                        value: task.completion,
-                        class: getBarClass(task.completion)
+                        value: comment.completion,
+                        class: getBarClass(comment.completion)
                     };
                     break;
                 case "deadline":
                     content = {
-                        value: getDate(task.until)
+                        value: getDate(comment.until)
                     }
             }
             object.contents.push(content);

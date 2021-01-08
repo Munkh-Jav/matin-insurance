@@ -12,11 +12,11 @@ export default function (ComposedComponent) {
             }
         }
 
-        UNSAFE_componentWillUpdate(nextProps) {
+        UNSAFE_componentWillUpdate = nextProps => {
             if (!nextProps.logged_in) {
                 history.push('/auth/login');
             }
-        }
+        };
 
         render() {
             return (

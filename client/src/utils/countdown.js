@@ -5,7 +5,7 @@ export default (endDate, inversed = false) => {
     else
         diff = (Date.parse(new Date()) - Date.parse(new Date(endDate)) ) / 1000;
 
-    // clear countdown when date is reached
+    //   countdown when date is reached
     if (diff <= 0) return false;
 
     const timeLeft = {

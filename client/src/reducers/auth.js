@@ -1,9 +1,10 @@
-import {SIGN_IN, SIGN_IN_ERROR, SIGN_OUT, UPDATE_TOKEN} from '../actions/types';
+import {SIGN_IN, SIGN_IN_ERROR, SIGN_UP, SIGN_UP_ERROR, SIGN_OUT, UPDATE_TOKEN} from '../actions/types';
 import isEmpty from 'lodash/isEmpty';
 
 const initialState = {
     logged_in: false,
     sign_in_error:'',
+    sign_up_error:'',
     user: {}
 };
 
@@ -20,6 +21,18 @@ export default (state = initialState, action = {}) => {
             return {
                 ...state,
                 sign_in_error: action.error
+            };
+        case SIGN_UP:
+            return {
+                ...state,
+                logged_in: !isEmpty(action.user),
+                user: action.user,
+                sign_up_error: ''
+            };
+        case SIGN_UP_ERROR:
+            return {
+                ...state,
+                sign_up_error: action.error
             };
         case SIGN_OUT:
             return {

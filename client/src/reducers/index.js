@@ -2,11 +2,15 @@ import {combineReducers} from 'redux';
 import {reducer as formReducer} from 'redux-form';
 import auth from "./auth";
 import stats from "./stats";
-import tasks from "./tasks";
+import appointments from "./appointments";
+import comments from './comments';
+import videos from './videos';
 
 export default combineReducers({
     auth,
     stats,
-    tasks,
+    appointments,
+    comments,
+    videos,
     form: formReducer,
 })

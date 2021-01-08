@@ -1,11 +1,6 @@
 
 import React from "react";
 import {
-  Button,
-  Card,
-  CardHeader,
-  Progress,
-  Table,
   Container,
   Row,
   Col,
@@ -13,11 +8,11 @@ import {
 
 import {connect} from 'react-redux';
 
-import {getTasks} from "../actions/taskActions";
+import {getAppointments} from "../actions/appointmentActions";
 
 import Header from "components/Headers/Header.js";
 import TableCard from "../components/Cards/TableCard";
-import tableContentFromTasks from "../utils/tableContentFromTasks";
+import tableContentFromTasks from "../utils/tableContentFromComments";
 import DetailModal from "../components/Modals/Modal";
 import TaskModal from "../components/Modals/TaskModal";
 
@@ -27,35 +22,35 @@ class Index extends React.Component {
     super(props);
     this.state = {
       is_modal_open: false,
-      selected_task: {}
+      selected_appointment: {}
     }
   }
 
-  openModal = (e, task_id) => {
+  openModal = (e, appointment_id) => {
     e.preventDefault();
-    const task = this.props.tasks[this.props.tasks.findIndex(x => x._id === task_id)]
-    this.setState({is_modal_open: true, selected_task: task});
+    const appointment = this.props.appointments[this.props.appointments.findIndex(x => x._id === appointment_id)]
+    this.setState({is_modal_open: true, selected_appointment: appointment});
   }
 
   closeModal = (e) => {
     e.preventDefault();
-    this.setState({is_modal_open:false, selected_task : {}})
+    this.setState({is_modal_open:false, selected_appointment : {}})
   }
 
 
   componentDidMount() {
-    this.getTasks();
+    this.getAppointments();
   }
 
-  getTasks(){
-    this.props.getTasks();
+  getAppointments(){
+    this.props.getAppointments();
   }
 
-  filterTasks(tasks){
-    return tasks;
+  filterAppointments(appointments){
+    return appointments;
   }
 
-  addTask = (e) => {
+  addAppointment = (e) => {
     e.preventDefault();
   }
 
@@ -71,9 +66,9 @@ class Index extends React.Component {
               <TableCard
                   title="This week's tasks"
                   top_button="Assign new task"
-                  top_callback={this.addTask}
+                  top_callback={this.addAppointment}
                   cols={["Title", "State", "Team Members", "Progress", "Deadline", "Actions"]}
-                  rows={tableContentFromTasks(this.filterTasks(this.props.tasks), ["state", "users", "progress", "deadline"],[{title:"action"}])}
+                  rows={tableContentFromTasks(this.filterAppointments(this.props.tasks), ["state", "users", "progress", "deadline"],[{title:"action"}])}
                   with_images={false}
                   openModal={this.openModal}
                   dark={localStorage.getItem("dark") === 'true'}
@@ -84,7 +79,7 @@ class Index extends React.Component {
               >
                   <TaskModal
                       dark={localStorage.getItem("dark") === 'true'}
-                      task={this.state.selected_task}
+                      task={this.state.selected_appointment}
                   />
               </DetailModal>
             </Col>
@@ -97,8 +92,8 @@ class Index extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    tasks: state.tasks.tasks
+    appointments: state.appointments.appointments
   }
 }
 
-export default connect(mapStateToProps, {getTasks})(Index);
+export default connect(mapStateToProps, {getAppointments})(Index);
