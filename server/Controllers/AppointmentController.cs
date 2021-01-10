@@ -16,6 +16,7 @@ namespace AppointmentsApi.Controllers
             _AppointmentService = AppointmentService;
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult<List<Appointment>> Get() =>
             _AppointmentService.Get();
