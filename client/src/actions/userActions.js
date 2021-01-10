@@ -1,6 +1,6 @@
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 import jwtDecode from 'jwt-decode';
-import {SIGN_IN, SIGN_IN_ERROR, SIGN_OUT, UPDATE_TOKEN} from './types';
+import {SIGN_IN, SIGN_IN_ERROR, SIGN_UP, SIGN_UP_ERROR, SIGN_OUT, UPDATE_TOKEN} from './types';
 import {login_route, new_token_route} from "../utils/serverRoutes";
 import history from "../history";
 import server from "../api/server";

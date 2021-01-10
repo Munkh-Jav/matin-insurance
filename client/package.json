@@ -2,7 +2,10 @@
   "name": "novem-dashboard",
   "version": "1.1.0",
   "main": "index.js",
-  "author": "Creative Tim",
+  "authors": [
+    "Saoud",
+    "Jav"
+  ],
   "license": "MIT",
   "scripts": {
     "start": "react-scripts start",
