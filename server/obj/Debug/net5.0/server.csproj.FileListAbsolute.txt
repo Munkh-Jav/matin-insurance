@@ -107,3 +107,4 @@ D:\Anis\Documents\Work\Projects\Website\Insurance\server\obj\Debug\net5.0\ref\se
 D:\Anis\Documents\Work\Projects\Website\Insurance\server\obj\Debug\net5.0\server.genruntimeconfig.cache
 D:\Anis\Documents\Work\Projects\Website\Insurance\server\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 D:\Anis\Documents\Work\Projects\Website\Insurance\server\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\.Projects\matin-insurance\server\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

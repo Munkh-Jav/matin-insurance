@@ -4,18 +4,32 @@ namespace server.Models
 {
     public class AuthenticateResponse
     {
-        public string id { get; set; }
-        public string name { get; set; }
-        public string username { get; set; }
+        public UserResponse UserResponse {get; set;}
         public string Token { get; set; }
 
 
         public AuthenticateResponse(User user, string token)
         {
-            id = user.Id;
-            name = user.name;
-            username = user.username;
+            UserResponse = new UserResponse(user);
             Token = token;
         }
+        
     }
+     public class UserResponse{
+        public string Id { get; set; }
+
+        public string Username { get; set; }
+       
+        public string Name { get; set; } 
+
+            public UserResponse(User user){
+
+                Id = user.Id;
+                Username = user.username; 
+                Name = user.name; 
+            }
+
+    }
+
+    
 }

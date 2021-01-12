@@ -21,6 +21,7 @@ namespace AppointmentsApi.Controllers
         public ActionResult<List<Appointment>> Get() =>
             _AppointmentService.Get();
 
+        [Authorize]
         [HttpGet("{id:length(24)}", Name = "GetAppointment")]
         public ActionResult<Appointment> Get(string id)
         {
@@ -42,6 +43,7 @@ namespace AppointmentsApi.Controllers
             return CreatedAtRoute("GetAppointment", new { id = Appointment.Id.ToString() }, Appointment);
         }
 
+        [Authorize]
         [HttpPut("{id:length(24)}")]
         public IActionResult Update(string id, Appointment AppointmentIn)
         {
@@ -57,6 +59,7 @@ namespace AppointmentsApi.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpDelete("{id:length(24)}")]
         public IActionResult Delete(string id)
         {

@@ -31,7 +31,9 @@ namespace server
             services.AddSingleton<IDatabaseSettings>(x => x.GetRequiredService<IOptions<DatabaseSettings>>().Value);
             services.AddSingleton<AppointmentService>();
             services.AddSingleton<VideoService>();
-            services.AddSingleton<CommentService>();           
+            services.AddSingleton<CommentService>();
+            services.AddSingleton<StatsService>();
+            services.AddSingleton<UserService>();           
             services.AddControllersWithViews();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 

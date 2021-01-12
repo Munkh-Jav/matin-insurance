@@ -16,6 +16,7 @@ namespace VideosApi.Controllers
             _VideoService = VideoService;
         }
 
+
         [HttpGet]
         public ActionResult<List<Video>> Get() =>
             _VideoService.Get();
@@ -33,6 +34,7 @@ namespace VideosApi.Controllers
             return Video;
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult<Video> Create(Video Video)
         {
@@ -41,6 +43,7 @@ namespace VideosApi.Controllers
             return CreatedAtRoute("GetVideo", new { id = Video.Id.ToString() }, Video);
         }
 
+        [Authorize]
         [HttpPut("{id:length(24)}")]
         public IActionResult Update(string id, Video VideoIn)
         {
@@ -56,6 +59,7 @@ namespace VideosApi.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpDelete("{id:length(24)}")]
         public IActionResult Delete(string id)
         {

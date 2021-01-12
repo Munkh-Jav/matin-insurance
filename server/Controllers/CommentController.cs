@@ -32,7 +32,8 @@ namespace CommentsApi.Controllers
 
             return Comment;
         }
-
+        
+        [Authorize]    
         [HttpPost]
         public ActionResult<Comment> Create(Comment Comment)
         {
@@ -41,6 +42,7 @@ namespace CommentsApi.Controllers
             return CreatedAtRoute("GetComment", new { id = Comment.Id.ToString() }, Comment);
         }
 
+        [Authorize]
         [HttpPut("{id:length(24)}")]
         public IActionResult Update(string id, Comment CommentIn)
         {
@@ -56,6 +58,7 @@ namespace CommentsApi.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpDelete("{id:length(24)}")]
         public IActionResult Delete(string id)
         {
