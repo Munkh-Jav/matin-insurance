@@ -7,7 +7,7 @@ export const getStats = () => async dispatch => {
     try{
         const {data} = await server.get(stats_route, {
             headers: {
-                'x-auth-token': axios.defaults.headers.common['x-auth-token']
+                'Authorization': `${axios.defaults.headers.common['Authorization']}`
             }
         });
         dispatch({type: GET_STATS, stats: data});

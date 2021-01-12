@@ -10,11 +10,25 @@ namespace server.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public  string Id { get; set; }
 
-        public int lastWeekVisitors {get; set;}
+        public string type {get; set;}
 
-        public int activeAppointments {get; set;}
+        public string title {get; set;}
 
-        public int commentsPendingApproval {get; set;}
+        public string description {get; set;}
+
+        public string size {get; set;}
+
+        public string color {get; set;}
+
+        public int value {get; set;}
+
+        public int previous {get; set;}
+
+        public string comparison {get; set;}
+
+        public string icon {get; set;}
+
+        public DateTime last_update {get; set;}
 
     }
 }

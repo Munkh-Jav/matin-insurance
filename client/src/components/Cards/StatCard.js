@@ -20,14 +20,17 @@ class StatCard extends React.Component {
     getIndicator() {
         const {value, previous, max_value, comparison} = this.props;
         const success = (comparison === "previous" && value > previous) || (comparison === "objective" && value>=max_value);
-        return (
-            <span className={(success)?`text-success mr-2`:`text-danger mr-2`}>
-                {comparison === "previous" && <i className={(success)?`fa fa-arrow-up`:`fa fa-arrow-down`} />}
-                {" "}
-                {comparison === "objective" && this.getPercentage(value, max_value, comparison) + "%"}
-                {comparison === "previous" && this.getPercentage(value, previous, comparison) + "%"}
-            </span>
-        )
+        if(comparison !== "none")
+            return (
+                <span className={(success)?`text-success mr-2`:`text-danger mr-2`}>
+                    {comparison === "previous" && <i className={(success)?`fa fa-arrow-up`:`fa fa-arrow-down`} />}
+                    {" "}
+                    {comparison === "objective" && this.getPercentage(value, max_value, comparison) + "%"}
+                    {comparison === "previous" && this.getPercentage(value, previous, comparison) + "%"}
+                </span>
+            )
+
+        return null;
     }
 
     getDateText(){
@@ -70,12 +73,13 @@ class StatCard extends React.Component {
                                 </div>
                             </Col>
                         </Row>
-                        <p className="mt-3 mb-0 text-muted text-sm">
-                            {this.getIndicator()}
-                            {" "}
-                            <span className="text-nowrap">{this.getDateText()}</span>
-                        </p>
+                            <p className="mt-3 mb-0 text-muted text-sm">
+                                {this.getIndicator()}
+                                {" "}
+                                <span className="text-nowrap">{this.getDateText()}</span>
+                            </p>
                     </CardBody>
+
                 </Card>
             </Col>
         )

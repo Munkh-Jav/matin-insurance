@@ -21,9 +21,9 @@ class Header extends React.Component {
     return this.props.stats.map(stat => {
       return (
           <StatCard
-              key={stat.id}
+              key={stat.type}
               size={stat.size}
-              id={stat.id}
+              id={stat.type}
               title={stat.title}
               type={stat.type}
               description={stat.description}
@@ -34,8 +34,7 @@ class Header extends React.Component {
               color={stat.color}
               icon={stat.icon}
               until={stat.expires}
-              since={stat.since}
-              percentage={stat.percentage}
+              since={stat.last_update}
           />
       )
     });
