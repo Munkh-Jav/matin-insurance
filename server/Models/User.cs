@@ -15,7 +15,12 @@ namespace server.Models
         public string password { get; set; }
 
         public string email {get; set;}
+
         public string name { get; set; }
+
+        public string profile_img {get; set; }
+
+        public Boolean admin {get; set; }
         /*TODO:PUT ISADMIN FIELD BOOL*/
 
     }

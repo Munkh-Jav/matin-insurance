@@ -22,14 +22,14 @@ export default (endDate, inversed = false) => {
     // calculate time difference between now and expected date
     if (diff >= (365.25 * 86400)) { // 365.25 * 24 * 60 * 60
         timeLeft.years = Math.floor(diff / (365.25 * 86400));
-        if(timeLeft.weeks === 1 && inversed)
+        if(timeLeft.years === 1 && inversed)
             return " last year {none}"
         const word = (timeLeft.years === 1) ? " year" : " years";
         return timeLeft.years + word;
     }
     if(diff >= 2419200) {
         timeLeft.months = Math.floor(diff / 2419200);
-        if(timeLeft.weeks === 1 && inversed)
+        if(timeLeft.months === 1 && inversed)
             return " last month {none}"
         const word = (timeLeft.months === 1) ? " month" : " months";
         return timeLeft.months + word;
@@ -43,7 +43,7 @@ export default (endDate, inversed = false) => {
     }
     if (diff >= 86400) { // 24 * 60 * 60
         timeLeft.days = Math.floor(diff / 86400);
-        if(timeLeft.weeks === 1 && inversed)
+        if(timeLeft.days === 1 && inversed)
             return " yesterday {none}"
         const word = (timeLeft.days === 1) ? " day" : " days";
         return timeLeft.days + word;

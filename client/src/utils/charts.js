@@ -285,6 +285,12 @@ function parseOptions(parent, options) {
   }
 }
 
+this.appointments = [];
+
+let setAppointments = (appointments) => {
+  this.appointments = appointments;
+}
+
 // Example 1 of Chart inside src/views/Index.js (Sales value - Card)
 let chartExample1 = {
   options: {
@@ -346,53 +352,88 @@ let chartExample1 = {
   }
 };
 
+const getLabels = (j = 5) => {
+  const d = new Date();
+  d.setDate(1);
+  d.setMonth(d.getMonth()-j+2);
+  let months = [];
+  for (let i=j; i>0; i--){
+    months.push(new Intl.DateTimeFormat('en', { month: 'short' }).format(d));
+    d.setMonth(d.getMonth()+1);
+  }
+
+  return months;
+}
+
+const getData = (appointments, j=5) => {
+  const today = new Date();
+  today.setDate(1);
+  today.setMonth(today.getMonth()-j+2);
+  let data = [];
+  for (let i=j; i>0; i--){
+    let value = 0;
+    appointments.map(appointment => {
+      const date = new Date(appointment.date);
+      if(date.getMonth() === today.getMonth())
+        value++;
+    });
+    today.setMonth(today.getMonth()+1);
+    data.push(value);
+  }
+  return data
+}
+
 // Example 2 of Chart inside src/views/Index.js (Total orders - Card)
-let chartExample2 = {
-  options: {
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            callback: function(value) {
-              if (!(value % 10)) {
-                //return '$' + value + 'k'
-                return value;
+let appointmentChart = () => {
+  return {
+    options: {
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              callback: function (value) {
+                if (!(value % 10)) {
+                  //return '$' + value + 'k'
+                  return value;
+                }
               }
             }
           }
+        ]
+      },
+      tooltips: {
+        callbacks: {
+          label: function (item, data) {
+            var label = data.datasets[item.datasetIndex].label || "";
+            var yLabel = item.yLabel;
+            var content = "";
+            if (data.datasets.length > 1) {
+              content += label;
+            }
+            content += yLabel;
+            return content;
+          }
+        }
+      }
+    },
+    data: {
+      labels: getLabels(),
+      datasets: [
+        {
+          label: "Appointments",
+          data: getData(this.appointments),
+          maxBarThickness: 10
         }
       ]
-    },
-    tooltips: {
-      callbacks: {
-        label: function(item, data) {
-          var label = data.datasets[item.datasetIndex].label || "";
-          var yLabel = item.yLabel;
-          var content = "";
-          if (data.datasets.length > 1) {
-            content += label;
-          }
-          content += yLabel;
-          return content;
-        }
-      }
     }
-  },
-  data: {
-    labels: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    datasets: [
-      {
-        label: "Sales",
-        data: [25, 20, 30, 22, 17, 29],
-        maxBarThickness: 10
-      }
-    ]
-  }
-};
+  };
+}
+
 
 module.exports = {
   chartOptions, // used inside src/views/Index.js
   parseOptions, // used inside src/views/Index.js
+  setAppointments,
   chartExample1, // used inside src/views/Index.js
-  chartExample2 // used inside src/views/Index.js
+  appointmentChart, // used inside src/views/Index.js
 };

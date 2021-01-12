@@ -52,7 +52,7 @@ class StatCard extends React.Component {
         const prefix = (percentage)? "%": "";
         return (
             <Col lg="6" xl={`${size==="large" ? '6': '3'}`}>
-                <Card className="card-stats mb-4 mb-xl-0">
+                <Card className="card-stats mb-4 mb-xl-0" style={{height: '100%'}}>
                     <CardBody>
                         <Row>
                             <div className="col">

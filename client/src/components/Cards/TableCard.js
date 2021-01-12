@@ -34,7 +34,7 @@ class TableCard extends React.Component {
     getRows() {
         return this.props.rows.map(row => {
             return (
-                <tr key={row.title} >
+                <tr key={row.id} >
                     <th scope="row" onClick={(e) => this.props.openModal(e, row.id)} style={{maxWidth: (row.image) ?'200px': '180px', cursor: 'pointer', overflow: 'hidden', textOverflow: 'ellipsis'}}>
                         {(row.image && this.props.with_images) ?
                             <Media className="align-items-center" style={{display:'contents'}}>

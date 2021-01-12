@@ -2,7 +2,7 @@ import React from "react";
 import {Card, CardBody, CardHeader, Col, Nav, NavItem, NavLink, Row} from "reactstrap";
 import classnames from "classnames";
 import {Line} from "react-chartjs-2";
-import {chartExample1, chartOptions, parseOptions} from "../../variables/charts";
+import {chartExample1, chartOptions, parseOptions} from "../../utils/charts";
 import Chart from "chart.js";
 
 class SmoothGraph extends React.Component {

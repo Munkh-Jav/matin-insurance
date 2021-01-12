@@ -1,0 +1,28 @@
+.comment {
+
+  .name {
+    display: inline-block;
+    margin-left: 10px;
+    position: absolute;
+  }
+
+  .date {
+    font-size: 10px;
+    display: inline-block;
+    right: 15px;
+    position: absolute;
+    top: 0
+  }
+
+  .video {
+    display: inline-block;
+    margin-left: 10px;
+    position: absolute;
+    top: 20px;
+    font-weight: 100
+  }
+
+  .comment-content {
+    margin-left: 46px
+  }
+}

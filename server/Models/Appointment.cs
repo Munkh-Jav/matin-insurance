@@ -9,12 +9,14 @@ namespace server.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-
-        public string appointment_id { get; set; }
         
-        public string appointment_status { get; set; }
+        public int status { get; set; }
 
-        public string appt_confirmation { get; set; }
+        public string client_id { get; set; }
+
+        public string client_name { get; set; }
+
+        public DateTime date { get; set; }
 
     }
 }

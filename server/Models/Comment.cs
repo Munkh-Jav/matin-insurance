@@ -10,13 +10,19 @@ namespace server.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public  string Id { get; set; }
 
-        public string customer_id {get; set;}
+        public string user_id { get; set; }
+
+        public string user_name { get; set; }
+
+        public string user_avatar { get; set; }
 
         public string comment_text { get; set; }
         
-        public string user_id { get; set; }
-
         public string video_id { get; set; }
+
+        public int status { get; set; }
+
+        public DateTime date { get; set; }
 
     }
 }
