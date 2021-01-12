@@ -1,7 +1,7 @@
 import React from 'react';
 import {UncontrolledTooltip} from "reactstrap";
 import server from "../../api/server";
-import {tasks_route} from "../../utils/serverRoutes";
+//import {tasks_route} from "../../utils/serverRoutes";
 import axios from "axios";
 
 class AvatarGroup extends React.Component {
@@ -18,7 +18,7 @@ class AvatarGroup extends React.Component {
 
     getTaskUsers = async (task) => {
         try{
-            const {data} = await server.get(tasks_route + "/users/" + task, {
+            const {data} = await server.get(/*tasks_route + */"/users/" + task, {
                 headers: {
                     'x-auth-token': axios.defaults.headers.common['x-auth-token']
                 }
