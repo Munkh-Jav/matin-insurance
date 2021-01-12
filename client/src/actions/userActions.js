@@ -18,7 +18,7 @@ export const login = (formValues) => async dispatch => {
     bodyFormData.append('password', formValues.password);
     try{
         const {data} = await server.post(login_route, bodyFormData);
-        localStorage.setItem('jwtToken', data);
+        localStorage.setItem('jwtToken', data.token);
         setAuthorizationToken(data);
         dispatch({type: SIGN_IN, user: jwtDecode(data)});
         history.push('/admin/index');
