@@ -32,7 +32,7 @@ class Admin extends React.Component {
     });
   };
   getBrandText = path => {
-    for (let i = 0; i < routes.length; i++) {
+    for (let i = 1; i < routes.length; i++) {
       if (
         this.props.location.pathname.indexOf(
           routes[i].layout + routes[i].path
@@ -41,7 +41,7 @@ class Admin extends React.Component {
         return routes[i].name;
       }
     }
-    return "Brand";
+    return "Welcome to your dashboard";
   };
   render() {
     return (

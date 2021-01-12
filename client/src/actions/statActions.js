@@ -12,6 +12,9 @@ export const getStats = () => async dispatch => {
         });
         dispatch({type: GET_STATS, stats: data});
     }catch(e){
+        if(!e.response){
+            return dispatch({type: GET_STATS_FAIL, error: 'Server error'});
+        }
         dispatch({type: GET_STATS_FAIL, error: e.response.data});
     }
 }

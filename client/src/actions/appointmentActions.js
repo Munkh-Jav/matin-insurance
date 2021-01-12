@@ -12,6 +12,9 @@ export const getAppointments = () => async dispatch => {
         });
         dispatch({type: GET_APPOINTMENTS, appointments: data});
     }catch(e){
+        if(!e.response)
+            return dispatch({type: GET_APPOINTMENTS_FAIL, error: 'Server error'});
+
         dispatch({type: GET_APPOINTMENTS_FAIL, error: e.response.data});
     }
 }
