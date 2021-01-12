@@ -27,7 +27,7 @@ namespace server.Services
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            var user = _Users.Find(x => x.username == model.username && x.password == model.password).SingleOrDefault();
+            var user = _Users.Find(x => x.email == model.email && x.password == model.password).SingleOrDefault();
 
             // return null if user not found
             if (user == null) return null;

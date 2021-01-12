@@ -17,10 +17,10 @@ export const login = (formValues) => async dispatch => {
     bodyFormData.append('email', formValues.email);
     bodyFormData.append('password', formValues.password);
     try{
-        const {data} = await server.post(login_route, bodyFormData);
+        const {data} = await server.post(login_route, {email: formValues.email, password : formValues.password});
         localStorage.setItem('jwtToken', data.token);
-        setAuthorizationToken(data);
-        dispatch({type: SIGN_IN, user: jwtDecode(data)});
+        setAuthorizationToken(data.token);
+        dispatch({type: SIGN_IN, user: jwtDecode(data.token)});
         history.push('/admin/index');
     }catch(e){
         dispatch({type: SIGN_IN_ERROR, error: e.response.data});
