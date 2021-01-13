@@ -2,8 +2,11 @@
 import React from "react";
 import {getAppointments} from "../actions/appointmentActions";
 import {getAllComments} from "../actions/commentActions";
+import {getVideos} from "../actions/videoActions"
 import tableContentFromComments from "../utils/tableContentFromComments";
 import tableContentFromAppointments from "../utils/tableContentFromAppointments";
+import tableContentFromVideos from "../utils/tableContentFromVideos";
+
 import {connect} from 'react-redux';
 
 import {
@@ -44,11 +47,21 @@ class Index extends React.Component {
   componentDidMount() {
     this.props.getAppointments();
     this.props.getAllComments();
+    this.props.getVideos();
   }
 
 
   filterAppointments(appointments){
-    return appointments;
+
+    var waitingAppointments = [];
+    appointments.map(appointment => {
+
+      if(appointment.status === 0){
+        waitingAppointments.push(appointment);
+      }
+    })
+
+    return waitingAppointments;
   }
 
   showMoreAppointments = (e) => {
@@ -56,10 +69,11 @@ class Index extends React.Component {
   }
 
   getComments = () => {
-    return this.props.comments.map(comment => {
+    return this.props.comments.slice(0, 3).map(comment => {
       return <Comment key={comment.id} comment={comment}/>
     })
   }
+  
 
 
   render() {
@@ -71,11 +85,11 @@ class Index extends React.Component {
               <Col className="mb-5 mb-xl-0" xl="8">
 
                 <TableCard
-                    title="Latest appointments"
-                    top_button="Show more"
+                    title="Pending Appointments"
+                    top_button="Show All"
                     top_callback={this.showMoreAppointments}
                     cols={["With", "Status", "Date", "Time", "Actions"]}
-                    rows={tableContentFromAppointments(this.filterAppointments(this.props.appointments), ["status", "date", "time"],[{title:"accept"}, {title:"deny"}])}
+                    rows={tableContentFromAppointments(this.filterAppointments(this.props.appointments), ["status", "date", "time"],[{title:"Accept"}, {title:"Deny"}])}
                     with_images={false}
                     openModal={this.openModal}
                     dark={localStorage.getItem("dark") === 'true'}
@@ -101,112 +115,15 @@ class Index extends React.Component {
                 </ContentCard>
               </Col>
               <Col xl="8">
-                <Card className="shadow">
-                  <CardHeader className="border-0">
-                    <Row className="align-items-center">
-                      <div className="col">
-                        <h3 className="mb-0">Social traffic</h3>
-                      </div>
-                      <div className="col text-right">
-                        <Button
-                            color="primary"
-                            href="#pablo"
-                            onClick={e => e.preventDefault()}
-                            size="sm"
-                        >
-                          See all
-                        </Button>
-                      </div>
-                    </Row>
-                  </CardHeader>
-                  <Table className="align-items-center table-flush" responsive>
-                    <thead className="thead-light">
-                    <tr>
-                      <th scope="col">Referral</th>
-                      <th scope="col">Visitors</th>
-                      <th scope="col" />
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                      <th scope="row">Facebook</th>
-                      <td>1,480</td>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <span className="mr-2">60%</span>
-                          <div>
-                            <Progress
-                                max="100"
-                                value="60"
-                                barClassName="bg-gradient-danger"
-                            />
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Facebook</th>
-                      <td>5,480</td>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <span className="mr-2">70%</span>
-                          <div>
-                            <Progress
-                                max="100"
-                                value="70"
-                                barClassName="bg-gradient-success"
-                            />
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Google</th>
-                      <td>4,807</td>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <span className="mr-2">80%</span>
-                          <div>
-                            <Progress max="100" value="80" />
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Instagram</th>
-                      <td>3,678</td>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <span className="mr-2">75%</span>
-                          <div>
-                            <Progress
-                                max="100"
-                                value="75"
-                                barClassName="bg-gradient-info"
-                            />
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">twitter</th>
-                      <td>2,645</td>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <span className="mr-2">30%</span>
-                          <div>
-                            <Progress
-                                max="100"
-                                value="30"
-                                barClassName="bg-gradient-warning"
-                            />
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    </tbody>
-                  </Table>
-                </Card>
+              <TableCard
+                    title="Video Activity"
+                    top_button="Show All"
+                    top_callback={this.showMoreAppointments}
+                    cols={["", "Title", "Views", "Likes", "Dislikes"]}
+                    rows={tableContentFromVideos(this.props.videos, ["title", "views", "likes", "dislikes"])}
+                    openModal={this.openModal}
+                    dark={localStorage.getItem("dark") === 'true'}
+                />
               </Col>
             </Row>
           </Container>
@@ -218,8 +135,9 @@ class Index extends React.Component {
 const mapStateToProps = (state) => {
   return {
     appointments: state.appointments.appointments,
-    comments: state.comments.comments
+    comments: state.comments.comments,
+    videos : state.videos.videos
   }
 }
 
-export default connect(mapStateToProps, {getAppointments, getAllComments})(Index);
+export default connect(mapStateToProps, {getAppointments, getAllComments, getVideos})(Index);

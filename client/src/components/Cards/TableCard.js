@@ -35,7 +35,7 @@ class TableCard extends React.Component {
         return this.props.rows.map(row => {
             return (
                 <tr key={row.id} >
-                    <th scope="row" onClick={(e) => this.props.openModal(e, row.id)} style={{maxWidth: (row.image) ?'200px': '180px', cursor: 'pointer', overflow: 'hidden', textOverflow: 'ellipsis'}}>
+                    <th scope="row" onClick={(e) => this.props.openModal(e, row.id)} style={{maxWidth: (row.image) ?'200px': '180px', cursor: 'pointer', overflow: 'hidden', textOverflow: (row.donTrim) ? 'ellipsis' : 'none'}}>
                         {(row.image && this.props.with_images) ?
                             <Media className="align-items-center" style={{display:'contents'}}>
                                 <a className="avatar avatar-xsm rounded-circle mr-3" style={{display:'inline-table'}} onClick={e => e.preventDefault()}>
@@ -47,7 +47,7 @@ class TableCard extends React.Component {
                                     </span>
                                 </Media>
                             </Media>
-                        : row.title}
+                        :<span style={{fontStyle: (row.italic) ? 'italic' : 'normal' }}>{row.title}</span>}
                     </th>
                     {this.getRowContent(row.contents)}
                 </tr>
@@ -71,13 +71,12 @@ class TableCard extends React.Component {
                         <td key={key}>
                             <i className={`fas ${col.arrow.up ? 'fa-arrow-up text-success' : 'fa-arrow-down text-danger' } mr-1`} />
                             {" "}
-                            {this.value(col)}
                         </td>
                     );
                 case "badge":
                     return (
                         <td key={key}>
-                            <Badge color="" className="badge-dot mr-4">
+                            <Badge color="" className="badge-dot mr-4" style={{ fontStyle : "italic"}} >
                                 <i className={col.class} />
                                 {this.value(col)}
                             </Badge>

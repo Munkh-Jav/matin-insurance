@@ -23,7 +23,7 @@ namespace server.Services
         }
 
         public List<Appointment> Get() =>
-            _Appointments.Find(sub => true).ToList();
+            _Appointments.Find(sub => true).Sort("{date: -1}").ToList();
 
         public Appointment Get(string id) =>
             _Appointments.Find(sub=>sub.Id == id).SingleOrDefault();
