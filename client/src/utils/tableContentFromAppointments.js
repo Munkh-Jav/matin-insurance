@@ -1,9 +1,11 @@
 export default (appointments, filters, buttons) => {
     const table_data = [];
 
-    if(!appointments)
+    if(!appointments || appointments.length === 0 )
         return [{
-            title: "Nothing to show",
+            title: "No pending appointments",
+            italic : true,
+            donTrim : false,
             contents: []
         }];
 

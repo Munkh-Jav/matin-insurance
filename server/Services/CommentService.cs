@@ -22,8 +22,12 @@ namespace server.Services
             return Comment;
         }
 
-        public List<Comment> Get() =>
-            _Comments.Find(sub => true).ToList();
+        public List<Comment> Get() {
+        
+                var comments = _Comments.Find(sub => true).Sort("{date: -1}").ToList();
+        return  comments  ;
+        
+        }
 
         public Comment Get(string id) =>
             _Comments.Find(sub=>sub.Id == id).SingleOrDefault();
