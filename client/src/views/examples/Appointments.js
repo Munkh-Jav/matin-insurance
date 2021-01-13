@@ -24,7 +24,7 @@ import {
 // core components
 import Header from "components/Headers/Header.js";
 
-class Tables extends React.Component {
+class Appointments extends React.Component {
   render() {
     return (
       <>
@@ -1640,4 +1640,4 @@ class Tables extends React.Component {
   }
 }
 
-export default Tables;
+export default Appointments;

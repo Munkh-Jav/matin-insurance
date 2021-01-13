@@ -1,4 +1,6 @@
 import axios from "axios";
+import config from '../config.json'
+import _ from 'lodash';
 
 
 export default async (videos, filters) => {
@@ -11,11 +13,11 @@ export default async (videos, filters) => {
             donTrim : false,
             contents: []
         }];
-            
-    await videos.map(async video => {
+
+    await Promise.all(videos.map(async video => {
        var videoData = await getDetails(video.video_url);
-        var videoStats = videoData.items[0].statistics;
-            
+       var videoStats = videoData.items[0].statistics;
+
 
         const object = {
             title: video.video_title,
@@ -53,25 +55,25 @@ export default async (videos, filters) => {
         });
         
         table_data.push(object);
-    })
-
+    }))
     return table_data;
 }
 
-const getDetails = async(video_url) =>{
+const getDetails = _.memoize(async(video_url) =>{
 
     var video_id = video_url.split('v=')[1];
     var ampersandPosition = video_id.indexOf('&');
-    if(ampersandPosition != -1) {
+    if(ampersandPosition !== -1) {
       video_id = video_id.substring(0, ampersandPosition);
     }
 
-    const {data} = await axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${video_id}&key=AIzaSyBXlrYsyiHh3qfbh61QwQh234nu3amFn2k`, {
+
+    const {data} = await axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${video_id}&key=${config.google_api}`, {
         headers: {
             'Authorization': ``
         }
     });
 
  return data;
-}
+});
 

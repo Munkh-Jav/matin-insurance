@@ -32,10 +32,10 @@ class TableCard extends React.Component {
     }
 
     getRows() {
-        return this.props.rows.map(row => {
+        return this.props.rows.map((row, key) => {
             return (
-                <tr key={row.id} >
-                    <th scope="row" onClick={(e) => this.props.openModal(e, row.id)} style={{maxWidth: (row.image) ?'200px': '180px', cursor: 'pointer', overflow: 'hidden', textOverflow: (row.donTrim) ? 'ellipsis' : 'none'}}>
+                <tr key={key} >
+                    <th scope="row" onClick={(e) => this.props.rowClick(e, row.id)} style={{maxWidth: (row.image) ?'200px': '180px', cursor: 'pointer', overflow: 'hidden', textOverflow: (row.donTrim) ? 'ellipsis' : 'none'}}>
                         {(row.image && this.props.with_images) ?
                             <Media className="align-items-center" style={{display:'contents'}}>
                                 <a className="avatar avatar-xsm rounded-circle mr-3" style={{display:'inline-table'}} onClick={e => e.preventDefault()}>

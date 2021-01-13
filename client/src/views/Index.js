@@ -34,13 +34,23 @@ class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      appointments : this.props.appointments
+      appointments : this.props.appointments,
+      videos: this.props.videos,
+      videoTableContent: [{
+        title: "Loading...",
+        italic : true,
+        donTrim : false,
+        contents: []
+      }]
     }
   }
 
   componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
     if(prevState.appointments.length === 0 && this.props.appointments.length>0)
       this.setState({appointments: this.props.appointments})
+    if(prevState.videos.length === 0 && this.props.videos.length>0){
+      this.getVideoDetails();
+    }
   }
 
 
@@ -48,6 +58,12 @@ class Index extends React.Component {
     this.props.getAppointments();
     this.props.getAllComments();
     this.props.getVideos();
+    this.getVideoDetails();
+  }
+
+  getVideoDetails = async() =>{
+    const content = await tableContentFromVideos(this.state.videos, ["title", "views", "likes", "dislikes"]);
+    this.setState({videos: this.props.videos, videoTableContent : content})
   }
 
 
@@ -73,6 +89,13 @@ class Index extends React.Component {
       return <Comment key={comment.id} comment={comment}/>
     })
   }
+
+  videoClick = (e, id) => {
+    e.preventDefault();
+    const url = this.props.videos[this.props.videos.findIndex(x => x.id === id)].video_url;
+    const win = window.open(url, '_blank');
+    win.focus();
+  }
   
 
 
@@ -91,7 +114,7 @@ class Index extends React.Component {
                     cols={["With", "Status", "Date", "Time", "Actions"]}
                     rows={tableContentFromAppointments(this.filterAppointments(this.props.appointments), ["status", "date", "time"],[{title:"Accept"}, {title:"Deny"}])}
                     with_images={false}
-                    openModal={this.openModal}
+                    rowClick={this.openModal}
                     dark={localStorage.getItem("dark") === 'true'}
                 />
               </Col>
@@ -120,8 +143,8 @@ class Index extends React.Component {
                     top_button="Show All"
                     top_callback={this.showMoreAppointments}
                     cols={["", "Title", "Views", "Likes", "Dislikes"]}
-                    rows={tableContentFromVideos(this.props.videos, ["title", "views", "likes", "dislikes"])}
-                    openModal={this.openModal}
+                    rows={this.state.videoTableContent}
+                    rowClick={this.videoClick}
                     dark={localStorage.getItem("dark") === 'true'}
                 />
               </Col>
