@@ -38,8 +38,8 @@ class TableCard extends React.Component {
                     <th scope="row" onClick={(e) => this.props.rowClick(e, row.id)} style={{maxWidth: (row.image) ?'200px': '180px', cursor: 'pointer', overflow: 'hidden', textOverflow: (row.donTrim) ? 'ellipsis' : 'none'}}>
                         {(row.image && this.props.with_images) ?
                             <Media className="align-items-center" style={{display:'contents'}}>
-                                <a className="avatar avatar-xsm rounded-circle mr-3" style={{display:'inline-table'}} onClick={e => e.preventDefault()}>
-                                    <img alt={row.title} src={process.env.PUBLIC_URL + `/task_images/${row.image}`} />
+                                <a className="avatar avatar-xsm mr-0  thumbnail-display" style={{display:'inline-table'}} onClick={e => e.preventDefault()}>
+                                    <img alt={row.title} src={`${row.image}`} />
                                 </a>
                                 <Media style={{display:'inline'}}>
                                     <span className="mb-0 text-sm">
@@ -125,7 +125,7 @@ class TableCard extends React.Component {
                     )
                 default:
                     return (
-                        <td key={key}>
+                        <td key={key} className={`text-wrap ${(col.centered) ? "text-center" : ""}`}>
                             {this.value(col)}
                         </td>
                     );

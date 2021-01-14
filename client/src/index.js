@@ -40,10 +40,6 @@ ReactDOM.render(
         <Switch>
             <Route path="/admin" component={requireAuth(AdminLayout)} />
             <Route path="/auth" component={checkIfAuth(AuthLayout)} />
-            <Route path='/main-site' component={() => {
-                window.location.replace('https://novem.dev');
-                return null;
-            }}/>
             <Redirect from="/" to="/auth/login" />
         </Switch>
       </Router>

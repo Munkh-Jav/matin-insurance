@@ -1,6 +1,7 @@
 import axios from "axios";
 import config from '../config.json'
 import _ from 'lodash';
+import nFormatter from './nFormat'
 
 
 export default async (videos, filters) => {
@@ -16,11 +17,13 @@ export default async (videos, filters) => {
 
     await Promise.all(videos.map(async video => {
        var videoData = await getDetails(video.video_url);
+       var videoThumbnail = videoData.items[0].snippet.thumbnails.high.url;
        var videoStats = videoData.items[0].statistics;
 
 
         const object = {
-            title: video.video_title,
+            title: "",
+            image: videoThumbnail,
             url: video.video_url,
             id: video.id,
             contents: []
@@ -28,25 +31,30 @@ export default async (videos, filters) => {
         filters.map(filter => {
             let content = {};
             switch (filter){
-            
+
                 case "title" :
                     content = {
-                        value: video.video_title
+                        value: video.video_title,
+                        centered: false
                     }
                     break; 
                 case "views" : 
                 content = {
-                    value: videoStats.viewCount
+                    value: nFormatter(videoStats.viewCount, 1),
+                    centered: true
                 }
+                
                     break;
                 case "likes" :
                     content = {
-                        value: videoStats.likeCount
+                        value: nFormatter(videoStats.likeCount, 0),
+                        centered: true
                     }
                     break;
                 case "dislikes" : 
                 content = {
-                    value: videoStats.dislikeCount
+                    value: nFormatter(videoStats.dislikeCount, 0),
+                    centered: true
                 }
                     break;
                 
@@ -76,4 +84,6 @@ const getDetails = _.memoize(async(video_url) =>{
 
  return data;
 });
+
+
 

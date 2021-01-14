@@ -143,6 +143,7 @@ class Index extends React.Component {
                     top_button="Show All"
                     top_callback={this.showMoreAppointments}
                     cols={["", "Title", "Views", "Likes", "Dislikes"]}
+                    with_images={true}
                     rows={this.state.videoTableContent}
                     rowClick={this.videoClick}
                     dark={localStorage.getItem("dark") === 'true'}
