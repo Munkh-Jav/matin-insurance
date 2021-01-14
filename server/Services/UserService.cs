@@ -9,6 +9,7 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using BC = BCrypt.Net.BCrypt;
 
 namespace server.Services
 {
@@ -27,13 +28,26 @@ namespace server.Services
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            var user = _Users.Find(x => x.email == model.email && x.password == model.password).SingleOrDefault();
-
-            // return null if user not found
+            var user = _Users.Find(x => x.email == model.email).SingleOrDefault();
             if (user == null) return null;
 
-            // authentication successful so generate jwt token
+
+            bool verified = BC.Verify(model.password, user.password);
+            if (!verified) return null;
+
+
             var token = generateJwtToken(user);
+
+            return new AuthenticateResponse(token);
+        }
+
+        public AuthenticateResponse SignUp(User newUser)
+        {
+            newUser.password = BC.HashPassword(newUser.password);
+            
+            _Users.InsertOne(newUser);
+
+            var token = generateJwtToken(newUser);
 
             return new AuthenticateResponse(token);
         }

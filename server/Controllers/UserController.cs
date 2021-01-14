@@ -27,6 +27,17 @@ namespace UsersApi.Controllers
 
             return Ok(response);
         }
+
+        [HttpPost("signup")]
+        public ActionResult Signup(User user)
+        {
+            var response = _UserService.SignUp(user);
+
+            if (response == null)
+                return BadRequest(new { message = "Something went wrong" });
+
+            return Ok(response);
+        }
      
     }
 }
