@@ -180,13 +180,16 @@ class TableCard extends React.Component {
                             >
                                 <i className={`fa ${this.state.dark ? 'fa-sun' : 'fa-moon'}`}/>
                             </Button>
-                            <Button
+                            
+                            <Button 
                                 color="primary"
                                 onClick={this.props.top_callback}
                                 size="sm"
+                                style={{ display :  (this.props.hide_top_button) && "none"}}
                             >
                                 {this.props.top_button}
                             </Button>
+    
                         </div>
                     </Row>
                 </CardHeader>

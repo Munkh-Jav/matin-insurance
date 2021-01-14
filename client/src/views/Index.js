@@ -28,6 +28,9 @@ import TableCard from "../components/Cards/TableCard";
 import BarGraph from "../components/Cards/BarGraph";
 import ContentCard from "../components/Cards/ContentCard";
 import Comment from "../components/Groups/Comment";
+import filterAppointments from "../utils/filterAppointments";
+import Appointments from "./examples/Appointments";
+import history from "../history";
 
 class Index extends React.Component {
 
@@ -67,21 +70,10 @@ class Index extends React.Component {
   }
 
 
-  filterAppointments(appointments){
-
-    var waitingAppointments = [];
-    appointments.map(appointment => {
-
-      if(appointment.status === 0){
-        waitingAppointments.push(appointment);
-      }
-    })
-
-    return waitingAppointments;
-  }
 
   showMoreAppointments = (e) => {
     e.preventDefault();
+    history.push("/admin/appointments");
   }
 
   getComments = () => {
@@ -112,7 +104,7 @@ class Index extends React.Component {
                     top_button="Show All"
                     top_callback={this.showMoreAppointments}
                     cols={["With", "Status", "Date", "Time", "Actions"]}
-                    rows={tableContentFromAppointments(this.filterAppointments(this.props.appointments), ["status", "date", "time"],[{title:"Accept"}, {title:"Deny"}])}
+                    rows={tableContentFromAppointments(filterAppointments(this.props.appointments), ["status", "date", "time"],[{title:"Accept"}, {title:"Deny"}])}
                     with_images={false}
                     rowClick={this.openModal}
                     dark={localStorage.getItem("dark") === 'true'}

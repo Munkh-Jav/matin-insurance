@@ -109,3 +109,4 @@ D:\Anis\Documents\Work\Projects\Website\Insurance\server\obj\Debug\net5.0\Razor\
 D:\Anis\Documents\Work\Projects\Website\Insurance\server\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\.Projects\matin-insurance\server\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Anis\Documents\Work\Projects\Website\Insurance\server\bin\Debug\net5.0\BCrypt.Net-Next.dll
+D:\.Projects\matin-insurance\server\bin\Debug\net5.0\BCrypt.Net-Next.dll
