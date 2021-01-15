@@ -11,24 +11,40 @@ import {
 import Header from "components/Headers/Header.js";
 import ContentCard from "../../components/Cards/ContentCard";
 import Comment from "../../components/Groups/Comment";
-import {getComments} from "../../actions/commentActions";
-import {updateComment} from "../../actions/commentActions";
+import {getAllComments, updateComment, deleteComment} from "../../actions/commentActions";
 import {connect} from 'react-redux';
-import { parseConfigFileTextToJson } from "typescript";
+import _ from "lodash";
 
 class Comments extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: []
+    }
+  }
   componentDidMount() {
-    this.props.getComments();
+    this.props.getAllComments();
   }
 
-  approveComment(commentToApprove) { 
-    
-
+  componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
+    console.log(prevProps.comments)
+    console.log(this.props.comments)
+    if(!_.isEqual(prevProps.comments, this.props.comments)){
+      this.setState({loading: []});
+    }
   }
 
-  denyComment() {
+  approveComment = (commentToApprove) => {
+    const newComment = {...commentToApprove};
+    newComment.status = 1;
+    this.setState({loading: [...this.state.loading, newComment.id]});
+    this.props.updateComment(newComment);
+  }
 
+  denyComment = (commentToApprove) => {
+    this.setState({loading: [...this.state.loading, commentToApprove.id]});
+    this.props.deleteComment(commentToApprove);
   }
 
 
@@ -38,7 +54,8 @@ class Comments extends React.Component {
                 key={comment.id} 
                 comment={comment} 
                 toggleComments={true} 
-                hide_top_button={true} 
+                hide_top_button={true}
+                loading={this.state.loading}
                 approve_callback={this.approveComment}
                 deny_callback={this.denyComment}
                 />
@@ -75,6 +92,6 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {getComments})(Comments);
+export default connect(mapStateToProps, {getAllComments,updateComment,deleteComment})(Comments);
 
 

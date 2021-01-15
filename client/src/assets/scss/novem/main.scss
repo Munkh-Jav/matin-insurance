@@ -19,7 +19,11 @@
     margin-left: 10px;
     position: absolute;
     top: 20px;
-    font-weight: 100
+    font-weight: 100;
+    text-overflow: ellipsis;
+    width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .comment-content {

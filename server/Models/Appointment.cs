@@ -16,6 +16,8 @@ namespace server.Models
 
         public string client_name { get; set; }
 
+        public string client_email { get; set; }
+
         public DateTime date { get; set; }
 
     }

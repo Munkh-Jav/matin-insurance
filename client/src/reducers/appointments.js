@@ -18,11 +18,6 @@ export default (state = initialState, action = {}) => {
                 appointments: action.appointments,
                 appointments_error: ''
             };
-        case GET_APPOINTMENTS_FAIL:
-            return {
-                ...state,
-                appointments_error: action.error
-            };
         case UPDATE_APPOINTMENT:
             return {
                 ...state,
@@ -38,6 +33,7 @@ export default (state = initialState, action = {}) => {
                 }),
                 appointments_error: ''
             };
+        case GET_APPOINTMENTS_FAIL:
         case UPDATE_APPOINTMENT_FAIL:
             return {
                 ...state,

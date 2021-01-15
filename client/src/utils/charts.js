@@ -146,7 +146,7 @@ var colors = {
   },
   theme: {
     default: "#172b4d",
-    primary: "#5e72e4",
+    primary: "#2dce89",
     secondary: "#f4f5f7",
     info: "#11cdef",
     success: "#2dce89",
@@ -196,7 +196,7 @@ function chartOptions() {
             borderCapStyle: "rounded"
           },
           rectangle: {
-            backgroundColor: colors.theme["warning"]
+            backgroundColor: colors.theme["primary"]
           },
           arc: {
             backgroundColor: colors.theme["primary"],

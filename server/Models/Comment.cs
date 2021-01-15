@@ -20,6 +20,8 @@ namespace server.Models
         
         public string video_id { get; set; }
 
+        public string video_title { get; set; }
+
         public int status { get; set; }
 
         public DateTime date { get; set; }

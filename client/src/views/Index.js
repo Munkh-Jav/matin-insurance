@@ -3,21 +3,15 @@ import React from "react";
 import {getAppointments} from "../actions/appointmentActions";
 import {getAllComments} from "../actions/commentActions";
 import {getVideos} from "../actions/videoActions"
-import tableContentFromComments from "../utils/tableContentFromComments";
 import tableContentFromAppointments from "../utils/tableContentFromAppointments";
 import tableContentFromVideos from "../utils/tableContentFromVideos";
 
 import {connect} from 'react-redux';
 
 import {
-  Button,
-  Card,
-  CardHeader,
-  Progress,
-  Table,
   Container,
   Row,
-  Col, CardBody
+  Col,
 } from "reactstrap";
 
 // core components
@@ -29,7 +23,6 @@ import BarGraph from "../components/Cards/BarGraph";
 import ContentCard from "../components/Cards/ContentCard";
 import Comment from "../components/Groups/Comment";
 import filterAppointments from "../utils/filterAppointments";
-import Appointments from "./examples/Appointments";
 import history from "../history";
 
 class Index extends React.Component {
@@ -65,7 +58,7 @@ class Index extends React.Component {
   }
 
   getVideoDetails = async() =>{
-    const content = await tableContentFromVideos(this.state.videos, ["title", "views", "likes", "dislikes"]);
+    const content = await tableContentFromVideos(this.state.videos.slice(0, 2), ["title", "views", "likes", "dislikes"]);
     this.setState({videos: this.props.videos, videoTableContent : content})
   }
 

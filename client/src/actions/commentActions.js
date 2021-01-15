@@ -1,6 +1,13 @@
 import server from "../api/server";
 import {comments_route} from "../utils/serverRoutes";
-import {GET_COMMENTS, GET_COMMENTS_FAIL, UPDATE_COMMENT, UPDATE_COMMENT_FAIL} from "./types";
+import {
+    DELETE_COMMENT,
+    DELETE_COMMENT_FAIL,
+    GET_COMMENTS,
+    GET_COMMENTS_FAIL,
+    UPDATE_COMMENT,
+    UPDATE_COMMENT_FAIL
+} from "./types";
 import axios from "axios";
 
 export const getComments = (video_id) => async dispatch => {
@@ -38,5 +45,21 @@ export const updateComment = (comment) => async dispatch => {
             return dispatch({type: UPDATE_COMMENT_FAIL, error: 'Server error'});
 
         dispatch({type: UPDATE_COMMENT_FAIL, error: e.response.data});
+    }
+}
+
+export const deleteComment = (comment) => async dispatch => {
+    try{
+        await server.delete(comments_route+`/${comment.id}`, {
+            headers: {
+                'Authorization': axios.defaults.headers.common['Authorization']
+            }
+        });
+        dispatch({type: DELETE_COMMENT, comment: comment});
+    }catch(e){
+        if(!e.response)
+            return dispatch({type: DELETE_COMMENT_FAIL, error: 'Server error'});
+
+        dispatch({type: DELETE_COMMENT_FAIL, error: e.response.data});
     }
 }

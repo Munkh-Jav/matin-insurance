@@ -43,19 +43,19 @@ namespace CommentsApi.Controllers
         }
 
         [Authorize]
-        [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, Comment CommentIn)
+        [HttpPut]
+        public ActionResult<Comment> Update(Comment CommentIn)
         {
-            var Comment = _CommentService.Get(id);
+            var Comment = _CommentService.Get(CommentIn.Id);
 
             if (Comment == null)
             {
                 return NotFound();
             }
 
-            _CommentService.Update(id, CommentIn);
+            _CommentService.Update(CommentIn.Id, CommentIn);
 
-            return NoContent();
+            return CommentIn;
         }
 
         [Authorize]

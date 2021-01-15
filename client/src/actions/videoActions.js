@@ -19,6 +19,8 @@ export const getVideo = (video_id) => async dispatch => {
         });
         dispatch({type: GET_VIDEO, video: data});
     }catch(e){
+        if(!e.response)
+            return dispatch({type: GET_VIDEO_FAIL, error: 'Server error'});
         dispatch({type: GET_VIDEO_FAIL, error: e.response.data});
     }
 }
@@ -32,6 +34,8 @@ export const getVideos = () => async dispatch => {
         });
         dispatch({type: GET_VIDEOS, videos: data});
     }catch(e){
+        if(!e.response)
+            return dispatch({type: GET_VIDEOS_FAIL, error: 'Server error'});
         dispatch({type: GET_VIDEOS_FAIL, error: e.response.data});
     }
 }
