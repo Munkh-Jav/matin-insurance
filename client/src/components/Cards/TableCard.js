@@ -49,19 +49,26 @@ class TableCard extends React.Component {
                             </Media>
                         :<span style={{fontStyle: (row.italic) ? 'italic' : 'normal' }}>{row.title}</span>}
                     </th>
-                    {this.getRowContent(row.contents)}
+                    {this.getRowContent(row.contents, row.object)}
                 </tr>
             )
         })
     }
 
-    getButtons(col){
+    getButtons(col, object){
+        if(this.props.loading.includes(object.id)){
+            return (
+                <div className="spinner-border" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            )
+        }
         return col.value.map((btn, key) => {
             return (
                 <Button
                 color="primary"
                 className={btn.class}
-                onClick={this.toggleTheme}
+                onClick={() => btn.callback(object)}
                 size="sm"
                 key={key}
             >
@@ -71,7 +78,7 @@ class TableCard extends React.Component {
         })
     }
 
-    getRowContent(row){
+    getRowContent(row, object){
         return row.map((col, key) => {
             switch (col.type){
                 case "custom_element":
@@ -124,7 +131,7 @@ class TableCard extends React.Component {
                     return (
                         <td key={key}>
                             {
-                                this.getButtons(col)
+                                this.getButtons(col, object)
                             }
                         </td>
                     )

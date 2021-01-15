@@ -1,4 +1,9 @@
-import {GET_APPOINTMENTS, GET_APPOINTMENTS_FAIL} from '../actions/types';
+import {
+    UPDATE_APPOINTMENT,
+    UPDATE_APPOINTMENT_FAIL,
+    GET_APPOINTMENTS,
+    GET_APPOINTMENTS_FAIL
+} from '../actions/types';
 
 const initialState = {
     appointments: [],
@@ -18,7 +23,26 @@ export default (state = initialState, action = {}) => {
                 ...state,
                 appointments_error: action.error
             };
+        case UPDATE_APPOINTMENT:
+            return {
+                ...state,
+                appointments: state.appointments.map((item) => {
+                    if (item.id !== action.appointment.id) {
+                        return item
+                    }
 
+                    return {
+                        ...item,
+                        ...action.appointment
+                    }
+                }),
+                appointments_error: ''
+            };
+        case UPDATE_APPOINTMENT_FAIL:
+            return {
+                ...state,
+                appointments_error: action.error
+            };
         default:
             return state;
     }

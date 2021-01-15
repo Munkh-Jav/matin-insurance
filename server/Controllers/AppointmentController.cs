@@ -2,6 +2,7 @@ using server.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using server.Services;
+using System.Text.Json;
 
 namespace AppointmentsApi.Controllers
 {
@@ -44,19 +45,20 @@ namespace AppointmentsApi.Controllers
         }
 
         [Authorize]
-        [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, Appointment AppointmentIn)
+        [HttpPut]
+        public ActionResult<Appointment> Update(Appointment body)
         {
-            var Appointment = _AppointmentService.Get(id);
+
+            var Appointment = _AppointmentService.Get(body.Id);
 
             if (Appointment == null)
             {
                 return NotFound();
             }
 
-            _AppointmentService.Update(id, AppointmentIn);
+            _AppointmentService.Update(body.Id, body);
 
-            return NoContent();
+            return body;
         }
 
         [Authorize]

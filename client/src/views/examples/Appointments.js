@@ -25,14 +25,56 @@ import {
 import Header from "components/Headers/Header.js";
 import TableCard from "../../components/Cards/TableCard";
 import tableContentFromAppointments from "../../utils/tableContentFromAppointments";
-import {getAppointments} from "../../actions/appointmentActions";
+import {getAppointments, updateAppointment} from "../../actions/appointmentActions";
 import {connect} from 'react-redux';
-import filterAppointments from "../../utils/filterAppointments";
+import _ from "lodash";
 
 class Appointments extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: []
+    }
+  }
   componentDidMount() {
     this.props.getAppointments();
+  }
+
+  componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
+    if(!_.isEqual(prevProps.appointments, this.props.appointments)){
+      this.setState({loading: []});
+    }
+  }
+
+  acceptButton = (appointment) => {
+    switch (appointment.status){
+      case 0 :
+         const newAppointment = {...appointment};
+         newAppointment.status = 1;
+        this.setState({loading: [...this.state.loading, newAppointment.id]});
+        this.props.updateAppointment(newAppointment);
+        break;
+      case 1:
+      case 2:
+      default:
+        this.props.emailPerson();
+        break;
+    }
+  }
+
+  denyButton = (appointment) => {
+    switch (appointment.status){
+      case 0 :
+      case 1:
+      case 2:
+      default:
+        const newAppointment = {...appointment};
+        newAppointment.status = 2;
+        this.setState({loading: [...this.state.loading, newAppointment.id]});
+        this.props.updateAppointment(newAppointment);
+        break;
+    }
   }
 
   render() {
@@ -48,7 +90,8 @@ class Appointments extends React.Component {
                     hide_top_button={true}
                     top_callback={this.showMoreAppointments}
                     cols={["With", "Status", "Date", "Time", "Actions"]}
-                    rows={tableContentFromAppointments(this.props.appointments, ["status", "date", "time", "buttons"],[{title:"Accept"}, {title:"Deny", class:"bg-danger"}])}
+                    rows={tableContentFromAppointments(this.props.appointments, ["status", "date", "time", "buttons"],[{callback: this.acceptButton}, {callback: this.denyButton}])}
+                    loading={this.state.loading}
                     with_images={false}
                     rowClick={e => e.preventDefault()}
                     dark={localStorage.getItem("dark") === 'true'}
@@ -71,6 +114,6 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {getAppointments})(Appointments);
+export default connect(mapStateToProps, {getAppointments, updateAppointment})(Appointments);
 
 

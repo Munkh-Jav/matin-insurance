@@ -37,6 +37,8 @@ import {
   Row,
   Col
 } from "reactstrap";
+import {connect} from "react-redux";
+import {logout} from "../../actions/userActions";
 
 var ps;
 
@@ -96,6 +98,8 @@ class Sidebar extends React.Component {
         target: "_blank"
       };
     }
+
+    const {user} = this.props;
     return (
       <Navbar
         className="navbar-vertical fixed-left navbar-light bg-white"
@@ -144,7 +148,7 @@ class Sidebar extends React.Component {
                   <span className="avatar avatar-sm rounded-circle">
                     <img
                       alt="..."
-                      src={require("assets/img/theme/team-1-800x800.jpg").default}
+                      src={process.env.PUBLIC_URL + `/profile-pics/${user.profile_img}`}
                     />
                   </span>
                 </Media>
@@ -257,4 +261,10 @@ Sidebar.propTypes = {
   })
 };
 
-export default Sidebar;
+
+const mapStateToProps = (state) => {
+  return {user: state.auth.user}
+}
+
+
+export default connect(mapStateToProps, {logout})(Sidebar);

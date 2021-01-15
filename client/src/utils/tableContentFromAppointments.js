@@ -14,6 +14,7 @@ export default (appointments, filters, buttons) => {
         const object = {
             title: appointment.client_name,
             id: appointment.id,
+            object: appointment,
             contents: []
         }
         filters.map(filter => {
@@ -56,18 +57,18 @@ export default (appointments, filters, buttons) => {
                         value: []
                     }
                     const buttonData = getActionButton(appointment);
+                    let i=0;
                     buttonData.map(button => {
-                        content.value.push({title: button.title, callback: button.callback, class: button.class});
+                        content.value.push({title: button.title, callback: buttons[i].callback, class: button.class});
+                        i++;
                     })
             }
             object.contents.push(content);
         });
         if(buttons && !had_button_case) {
             const buttonContent = {type:"buttons",actions: []};
-            let i=0;
             buttons.map(button => {
-                buttonContent.actions.push({title: button.title, callback: buttons[i].callback, class: button.class});
-                i++;
+                buttonContent.actions.push({title: button.title, callback: button.callback, class: button.class});
             })
             object.contents.push(buttonContent);
         }
