@@ -1,6 +1,7 @@
 import server from "../api/server";
 import {comments_route} from "../utils/serverRoutes";
-import {GET_COMMENTS, GET_COMMENTS_FAIL} from "./types";
+import {GET_COMMENTS, GET_COMMENTS_FAIL, UPDATE_COMMENT, UPDATE_COMMENT_FAIL} from "./types";
+import axios from "axios";
 
 export const getComments = (video_id) => async dispatch => {
     try{
@@ -21,5 +22,21 @@ export const getAllComments = () => async dispatch => {
         if(!e.response)
             return dispatch({type: GET_COMMENTS_FAIL, error: 'Server error'});
         dispatch({type: GET_COMMENTS_FAIL, error: e.response.data});
+    }
+}
+
+export const updateComment = (comment) => async dispatch => {
+    try{
+        const {data} = await server.put(comments_route, comment,{
+            headers: {
+                'Authorization': axios.defaults.headers.common['Authorization']
+            }
+        });
+        dispatch({type: UPDATE_COMMENT, comment: data});
+    }catch(e){
+        if(!e.response)
+            return dispatch({type: UPDATE_COMMENT_FAIL, error: 'Server error'});
+
+        dispatch({type: UPDATE_COMMENT_FAIL, error: e.response.data});
     }
 }

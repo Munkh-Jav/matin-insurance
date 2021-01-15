@@ -16,6 +16,7 @@ class ContentCard extends React.Component {
                                 href="#pablo"
                                 onClick={this.props.top_callback}
                                 size="sm"
+                                style={{ display :  (this.props.hide_top_button) && "none"}}
                             >
                                 {this.props.top_button}
                             </Button>

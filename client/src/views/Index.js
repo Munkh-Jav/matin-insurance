@@ -78,7 +78,11 @@ class Index extends React.Component {
 
   showAllVideos = (e) => {
     e.preventDefault();
-    history.push("/admin/videos")
+    history.push("/admin/videos");
+  }
+  showAllComments = (e) => {
+    e.preventDefault();
+    history.push("/admin/comments");
   }
 
   getComments = () => {
@@ -129,7 +133,7 @@ class Index extends React.Component {
                 <ContentCard
                     title="Comments"
                     top_button="See all"
-                    top_callback={this.showMoreAppointments}
+                    top_callback={this.showAllComments}
                 >
                   {this.getComments()}
                 </ContentCard>
