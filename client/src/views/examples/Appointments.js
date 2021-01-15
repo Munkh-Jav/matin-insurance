@@ -50,7 +50,7 @@ class Appointments extends React.Component {
                     cols={["With", "Status", "Date", "Time", "Actions"]}
                     rows={tableContentFromAppointments(this.props.appointments, ["status", "date", "time"],[{title:"Accept"}, {title:"Deny"}])}
                     with_images={false}
-                    rowClick={this.openModal}
+                    rowClick={e => e.preventDefault()}
                     dark={localStorage.getItem("dark") === 'true'}
                 />
             </div>

@@ -76,6 +76,11 @@ class Index extends React.Component {
     history.push("/admin/appointments");
   }
 
+  showAllVideos = (e) => {
+    e.preventDefault();
+    history.push("/admin/videos")
+  }
+
   getComments = () => {
     return this.props.comments.slice(0, 3).map(comment => {
       return <Comment key={comment.id} comment={comment}/>
@@ -106,7 +111,7 @@ class Index extends React.Component {
                     cols={["With", "Status", "Date", "Time", "Actions"]}
                     rows={tableContentFromAppointments(filterAppointments(this.props.appointments), ["status", "date", "time"],[{title:"Accept"}, {title:"Deny"}])}
                     with_images={false}
-                    rowClick={this.openModal}
+                    rowClick={e => e.preventDefault()}
                     dark={localStorage.getItem("dark") === 'true'}
                 />
               </Col>
@@ -133,7 +138,7 @@ class Index extends React.Component {
               <TableCard
                     title="Video Activity"
                     top_button="Show All"
-                    top_callback={this.showMoreAppointments}
+                    top_callback={this.showAllVideos}
                     cols={["", "Title", "Views", "Likes", "Dislikes"]}
                     with_images={true}
                     rows={this.state.videoTableContent}

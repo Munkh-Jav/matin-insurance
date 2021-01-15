@@ -6,6 +6,7 @@ import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import Appointments from "views/examples/Appointments.js";
 import Icons from "views/examples/Icons.js";
+import Videos from "views/examples/Videos.js";
 
 var routes = [
   {
@@ -42,6 +43,14 @@ var routes = [
     icon: "ni ni-bullet-list-67 text-red",
     component: Appointments,
     layout: "/admin"
+  },
+  {
+    path: "/videos",
+    name: "Videos",
+    icon: "ni ni-bullet-list-67 text-red",
+    component: Videos,
+    layout: "/admin"
+
   },
   {
     path: "/login",

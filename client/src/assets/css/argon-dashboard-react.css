@@ -14339,4 +14339,5 @@ select:-webkit-autofill:focus {
 
 .ReactModal__Overlay {
   z-index: 10 !important;
+  background-color: rgba(0, 0, 0, 0.75) !important ;
 }

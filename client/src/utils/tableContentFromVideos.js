@@ -2,6 +2,7 @@ import axios from "axios";
 import config from '../config.json'
 import _ from 'lodash';
 import nFormatter from './nFormat'
+import getVideoDetails from "./getVideoDetails";
 
 
 export default async (videos, filters) => {
@@ -16,7 +17,7 @@ export default async (videos, filters) => {
         }];
 
     await Promise.all(videos.map(async video => {
-       var videoData = await getDetails(video.video_url);
+       var videoData = await getVideoDetails(video.video_url);
        var videoThumbnail = videoData.items[0].snippet.thumbnails.high.url;
        var videoStats = videoData.items[0].statistics;
 
@@ -67,23 +68,6 @@ export default async (videos, filters) => {
     return table_data;
 }
 
-const getDetails = _.memoize(async(video_url) =>{
-
-    var video_id = video_url.split('v=')[1];
-    var ampersandPosition = video_id.indexOf('&');
-    if(ampersandPosition !== -1) {
-      video_id = video_id.substring(0, ampersandPosition);
-    }
-
-
-    const {data} = await axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${video_id}&key=${config.google_api}`, {
-        headers: {
-            'Authorization': ``
-        }
-    });
-
- return data;
-});
 
 
 

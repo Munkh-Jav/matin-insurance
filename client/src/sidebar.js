@@ -4,7 +4,7 @@ import Profile from "views/examples/Profile.js";
 import Maps from "views/examples/Maps.js";
 
 import Appointments from "views/examples/Appointments.js";
-import Icons from "views/examples/Icons.js";
+import Videos from "views/examples/Videos.js";
 
 var routes = [
 
@@ -26,7 +26,7 @@ var routes = [
     path: "/videos",
     name: "Videos",
     icon: "ni ni-planet text-blue",
-    component: Icons,
+    component: Videos,
     layout: "/admin"
   },
   {
@@ -37,7 +37,7 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/user-profile",
+    path: "/sonasodian",
     name: "Settings",
     icon: "ni ni-single-02 text-yellow",
     component: Profile,

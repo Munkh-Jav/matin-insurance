@@ -9,7 +9,7 @@ class DetailModal extends React.Component {
             content : {
                 top                   : '50%',
                 left                  : '50%',
-                right                 : '20%',
+                right                 : '35%',
                 bottom                : 'auto',
                 marginRight           : '-30%',
                 border                : 'none',
