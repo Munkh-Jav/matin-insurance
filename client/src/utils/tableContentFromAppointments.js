@@ -1,5 +1,6 @@
 export default (appointments, filters, buttons) => {
     const table_data = [];
+    let had_button_case = false;
 
     if(!appointments || appointments.length === 0 )
         return [{
@@ -47,13 +48,26 @@ export default (appointments, filters, buttons) => {
                     content = {
                         value: getTime(appointment.date)
                     }
+                    break;
+                case "buttons":
+                    had_button_case = true;
+                    content = {
+                        type: "button-group",
+                        value: []
+                    }
+                    const buttonData = getActionButton(appointment);
+                    buttonData.map(button => {
+                        content.value.push({title: button.title, callback: button.callback, class: button.class});
+                    })
             }
             object.contents.push(content);
         });
-        if(buttons) {
+        if(buttons && !had_button_case) {
             const buttonContent = {type:"buttons",actions: []};
+            let i=0;
             buttons.map(button => {
-                buttonContent.actions.push({title: button.title, callback: button.callback});
+                buttonContent.actions.push({title: button.title, callback: buttons[i].callback, class: button.class});
+                i++;
             })
             object.contents.push(buttonContent);
         }
@@ -109,6 +123,42 @@ const getDate = (date) => {
     const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(d);
     const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
     return `${mo} ${da}, ${ye}`;
+}
+
+const getActionButton = (appointment) => {
+    const result = [
+        {
+            title: '',
+            class: '',
+        },
+        {
+            title: '',
+            class: '',
+        }
+    ]
+
+    switch (appointment.status){
+        case 0:
+            result[0].title = 'Accept';
+            result[1].title = 'Deny';
+            result[0].class = 'bg-gradient-success border-0';
+            result[1].class = 'bg-gradient-danger border-0';
+            break;
+        case 1:
+            result[0].title = 'Email';
+            result[1].title = 'Cancel';
+            result[0].class = 'bg-gradient-info border-0';
+            result[1].class = 'bg-gradient-danger border-0';
+            break;
+        case 2:
+        case 3:
+        default:
+            result[0].title = 'Email';
+            result[0].class = 'bg-gradient-info border-0';
+            result[1].class = 'd-none';
+            break;
+    }
+    return result;
 }
 
 const getTime = (date) => new Intl.DateTimeFormat('en', { timeStyle: 'short' }).format(new Date(date));

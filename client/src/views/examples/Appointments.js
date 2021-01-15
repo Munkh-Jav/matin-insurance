@@ -48,7 +48,7 @@ class Appointments extends React.Component {
                     hide_top_button={true}
                     top_callback={this.showMoreAppointments}
                     cols={["With", "Status", "Date", "Time", "Actions"]}
-                    rows={tableContentFromAppointments(this.props.appointments, ["status", "date", "time"],[{title:"Accept"}, {title:"Deny"}])}
+                    rows={tableContentFromAppointments(this.props.appointments, ["status", "date", "time", "buttons"],[{title:"Accept"}, {title:"Deny", class:"bg-danger"}])}
                     with_images={false}
                     rowClick={e => e.preventDefault()}
                     dark={localStorage.getItem("dark") === 'true'}

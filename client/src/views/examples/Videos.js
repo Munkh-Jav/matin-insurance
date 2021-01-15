@@ -1,5 +1,6 @@
 
 import React from "react";
+import _ from 'lodash';
 
 // reactstrap components
 import {
@@ -55,7 +56,7 @@ class Videos extends React.Component {
   }
 
   componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
-    if(prevState.videos.length === 0 && this.props.videos.length>0){
+    if(!_.isEqual(prevState.videos, this.props.videos)){
       this.getVideoDetails();
     }
   }
@@ -84,7 +85,7 @@ class Videos extends React.Component {
 
   closeModal = (e) => {
     e.preventDefault();
-    this.setState({is_modal_open:false})
+    this.setState({ is_modal_open:false})
   }
 
   

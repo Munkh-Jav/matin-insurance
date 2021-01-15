@@ -1,6 +1,13 @@
 import server from "../api/server";
 import {videos_route} from "../utils/serverRoutes";
-import {GET_VIDEOS, GET_VIDEOS_FAIL, GET_VIDEO, GET_VIDEO_FAIL, POST_VIDEO, POST_VIDEO_FAIL} from "./types";
+import {
+    GET_VIDEOS,
+    GET_VIDEOS_FAIL,
+    GET_VIDEO,
+    GET_VIDEO_FAIL,
+    POST_VIDEO,
+    POST_VIDEO_FAIL,
+} from "./types";
 import axios from "axios";
 
 export const getVideo = (video_id) => async dispatch => {
@@ -30,13 +37,20 @@ export const getVideos = () => async dispatch => {
 }
 
 export const addVideo = (video) => async dispatch => {
+    debugger;
     try{
         const {data} = await server.post(videos_route, {
+            video_title: video.video_title,
+            video_url:video.video_url
+        }, {
             headers: {
                 'Authorization': axios.defaults.headers.common['Authorization']
-            }, video});
+            }
+        });
         dispatch({type: POST_VIDEO, video: data});
     }catch(e){
+        if(!e.response)
+            return dispatch({type: POST_VIDEO_FAIL, error: 'Server error'});
         dispatch({type: POST_VIDEO_FAIL, error: e.response.data});
     }
 }

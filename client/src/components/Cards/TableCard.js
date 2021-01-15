@@ -55,6 +55,22 @@ class TableCard extends React.Component {
         })
     }
 
+    getButtons(col){
+        return col.value.map((btn, key) => {
+            return (
+                <Button
+                color="primary"
+                className={btn.class}
+                onClick={this.toggleTheme}
+                size="sm"
+                key={key}
+            >
+                {btn.title}
+            </Button>
+            )
+        })
+    }
+
     getRowContent(row){
         return row.map((col, key) => {
             switch (col.type){
@@ -103,6 +119,15 @@ class TableCard extends React.Component {
                             </div>
                         </td>
                     );
+
+                case "button-group":
+                    return (
+                        <td key={key}>
+                            {
+                                this.getButtons(col)
+                            }
+                        </td>
+                    )
                 case "buttons":
                     return (
                         <td className="text-right"  key={key}>
