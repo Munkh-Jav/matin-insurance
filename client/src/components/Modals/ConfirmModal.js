@@ -15,10 +15,10 @@ class ConfirmModal extends React.Component {
                     <h2 className=" mb-3 text-center">{this.props.title}</h2>
 
                     <div className="text-center mt-3">
-                        <Button color="success" onClick={() => this.props.onConfirm(this.props.object, true)} >
+                        <Button color="gradient-success" className="bg-gradient-teal text-white" onClick={() => this.props.onConfirm(this.props.object, true)} >
                             Yes
                         </Button>
-                        <Button color="danger" onClick={() => this.props.onDeny(this.props.object, true)} >
+                        <Button color="gradient-danger" className="bg-gradient-danger text-white"  onClick={() => this.props.onDeny(this.props.object, true)} >
                             No
                         </Button>
                     </div>

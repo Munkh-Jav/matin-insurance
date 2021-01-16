@@ -14,12 +14,16 @@ import Comment from "../../components/Groups/Comment";
 import {getAllComments, updateComment, deleteComment} from "../../actions/commentActions";
 import {connect} from 'react-redux';
 import _ from "lodash";
+import ConfirmModal from "../../components/Modals/ConfirmModal";
+import DetailModal from "../../components/Modals/DetailModal";
 
 class Comments extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      is_confirm_modal_open: false,
+      selected_comment:{},
       loading: []
     }
   }
@@ -29,7 +33,7 @@ class Comments extends React.Component {
 
   componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
     if(!_.isEqual(prevProps.comments, this.props.comments)){
-      this.setState({loading: []});
+      this.setState({loading: [], is_confirm_modal_open:false});
     }
   }
 
@@ -40,9 +44,29 @@ class Comments extends React.Component {
     this.props.updateComment(newComment);
   }
 
-  denyComment = (commentToApprove) => {
-    this.setState({loading: [...this.state.loading, commentToApprove.id]});
-    this.props.deleteComment(commentToApprove);
+  denyComment = (commentToApprove, confirmed) => {
+    if(!confirmed){
+      this.openConfirmModal(commentToApprove);
+    }else {
+      this.setState({loading: [...this.state.loading, commentToApprove.id]});
+      this.props.deleteComment(commentToApprove);
+    }
+  }
+
+  openConfirmModal = (comment) => {
+    this.setState({is_confirm_modal_open: true, selected_comment: comment});
+  }
+
+  closeConfirmModal = () => {
+    this.setState({is_confirm_modal_open:false, selected_comment: {}})
+  }
+
+  openConfirmModal = (comment) => {
+    this.setState({is_confirm_modal_open: true, selected_comment: comment});
+  }
+
+  closeConfirmModal = () => {
+    this.setState({is_confirm_modal_open:false, selected_comment: {}})
   }
 
 
@@ -77,6 +101,18 @@ class Comments extends React.Component {
                 >
                   {this.getComments()}
             </ContentCard>
+              <DetailModal
+                  isOpen={this.state.is_confirm_modal_open}
+                  onRequestClose={this.closeConfirmModal}
+                  width="55%"
+              >
+                <ConfirmModal
+                    title="Are you sure you want to delete this comment ?"
+                    object={this.state.selected_comment}
+                    onConfirm={this.denyComment}
+                    onDeny={this.closeConfirmModal}
+                />
+              </DetailModal>
             </div>
           </Row>
         </Container>

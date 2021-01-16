@@ -28,12 +28,16 @@ import tableContentFromAppointments from "../../utils/tableContentFromAppointmen
 import {getAppointments, updateAppointment} from "../../actions/appointmentActions";
 import {connect} from 'react-redux';
 import _ from "lodash";
+import ConfirmModal from "../../components/Modals/ConfirmModal";
+import DetailModal from "../../components/Modals/DetailModal";
 
 class Appointments extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      is_confirm_modal_open: false,
+      selected_appointment:{},
       loading: []
     }
   }
@@ -43,7 +47,7 @@ class Appointments extends React.Component {
 
   componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
     if(!_.isEqual(prevProps.appointments, this.props.appointments)){
-      this.setState({loading: []});
+      this.setState({loading: [], is_confirm_modal_open:false});
     }
   }
 
@@ -67,18 +71,30 @@ class Appointments extends React.Component {
     window.location = "mailto:"+appointment.client_email;
   }
 
-  denyButton = (appointment) => {
-    switch (appointment.status){
-      case 0 :
-      case 1:
-      case 2:
-      default:
-        const newAppointment = {...appointment};
-        newAppointment.status = 2;
-        this.setState({loading: [...this.state.loading, newAppointment.id]});
-        this.props.updateAppointment(newAppointment);
-        break;
+  denyButton = (appointment, confirmed) => {
+    if(!confirmed){
+      this.openConfirmModal(appointment);
+    }else{
+      switch (appointment.status){
+        case 0 :
+        case 1:
+        case 2:
+        default:
+          const newAppointment = {...appointment};
+          newAppointment.status = 2;
+          this.setState({loading: [...this.state.loading, newAppointment.id]});
+          this.props.updateAppointment(newAppointment);
+          break;
+      }
     }
+  }
+
+  openConfirmModal = (appointment) => {
+    this.setState({is_confirm_modal_open: true, selected_appointment: appointment});
+  }
+
+  closeConfirmModal = () => {
+    this.setState({is_confirm_modal_open:false, selected_appointment: {}})
   }
 
   render() {
@@ -100,6 +116,19 @@ class Appointments extends React.Component {
                     rowClick={e => e.preventDefault()}
                     dark={localStorage.getItem("dark") === 'true'}
                 />
+
+              <DetailModal
+                  isOpen={this.state.is_confirm_modal_open}
+                  onRequestClose={this.closeConfirmModal}
+                  width="55%"
+              >
+                <ConfirmModal
+                    title="Are you sure you want to cancel this appointment ?"
+                    object={this.state.selected_appointment}
+                    onConfirm={this.denyButton}
+                    onDeny={this.closeConfirmModal}
+                />
+              </DetailModal>
             </div>
           </Row>
           <Row className="mt-5">

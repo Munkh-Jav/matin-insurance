@@ -1,6 +1,6 @@
 
 import Index from "views/Index.js";
-import Profile from "views/examples/Profile.js";
+import Settings from "views/examples/Settings.js";
 import Maps from "views/examples/Maps.js";
 
 import Appointments from "views/examples/Appointments.js";
@@ -37,10 +37,10 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/sonasodian",
+    path: "/settings",
     name: "Settings",
     icon: "ni ni-single-02 text-yellow",
-    component: Profile,
+    component: Settings,
     layout: "/admin"
   },
 ];

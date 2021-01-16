@@ -80,7 +80,7 @@ class Index extends React.Component {
 
   getComments = () => {
     return this.props.comments.slice(0, 3).map(comment => {
-      return <Comment key={comment.id} comment={comment}/>
+      return <Comment key={comment.id} comment={comment} hide_buttons={true}/>
     })
   }
 

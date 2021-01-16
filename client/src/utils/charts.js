@@ -374,7 +374,7 @@ const getData = (appointments, j=5) => {
     let value = 0;
     appointments.map(appointment => {
       const date = new Date(appointment.date);
-      if(date.getMonth() === today.getMonth())
+      if(date.getMonth() === today.getMonth() && appointment.status !== 2)
         value++;
     });
     today.setMonth(today.getMonth()+1);

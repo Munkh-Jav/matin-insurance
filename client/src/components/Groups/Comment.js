@@ -75,7 +75,7 @@ class Comment extends React.Component{
                         {comment_text}
                         </div>
                         <div className="btn-group text-right mr-3 mt--2">
-                            {this.getButtons(status)}
+                            {(!this.props.hide_buttons) && this.getButtons(status)}
 
                         </div>
                     </Row>

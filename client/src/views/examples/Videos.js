@@ -85,7 +85,6 @@ class Videos extends React.Component {
     if(!confirmed){
       this.openConfirmModal(video);
     }else{
-
       this.props.deleteVideo(video);
     }
   }

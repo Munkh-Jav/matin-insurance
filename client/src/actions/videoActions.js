@@ -1,5 +1,5 @@
 import server from "../api/server";
-import {comments_route, videos_route} from "../utils/serverRoutes";
+import {videos_route} from "../utils/serverRoutes";
 import {
     GET_VIDEOS,
     GET_VIDEOS_FAIL,
@@ -8,7 +8,7 @@ import {
     POST_VIDEO,
     POST_VIDEO_FAIL,
     DELETE_VIDEO,
-    DELETE_VIDEO_FAIL, UPDATE_COMMENT, UPDATE_COMMENT_FAIL, UPDATE_VIDEO, UPDATE_VIDEO_FAIL,
+    DELETE_VIDEO_FAIL, UPDATE_VIDEO, UPDATE_VIDEO_FAIL,
 } from "./types";
 import axios from "axios";
 
