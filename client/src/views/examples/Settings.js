@@ -18,6 +18,8 @@ import {
 import UserHeader from "components/Headers/UserHeader.js";
 import ChangePassModal from "../../components/Modals/ChangePassModal";
 import DetailModal from "../../components/Modals/DetailModal";
+import {changePass} from "../../actions/userActions";
+import {connect} from 'react-redux'
 
 class Settings extends React.Component {
 
@@ -35,13 +37,13 @@ class Settings extends React.Component {
   }
 
   closeModal = (e) => {
-    e.preventDefault();
+    if(e)
+      e.preventDefault();
     this.setState({is_modal_open:false, selected_video: {}})
   }
 
-  modalSubmit = (e, formContent) => {
-    if(e)
-    e.preventDefault();      
+  modalSubmit = (formContent) => {
+    this.props.changePass(formContent);
     //FAIT QQCH ICITTE AUSSI TBNK
   }
 
@@ -206,4 +208,4 @@ class Settings extends React.Component {
   }
 }
 
-export default Settings;
+export default connect(null, {changePass})(Settings);

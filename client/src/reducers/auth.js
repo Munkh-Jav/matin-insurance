@@ -1,10 +1,21 @@
-import {SIGN_IN, SIGN_IN_ERROR, SIGN_UP, SIGN_UP_ERROR, SIGN_OUT, UPDATE_TOKEN} from '../actions/types';
+import {
+    SIGN_IN,
+    SIGN_IN_ERROR,
+    SIGN_UP,
+    SIGN_UP_ERROR,
+    SIGN_OUT,
+    UPDATE_TOKEN,
+    CHANGE_PASS,
+    CHANGE_PASS_ERROR
+} from '../actions/types';
 import isEmpty from 'lodash/isEmpty';
 
 const initialState = {
     logged_in: false,
     sign_in_error:'',
     sign_up_error:'',
+    change_pass_message: '',
+    change_pass_error: '',
     user: {}
 };
 
@@ -46,6 +57,16 @@ export default (state = initialState, action = {}) => {
                 ...state,
                 user: action.user
             }
+        case CHANGE_PASS:
+            return {
+                ...state,
+                change_pass_message: 'changed'
+            };
+        case CHANGE_PASS_ERROR:
+            return {
+                ...state,
+                change_pass_error: action.error
+            };
         default:
             return state;
     }

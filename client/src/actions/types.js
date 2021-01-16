@@ -4,6 +4,8 @@ export const SIGN_UP = 'SIGN_UP';
 export const SIGN_UP_ERROR = 'SIGN_UP_ERROR';
 export const SIGN_OUT = 'SIGN_OUT';
 export const UPDATE_TOKEN = 'UPDATE_TOKEN';
+export const CHANGE_PASS = 'CHANGE_PASS';
+export const CHANGE_PASS_ERROR = 'CHANGE_PASS_ERROR';
 
 //Stats HTTP requests
 export const GET_STATS = 'GET_STATS';

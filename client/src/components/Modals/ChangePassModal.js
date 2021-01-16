@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import {
     Button,
     Card,
@@ -8,7 +7,8 @@ import {
     InputGroupAddon,
     InputGroupText,
     Input,
-    InputGroup} from "reactstrap"; 
+    InputGroup} from "reactstrap";
+import {connect} from "react-redux";
 
 class ChangePassModal extends React.Component {
     constructor(props) {
@@ -17,8 +17,11 @@ class ChangePassModal extends React.Component {
             content : {
                 old_password : "",
                 new_password : "",
-                new_password_conf : ""
-            }
+                new_password_confirmation : ""
+            },
+            error: '',
+            changed:false,
+            isLoading: false,
         }
     this.onChange = this.onChange.bind(this);
     }
@@ -26,22 +29,44 @@ class ChangePassModal extends React.Component {
         this.setState({ content: { ...this.state.content, [e.target.name]: e.target.value} });
     }
 
-    onSubmitPassword(){
-        //fait qqch sale pute t ma moune
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevState.content.new_password !== this.state.content.new_password || prevState.content.new_password_confirmation !== this.state.content.new_password_confirmation || prevState.content.old_password !== this.state.content.old_password){
+            this.setState({changed:true});
+        }
+        if(this.props.message === "changed"){
+            this.props.closeModal();
+        }
+    }
+
+
+    onSubmitPassword = (e) =>{
+        e.preventDefault();
+        if(this.state.content.new_password !== this.state.content.new_password_confirmation)
+            this.setState({error: "Passwords don't match", changed:false});
+        else if (this.state.content.new_password.length < 8){
+            this.setState({error: "Password must be at least 8 characters long", changed:false});
+        }else{
+            this.setState({error: '', isLoading: true, changed:false});
+            this.props.onSubmit( this.state.content);
+        }
+
     }
 
 
     render() {
+        const {error: state_error, changed} = this.state;
+        const error = (this.props.error) ? this.props.error : state_error;
+
         return (
             <Card className={`shadow`}>
 
-                <Form className="m-5" onSubmit={(e) => this.props.onSubmit(e, this.state.content)}>
+                <Form className="m-5" onSubmit={this.onSubmitPassword}>
                     <h1 className="ml--3 mb-3">Change Password</h1>
               <FormGroup className="mb-0">
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
-                      <i className="fas fa-lock"/>
+                      <i className="fas fa-lock" style={{color: (error && !changed) ? 'red' : ''}}/>
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input placeholder="Old Password" type="text" name="old_password"  onChange={this.onChange}/>
@@ -49,7 +74,7 @@ class ChangePassModal extends React.Component {
                 <InputGroup className="input-group-alternative mt-3">
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
-                      <i className= "fas fa-lock-open" />
+                      <i className= "fas fa-lock-open" style={{color: (error && !changed) ? 'red' : ''}}/>
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input placeholder="New Password" type="text" name="new_password" onChange={this.onChange}/>
@@ -57,12 +82,13 @@ class ChangePassModal extends React.Component {
                 <InputGroup className="input-group-alternative mt-3">
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
-                      <i className= "fas fa-lock-open" />
+                      <i className= "fas fa-lock-open" style={{color: (error && !changed) ? 'red' : ''}}/>
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input placeholder="Confirm New Password" type="text" name="new_password_confirmation" onChange={this.onChange}/>
                 </InputGroup>
               </FormGroup>
+                    {error && <p style={{color: 'red', fontSize: 12}}>{error}</p>}
               <div className=" mt-3">
                   <Button color="primary" type="submit" >
                         Change
@@ -77,4 +103,12 @@ class ChangePassModal extends React.Component {
     }
 }
 
-export default ChangePassModal;
+const mapStateToProps = (state) => {
+    return {
+        error: state.auth.change_pass_error,
+        message: state.auth.change_pass_message
+    }
+}
+
+export default connect(mapStateToProps)(ChangePassModal);
+

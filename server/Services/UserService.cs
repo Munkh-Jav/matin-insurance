@@ -41,6 +41,23 @@ namespace server.Services
             return new AuthenticateResponse(token);
         }
 
+        public string ChangePass(ChangePassRequest model)
+        {
+            var user = _Users.Find(x => x.Id == model.id).SingleOrDefault();
+            if (user == null) return null;
+
+
+            bool verified = BC.Verify(model.old, user.password);
+            if (!verified) return null;
+
+            user.password = BC.HashPassword(model.password);
+
+            _Users.ReplaceOne(sub => sub.Id == model.id, user);
+
+
+            return "ok";
+        }
+
         public AuthenticateResponse SignUp(User newUser)
         {
             newUser.password = BC.HashPassword(newUser.password);

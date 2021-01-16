@@ -28,6 +28,17 @@ namespace UsersApi.Controllers
             return Ok(response);
         }
 
+        [HttpPost("change-pass")]
+        public ActionResult ChangePass(ChangePassRequest model)
+        {
+            var response = _UserService.ChangePass(model);
+
+            if (response == null)
+                return BadRequest("Wrong password" );
+
+            return Ok(response);
+        }
+
         [HttpPost("signup")]
         public ActionResult Signup(User user)
         {
