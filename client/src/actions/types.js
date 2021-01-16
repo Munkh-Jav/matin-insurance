@@ -30,5 +30,9 @@ export const POST_VIDEO_FAIL = 'POST_VIDEO_FAIL';
 export const GET_VIDEOS = 'GET_VIDEOS';
 export const GET_VIDEO_FAIL = 'GET_VIDEO_FAIL';
 export const GET_VIDEOS_FAIL = 'GET_VIDEOS_FAIL';
+export const UPDATE_VIDEO = 'UPDATE_VIDEO';
+export const UPDATE_VIDEO_FAIL = 'UPDATE_VIDEO_FAIL';
+export const DELETE_VIDEO = 'DELETE_VIDEO';
+export const DELETE_VIDEO_FAIL = 'DELETE_VIDEO_FAIL';
 
 

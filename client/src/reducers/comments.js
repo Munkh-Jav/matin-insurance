@@ -20,7 +20,6 @@ export default (state = initialState, action = {}) => {
                 comments_error: ''
             };
         case UPDATE_COMMENT:
-            console.log(action.comment)
             return {
                 ...state,
                 comments: state.comments.map((item) => {

@@ -28,8 +28,6 @@ class Comments extends React.Component {
   }
 
   componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
-    console.log(prevProps.comments)
-    console.log(this.props.comments)
     if(!_.isEqual(prevProps.comments, this.props.comments)){
       this.setState({loading: []});
     }

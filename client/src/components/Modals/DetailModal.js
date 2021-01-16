@@ -5,11 +5,12 @@ import Modal from 'react-modal';
 class DetailModal extends React.Component {
     constructor(props) {
         super(props);
+        let right = (this.props.width) ? this.props.width : "35%";
         this.customStyles = {
             content : {
                 top                   : '50%',
                 left                  : '50%',
-                right                 : '35%',
+                right                 : right,
                 bottom                : 'auto',
                 marginRight           : '-30%',
                 border                : 'none',

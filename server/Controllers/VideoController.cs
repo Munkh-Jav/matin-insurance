@@ -44,19 +44,19 @@ namespace VideosApi.Controllers
         }
 
         [Authorize]
-        [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, Video VideoIn)
+        [HttpPut]
+        public ActionResult<Video> Update(Video VideoIn)
         {
-            var Video = _VideoService.Get(id);
+            var Video = _VideoService.Get(VideoIn.Id);
 
             if (Video == null)
             {
                 return NotFound();
             }
 
-            _VideoService.Update(id, VideoIn);
+            _VideoService.Update(VideoIn.Id, VideoIn);
 
-            return NoContent();
+            return VideoIn;
         }
 
         [Authorize]

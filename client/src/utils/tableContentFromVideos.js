@@ -1,11 +1,8 @@
-import axios from "axios";
-import config from '../config.json'
-import _ from 'lodash';
 import nFormatter from './nFormat'
 import getVideoDetails from "./getVideoDetails";
 
 
-export default async (videos, filters) => {
+export default async (videos, filters, buttons) => {
     const table_data = [];
 
     if(!videos || videos.length === 0 )
@@ -17,7 +14,13 @@ export default async (videos, filters) => {
         }];
 
     await Promise.all(videos.map(async video => {
+        if(!video.video_url || video.video_url.length < 5){
+            return;
+        }
        var videoData = await getVideoDetails(video.video_url);
+       if(videoData.items.length < 1){
+           return;
+       }
        var videoThumbnail = videoData.items[0].snippet.thumbnails.high.url;
        var videoStats = videoData.items[0].statistics;
 
@@ -26,6 +29,7 @@ export default async (videos, filters) => {
             title: "",
             image: videoThumbnail,
             url: video.video_url,
+            object: video,
             id: video.id,
             contents: []
         }
@@ -53,11 +57,27 @@ export default async (videos, filters) => {
                     }
                     break;
                 case "dislikes" : 
-                content = {
-                    value: nFormatter(videoStats.dislikeCount, 0),
-                    centered: true
-                }
+                    content = {
+                        value: nFormatter(videoStats.dislikeCount, 0),
+                        centered: true
+                    }
                     break;
+                case "buttons":
+                    content = {
+                        type: "button-group",
+                        value: [
+                            {
+                                title: "Edit",
+                                callback: buttons[0].callback,
+                                class: 'bg-gradient-info border-0'
+                            },
+                            {
+                                title: "Delete",
+                                callback: buttons[1].callback,
+                                class: 'bg-gradient-danger border-0'
+                            }
+                        ]
+                    }
                 
             }
             object.contents.push(content);

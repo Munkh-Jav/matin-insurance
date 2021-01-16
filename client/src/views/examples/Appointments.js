@@ -58,9 +58,13 @@ class Appointments extends React.Component {
       case 1:
       case 2:
       default:
-        this.props.emailPerson();
+        this.emailPerson(appointment);
         break;
     }
+  }
+
+  emailPerson(appointment){
+    window.location = "mailto:"+appointment.client_email;
   }
 
   denyButton = (appointment) => {

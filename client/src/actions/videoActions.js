@@ -1,5 +1,5 @@
 import server from "../api/server";
-import {videos_route} from "../utils/serverRoutes";
+import {comments_route, videos_route} from "../utils/serverRoutes";
 import {
     GET_VIDEOS,
     GET_VIDEOS_FAIL,
@@ -7,6 +7,8 @@ import {
     GET_VIDEO_FAIL,
     POST_VIDEO,
     POST_VIDEO_FAIL,
+    DELETE_VIDEO,
+    DELETE_VIDEO_FAIL, UPDATE_COMMENT, UPDATE_COMMENT_FAIL, UPDATE_VIDEO, UPDATE_VIDEO_FAIL,
 } from "./types";
 import axios from "axios";
 
@@ -56,6 +58,40 @@ export const addVideo = (video) => async dispatch => {
         if(!e.response)
             return dispatch({type: POST_VIDEO_FAIL, error: 'Server error'});
         dispatch({type: POST_VIDEO_FAIL, error: e.response.data});
+    }
+}
+
+export const updateVideo = (video) => async dispatch => {
+    console.log(video)
+    try{
+        const {data} = await server.put(videos_route, video,{
+            headers: {
+                'Authorization': axios.defaults.headers.common['Authorization']
+            }
+        });
+        dispatch({type: UPDATE_VIDEO, video: data});
+    }catch(e){
+        if(!e.response)
+            return dispatch({type: UPDATE_VIDEO_FAIL, error: 'Server error'});
+
+        dispatch({type: UPDATE_VIDEO_FAIL, error: e.response.data});
+    }
+}
+
+export const deleteVideo = (video) => async dispatch => {
+    console.log(video)
+    try{
+        await server.delete(videos_route+`/${video.id}`, {
+            headers: {
+                'Authorization': axios.defaults.headers.common['Authorization']
+            }
+        });
+        dispatch({type: DELETE_VIDEO, video: video});
+    }catch(e){
+        if(!e.response)
+            return dispatch({type: DELETE_VIDEO_FAIL, error: 'Server error'});
+
+        dispatch({type: DELETE_VIDEO_FAIL, error: e.response.data});
     }
 }
 
