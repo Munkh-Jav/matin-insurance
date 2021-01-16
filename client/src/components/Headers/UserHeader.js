@@ -11,10 +11,10 @@ class UserHeader extends React.Component {
         <div
           className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
           style={{
-            minHeight: "600px",
+            minHeight: "500px",
             backgroundImage:
               "url(" + require("assets/img/theme/profile-cover.jpg").default + ")",
-            backgroundSize: "cover",
+            backgroundSize: "1000px 600px",
             backgroundPosition: "center top"
           }}
         >
@@ -24,18 +24,11 @@ class UserHeader extends React.Component {
           <Container className="d-flex align-items-center" fluid>
             <Row>
               <Col lg="7" md="10">
-                <h1 className="display-2 text-white">Hello Jesse</h1>
+                <h1 className="display-2 text-white">Hello Matin!</h1>
                 <p className="text-white mt-0 mb-5">
-                  This is your profile page. You can see the progress you've
-                  made with your work and manage your projects or assigned tasks
+                  This is your settings page. You can modify information about your account!
                 </p>
-                <Button
-                  color="info"
-                  href="#pablo"
-                  onClick={e => e.preventDefault()}
-                >
-                  Edit profile
-                </Button>
+            
               </Col>
             </Row>
           </Container>

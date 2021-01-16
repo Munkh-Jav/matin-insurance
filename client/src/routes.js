@@ -6,6 +6,7 @@ import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import Appointments from "views/examples/Appointments.js";
 import Comments from "views/examples/Comments.js";
+import Settings from "views/examples/Settings.js";
 import Icons from "views/examples/Icons.js";
 import Videos from "views/examples/Videos.js";
 
@@ -43,6 +44,13 @@ var routes = [
     name: "Appointments",
     icon: "ni ni-bullet-list-67 text-red",
     component: Appointments,
+    layout: "/admin"
+  },
+  {
+    path: "/settings",
+    name: "Settings",
+    icon: "ni ni-single-02 text-yellow",
+    component: Settings,
     layout: "/admin"
   },
   {
