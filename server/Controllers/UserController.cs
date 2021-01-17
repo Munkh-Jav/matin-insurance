@@ -34,7 +34,7 @@ namespace UsersApi.Controllers
             var response = _UserService.ChangePass(model);
 
             if (response == null)
-                return BadRequest("Wrong password" );
+                return BadRequest("Old password wrong" );
 
             return Ok(response);
         }

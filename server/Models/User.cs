@@ -19,7 +19,6 @@ namespace server.Models
         public string profile_img {get; set; }
 
         public Boolean admin {get; set; }
-        /*TODO:PUT ISADMIN FIELD BOOL*/
 
     }
     

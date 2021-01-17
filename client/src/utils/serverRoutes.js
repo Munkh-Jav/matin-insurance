@@ -6,3 +6,4 @@ export const stats_route = '/api/stats';
 export const comments_route = '/api/comment';
 export const videos_route = '/api/video';
 export const appointments_route = '/api/appointment';
+export const admin_info_route = '/api/admininfo';

@@ -17,6 +17,7 @@ import {
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
 import ChangePassModal from "../../components/Modals/ChangePassModal";
+import ChangeContactModal from "../../components/Modals/ChangeContactModal";
 import DetailModal from "../../components/Modals/DetailModal";
 import {changePass} from "../../actions/userActions";
 import {connect} from 'react-redux'
@@ -26,25 +27,44 @@ class Settings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      is_modal_open: false
+      is_pass_modal_open: false,
+      is_contact_modal_open: false
     }
   }
 
-  openModal = (e) => {
+  //Password Modal Handlers
+  openPassModal = (e) => {
     if(e)
       e.preventDefault();
-    this.setState({is_modal_open: true});
+    this.setState({is_pass_modal_open: true});
   }
 
-  closeModal = (e) => {
+  closePassModal = (e) => {
     if(e)
       e.preventDefault();
-    this.setState({is_modal_open:false, selected_video: {}})
+    this.setState({is_pass_modal_open:false})
   }
 
-  modalSubmit = (formContent) => {
+  modalSubmitPass = (formContent) => {
     this.props.changePass(formContent);
-    //FAIT QQCH ICITTE AUSSI TBNK
+  }
+
+  //Contact Modal Handlers 
+  openContactModal = (e) => {
+    if(e)
+      e.preventDefault();
+    this.setState({is_contact_modal_open: true});
+  }
+
+  closeContactModal = (e) => {
+    if(e)
+      e.preventDefault();
+    this.setState({is_contact_modal_open:false})
+  }
+
+  modalSubmitContact = (formContent) => {
+    //this.props.changePass(formContent);
+    //TODO: CREATE changeContact 
   }
 
   render() {
@@ -102,7 +122,7 @@ class Settings extends React.Component {
                           <Button
                             color="primary"
                             className="btn bg-red"
-                            onClick={this.openModal}
+                            onClick={this.openPassModal}
                             size="sm"
                           >
                             Change password
@@ -110,19 +130,17 @@ class Settings extends React.Component {
                         </Col>
                       </Row>
                       <DetailModal
-                      isOpen={this.state.is_modal_open}
-                      onRequestClose={this.closeModal}
-                      >
-                <ChangePassModal
-                      dark={localStorage.getItem("dark") === 'true'}
-                      closeModal={this.closeModal}
-                      object={this.state.selected_video}
-                      onSubmit={this.modalSubmit}
-                  />  
-              </DetailModal>
+                          isOpen={this.state.is_pass_modal_open}
+                          onRequestClose={this.closePassModal}
+                          >
+                            <ChangePassModal
+                                  closeModal={this.closePassModal}
+                                  onSubmit={this.modalSubmitPass}
+                              />
+                      </DetailModal>
                     </div>
                     <hr className="my-4" />
-                    {/* Address */}
+                    {/* Contact Info */}
                     <h6 className="heading-small text-muted mb-4">
                       Contact information
                     </h6>
@@ -142,6 +160,7 @@ class Settings extends React.Component {
                               id="input-address"
                               placeholder="Home Address"
                               type="text"
+                              disabled
                             />
                           </FormGroup>
                         </Col>
@@ -161,6 +180,7 @@ class Settings extends React.Component {
                               id="input-city"
                               placeholder="City"
                               type="text"
+                              disabled
                             />
                           </FormGroup>
                         </Col>
@@ -178,6 +198,7 @@ class Settings extends React.Component {
                               id="input-country"
                               placeholder="Country"
                               type="text"
+                              disabled
                             />
                           </FormGroup>
                         </Col>
@@ -194,11 +215,50 @@ class Settings extends React.Component {
                               id="input-postal-code"
                               placeholder="DITTO"
                               type="number"
+                              disabled
                             />
                           </FormGroup>
                         </Col>
-                      </Row>
+                        <Col lg="4">
+                          <FormGroup>
+                            <label
+                              className="form-control-label"
+                              htmlFor="input-country"
+                            >
+                              Phone Number
+                            </label>
+                            <Input
+                              className="form-control-alternative"
+                              id="input-phone"
+                              placeholder="DITTO"
+                              type="number"
+                              disabled
+                            />
+                          </FormGroup>
+                        </Col>
+                        </Row>
+                        <Row>                   
+                        <Col lg="4">
+                             <Button
+                            color="primary"
+                            className="btn bg-red"
+                            onClick={this.openContactModal}
+                            size="sm"
+                          >
+                            Change Information
+                          </Button>
+                        </Col>
+                        </Row>
                     </div>
+                    <DetailModal
+                      isOpen={this.state.is_contact_modal_open}
+                      onRequestClose={this.closeContactModal}
+                      >
+                      <ChangeContactModal
+                      closeModal={this.closeContactModal}
+                      onSubmit={this.modalSubmitContact}
+                     />  
+              </DetailModal>
                   </Form>
                 </CardBody>
               </Card>
