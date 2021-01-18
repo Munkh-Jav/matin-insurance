@@ -19,16 +19,39 @@ import UserHeader from "components/Headers/UserHeader.js";
 import ChangePassModal from "../../components/Modals/ChangePassModal";
 import ChangeContactModal from "../../components/Modals/ChangeContactModal";
 import DetailModal from "../../components/Modals/DetailModal";
-import {changePass} from "../../actions/userActions";
+import {changePass, changeEmail} from "../../actions/userActions";
+import {getAdminInfo, updateAdminInfo} from "../../actions/adminActions";
 import {connect} from 'react-redux'
+import validateEmail from "../../utils/validateEmail";
+import _ from "lodash";
 
 class Settings extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      email : this.props.email,
+      contact : this.props.contact,
       is_pass_modal_open: false,
       is_contact_modal_open: false
+    }
+    this.onChange = this.onChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.getAdminInfo();
+    document.addEventListener('change_email', e=> {
+      if(e.detail.success){
+        this.showSnackBar("Email updated !");
+      }else{
+        this.showSnackBar("Something went wrong");
+      }
+    }, false);
+  }
+
+  componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
+    if(!_.isEqual(prevProps.contact, this.props.contact)){
+      this.setState({contact: this.props.contact});
     }
   }
 
@@ -39,10 +62,18 @@ class Settings extends React.Component {
     this.setState({is_pass_modal_open: true});
   }
 
-  closePassModal = (e) => {
+  onChange(e) {
+    this.setState({  [e.target.name]: e.target.value});
+  }
+
+  closePassModal = (e, updated, error) => {
     if(e)
       e.preventDefault();
     this.setState({is_pass_modal_open:false})
+    if(updated)
+      this.showSnackBar("Password updated !");
+    if(error)
+      this.showSnackBar("Something went wrong");
   }
 
   modalSubmitPass = (formContent) => {
@@ -56,15 +87,31 @@ class Settings extends React.Component {
     this.setState({is_contact_modal_open: true});
   }
 
-  closeContactModal = (e) => {
+  closeContactModal = (e, updated) => {
     if(e)
       e.preventDefault();
     this.setState({is_contact_modal_open:false})
+    if(updated)
+      this.showSnackBar("Info updated !");
   }
 
   modalSubmitContact = (formContent) => {
-    //this.props.changePass(formContent);
-    //TODO: CREATE changeContact 
+    this.props.updateAdminInfo(formContent);
+  }
+
+  updateEmail = e => {
+      e.preventDefault();
+      if(!validateEmail(this.state.email) || this.state.email.length < 5)
+        return this.showSnackBar("Invalid Email");
+      this.props.changeEmail(this.state.email);
+  }
+
+  showSnackBar(message){
+    const x = document.getElementById("snackbar");
+    x.className = "show";
+
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    this.setState({snackbar_message: message})
   }
 
   render() {
@@ -88,20 +135,38 @@ class Settings extends React.Component {
                     <div className="pl-lg-4">
                       <Row>
                         <Col lg="6">
-                          <FormGroup>
+                          <FormGroup >
                             <label
                               className="form-control-label"
                               htmlFor="input-email"
                             >
                               Email address
                             </label>
+
                             <Input
                               className="form-control-alternative"
                               id="input-email"
-                              placeholder="jesse@example.com"
+                              placeholder="admin@example.com"
+                              name="email"
                               type="email"
+                              onChange={this.onChange}
+                              value={this.state.email}
                             />
+
                           </FormGroup>
+                        </Col>
+                        <Col lg="6">
+                          <FormGroup className="update-btn">
+                            <Button
+                                color="primary"
+                                className="btn bg-red"
+                                onClick={this.updateEmail}
+                                size="sm"
+                            >
+                              Update
+                            </Button>
+                          </FormGroup>
+
                         </Col>
                       </Row>
                       <Row>
@@ -117,6 +182,7 @@ class Settings extends React.Component {
                               className="form-control-alternative"
                               id="input-password"
                               defaultValue="******"
+                              disabled
                             />
                           </FormGroup>
                           <Button
@@ -131,10 +197,10 @@ class Settings extends React.Component {
                       </Row>
                       <DetailModal
                           isOpen={this.state.is_pass_modal_open}
-                          onRequestClose={this.closePassModal}
+                          onRequestClose={this.closeContactModal}
                           >
                             <ChangePassModal
-                                  closeModal={this.closePassModal}
+                                  closeModal={this.closeContactModal}
                                   onSubmit={this.modalSubmitPass}
                               />
                       </DetailModal>
@@ -146,7 +212,7 @@ class Settings extends React.Component {
                     </h6>
                     <div className="pl-lg-4">
                       <Row>
-                        <Col md="12">
+                        <Col md="6">
                           <FormGroup>
                             <label
                               className="form-control-label"
@@ -156,11 +222,28 @@ class Settings extends React.Component {
                             </label>
                             <Input
                               className="form-control-alternative"
-                              defaultValue="CHANGER LA DEFAULT VALUE PAR LA ACTUAL VALUE"
                               id="input-address"
+                              value={this.state.contact.address}
                               placeholder="Home Address"
                               type="text"
                               disabled
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col lg="6">
+                          <FormGroup>
+                            <label
+                                className="form-control-label"
+                                htmlFor="input-country"
+                            >
+                              Phone Number
+                            </label>
+                            <Input
+                                className="form-control-alternative"
+                                id="input-phone"
+                                value={this.state.contact.phone}
+                                placeholder="Phone"
+                                disabled
                             />
                           </FormGroup>
                         </Col>
@@ -176,7 +259,7 @@ class Settings extends React.Component {
                             </label>
                             <Input
                               className="form-control-alternative"
-                              defaultValue="DITTO"
+                              value={this.state.contact.city}
                               id="input-city"
                               placeholder="City"
                               type="text"
@@ -194,7 +277,7 @@ class Settings extends React.Component {
                             </label>
                             <Input
                               className="form-control-alternative"
-                              defaultValue="DITTO"
+                              value={this.state.contact.country}
                               id="input-country"
                               placeholder="Country"
                               type="text"
@@ -213,29 +296,13 @@ class Settings extends React.Component {
                             <Input
                               className="form-control-alternative"
                               id="input-postal-code"
-                              placeholder="DITTO"
-                              type="number"
+                              value={this.state.contact.postal_code}
+                              placeholder="Postal code"
                               disabled
                             />
                           </FormGroup>
                         </Col>
-                        <Col lg="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-country"
-                            >
-                              Phone Number
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              id="input-phone"
-                              placeholder="DITTO"
-                              type="number"
-                              disabled
-                            />
-                          </FormGroup>
-                        </Col>
+
                         </Row>
                         <Row>                   
                         <Col lg="4">
@@ -255,17 +322,27 @@ class Settings extends React.Component {
                       onRequestClose={this.closeContactModal}
                       >
                       <ChangeContactModal
-                      closeModal={this.closeContactModal}
-                      onSubmit={this.modalSubmitContact}
+                        contact={this.state.contact}
+                        closeModal={this.closeContactModal}
+                        onSubmit={this.modalSubmitContact}
                      />  
               </DetailModal>
                   </Form>
                 </CardBody>
               </Card>
+        <div id="snackbar">{this.state.snackbar_message}</div>
         
       </>
     );
   }
 }
 
-export default connect(null, {changePass})(Settings);
+
+const mapStateToProps = (state) => {
+  return {
+    email: state.auth.user.email,
+    contact : state.admin.info
+  }
+}
+
+export default connect(mapStateToProps, {changePass, changeEmail, getAdminInfo, updateAdminInfo})(Settings);

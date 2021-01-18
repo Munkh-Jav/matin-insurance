@@ -17,16 +17,10 @@ namespace AdminInfosApi.Controllers
             _AdminInfoService = AdminInfoService;
         }
 
-        [Authorize]
         [HttpGet]
-        public ActionResult<List<AdminInfo>> Get() =>
-            _AdminInfoService.Get();
-
-        [Authorize]
-        [HttpGet("{id:length(24)}", Name = "GetAdminInfo")]
-        public ActionResult<AdminInfo> Get(string id)
+        public ActionResult<AdminInfo> Get()
         {
-            var AdminInfo = _AdminInfoService.Get(id);
+            var AdminInfo = _AdminInfoService.Get();
 
             if (AdminInfo == null)
             {
@@ -36,43 +30,35 @@ namespace AdminInfosApi.Controllers
             return AdminInfo;
         }
 
-        [HttpPost]
-        public ActionResult<AdminInfo> Create(AdminInfo AdminInfo)
-        {
-            _AdminInfoService.Create(AdminInfo);
-
-            return CreatedAtRoute("GetAdminInfo", new { id = AdminInfo.Id.ToString() }, AdminInfo);
-        }
-
         [Authorize]
         [HttpPut]
         public ActionResult<AdminInfo> Update(AdminInfo body)
         {
 
-            var AdminInfo = _AdminInfoService.Get(body.Id);
+            var AdminInfo = _AdminInfoService.Get();
 
             if (AdminInfo == null)
             {
                 return NotFound();
             }
 
-            _AdminInfoService.Update(body.Id, body);
+            _AdminInfoService.Update(body);
 
             return body;
         }
 
         [Authorize]
-        [HttpDelete("{id:length(24)}")]
-        public IActionResult Delete(string id)
+        [HttpDelete]
+        public IActionResult Delete()
         {
-            var AdminInfo = _AdminInfoService.Get(id);
+            var AdminInfo = _AdminInfoService.Get();
 
             if (AdminInfo == null)
             {
                 return NotFound();
             }
 
-            _AdminInfoService.Delete(AdminInfo.Id);
+            _AdminInfoService.Delete();
 
             return NoContent();
         }

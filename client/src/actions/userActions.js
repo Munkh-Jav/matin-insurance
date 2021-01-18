@@ -8,9 +8,9 @@ import {
     SIGN_OUT,
     UPDATE_TOKEN,
     CHANGE_PASS,
-    CHANGE_PASS_ERROR
+    CHANGE_PASS_ERROR, CHANGE_EMAIL_ERROR, CHANGE_EMAIL
 } from './types';
-import {change_pass_route, login_route, new_token_route} from "../utils/serverRoutes";
+import {user_route} from "../utils/serverRoutes";
 import history from "../history";
 import server from "../api/server";
 
@@ -23,7 +23,7 @@ export const logout = () => dispatch => {
 
 export const login = (formValues) => async dispatch => {
     try{
-        const {data} = await server.post(login_route, {email: formValues.email, password : formValues.password});
+        const {data} = await server.post(user_route, {email: formValues.email, password : formValues.password});
         localStorage.setItem('jwtToken', data.token);
         setAuthorizationToken(data.token);
         dispatch({type: SIGN_IN, user: jwtDecode(data.token)});
@@ -35,13 +35,29 @@ export const login = (formValues) => async dispatch => {
 export const changePass = (formValues) => async (dispatch, getState) => {
     try{
         const id = getState().auth.user.id;
-        const {data} = await server.post(change_pass_route, {id: id, old:formValues.old_password, password : formValues.new_password});
-        dispatch({type: CHANGE_PASS, message: "trueee"});
+        const {data} = await server.post(user_route + "/change-pass", {id: id, old:formValues.old_password, password : formValues.new_password});
+
+        document.dispatchEvent(new CustomEvent('change_pass', { detail : {success: true} }));
+        dispatch({type: CHANGE_PASS, message: "true"});
     }catch(e){
-        console.log(e.response)
         if(!e.response)
             return dispatch({type: CHANGE_PASS_ERROR, error: 'Server error'});
         dispatch({type: CHANGE_PASS_ERROR, error: e.response.data});
+    }
+}
+
+export const changeEmail = (email) => async (dispatch, getState) => {
+    try{
+        const id = getState().auth.user.id;
+        const {data} = await server.post(user_route + "/change-email", {id: id, email : email});
+        dispatch({type: CHANGE_EMAIL, email: email});
+        document.dispatchEvent(new CustomEvent('change_email', { detail : {success: true} }));
+    }catch(e){
+        document.dispatchEvent(new CustomEvent('change_email', { detail : {success: false} }));
+        if(!e.response)
+            return dispatch({type: CHANGE_EMAIL_ERROR, error: 'Server error'});
+        dispatch({type: CHANGE_EMAIL_ERROR, error: e.response.data});
+
     }
 }
 
@@ -49,7 +65,7 @@ export const changePass = (formValues) => async (dispatch, getState) => {
 
 export const updateToken = () => async dispatch => {
     try{
-        const {data} = await server.post(new_token_route);
+        const {data} = await server.post(user_route + "/new-token");
         localStorage.setItem('jwtToken', data);
         setAuthorizationToken(data);
         dispatch({type: UPDATE_TOKEN, user: jwtDecode(data)});

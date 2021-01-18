@@ -5,6 +5,7 @@ import stats from "./stats";
 import appointments from "./appointments";
 import comments from './comments';
 import videos from './videos';
+import admin from './admin';
 
 export default combineReducers({
     auth,
@@ -12,5 +13,6 @@ export default combineReducers({
     appointments,
     comments,
     videos,
+    admin,
     form: formReducer,
 })

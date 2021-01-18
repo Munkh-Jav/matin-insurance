@@ -17,11 +17,11 @@ class ChangePassModal extends React.Component {
         super(props);
         this.state= {
             content : {
-                address : "",
-                city : "",
-                country : "",
-                postal_code : "", 
-                phone : ""
+                address : this.props.contact.address,
+                city : this.props.contact.city,
+                country : this.props.contact.country,
+                postal_code : this.props.contact.postal_code,
+                phone : this.props.contact.phone
             },
             error: '',
             changed:false,
@@ -33,17 +33,20 @@ class ChangePassModal extends React.Component {
         this.setState({ content: { ...this.state.content, [e.target.name]: e.target.value} });
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        //Set changed state to true for contact info
-        if(this.props.message === "changed"){
-            this.props.closeModal();
-            window.location.reload(false);
-        }
+    componentDidMount() {
+        document.addEventListener('change_contact', e => {
+            if(e.detail.success){
+                this.props.closeModal(undefined, true);
+            }else{
+                this.props.closeModal(undefined, false, true);
+            }
+        }, false);
     }
 
 
     onSubmitContactInfo = (e) =>{
-        //TODO: Edit AdminInfo Collection with new Contact Information
+        e.preventDefault()
+        this.props.onSubmit(this.state.content);
     }
 
 
@@ -62,7 +65,7 @@ class ChangePassModal extends React.Component {
                       <i className="fas fa-map-marker"/>
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input placeholder="New Address" type="text" name="new_address"  onChange={this.onChange}/>
+                  <Input placeholder="New Address" type="text" name="address" value={this.state.content.address}  onChange={this.onChange}/>
                 </InputGroup>
                 <Row>
                 <Col xs="6">
@@ -72,7 +75,7 @@ class ChangePassModal extends React.Component {
                       <i className= "fas fa-city" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input placeholder="New City" type="text" name="new_city" onChange={this.onChange}/>
+                  <Input placeholder="New City" type="text" name="city" value={this.state.content.city} onChange={this.onChange}/>
                 </InputGroup>
                 </Col>
                 <Col xs="6">
@@ -82,7 +85,7 @@ class ChangePassModal extends React.Component {
                       <i className= "fas fa-flag"/>
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input placeholder="New Country" type="text" name="new_password_confirmation" onChange={this.onChange}/>
+                  <Input placeholder="New Country" type="text" name="country" value={this.state.content.country} onChange={this.onChange}/>
                 </InputGroup>
                 </Col>
                 </Row>
@@ -94,7 +97,7 @@ class ChangePassModal extends React.Component {
                       <i className= "fas fa-mail-bulk" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input placeholder="Postal Code" type="text" name="postal_code" onChange={this.onChange}/>
+                  <Input placeholder="Postal Code" type="text" name="postal_code" value={this.state.content.postal_code} onChange={this.onChange}/>
                 </InputGroup>
                 </Col>
                 <Col xs="8">
@@ -104,7 +107,7 @@ class ChangePassModal extends React.Component {
                       <i className= "fas fa-phone"/>
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input placeholder="New Contact Phone" type="text" name="new_password_confirmation" onChange={this.onChange}/>
+                  <Input placeholder="New Contact Phone" type="text" name="phone" value={this.state.content.phone} onChange={this.onChange}/>
                 </InputGroup>
                 </Col>
                 </Row>

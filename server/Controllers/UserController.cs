@@ -39,6 +39,17 @@ namespace UsersApi.Controllers
             return Ok(response);
         }
 
+        [HttpPost("change-email")]
+        public ActionResult ChangeEmail(ChangeEmailRequest model)
+        {
+            var response = _UserService.ChangeEmail(model);
+
+            if (response == null)
+                return BadRequest("Something went wrong" );
+
+            return Ok(response);
+        }
+
         [HttpPost("signup")]
         public ActionResult Signup(User user)
         {

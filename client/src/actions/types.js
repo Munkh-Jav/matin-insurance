@@ -6,6 +6,8 @@ export const SIGN_OUT = 'SIGN_OUT';
 export const UPDATE_TOKEN = 'UPDATE_TOKEN';
 export const CHANGE_PASS = 'CHANGE_PASS';
 export const CHANGE_PASS_ERROR = 'CHANGE_PASS_ERROR';
+export const CHANGE_EMAIL = 'CHANGE_EMAIL';
+export const CHANGE_EMAIL_ERROR = 'CHANGE_EMAIL_ERROR';
 
 //Stats HTTP requests
 export const GET_STATS = 'GET_STATS';
@@ -39,8 +41,8 @@ export const DELETE_VIDEO_FAIL = 'DELETE_VIDEO_FAIL';
 
 
 //AdminInfo HTTP requests
-export const GET_ADMININFO = 'GET_ADMININFO';
-export const GET_ADMININFO_FAIL = 'GET_ADMININFO_FAIL';
-export const UPDATE_ADMININFO = 'UPDATE_ADMININFO';
-export const UPDATE_ADMININFO_FAIL = 'UPDATE_ADMININFO_FAIL';
+export const GET_INFO = 'GET_INFO';
+export const GET_INFO_FAIL = 'GET_INFO_FAIL';
+export const UPDATE_INFO = 'UPDATE_INFO';
+export const UPDATE_INFO_FAIL = 'UPDATE_INFO_FAIL';
 

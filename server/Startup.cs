@@ -33,7 +33,8 @@ namespace server
             services.AddSingleton<VideoService>();
             services.AddSingleton<CommentService>();
             services.AddSingleton<StatsService>();
-            services.AddSingleton<UserService>();           
+            services.AddSingleton<UserService>();      
+            services.AddSingleton<AdminInfoService>();         
             services.AddControllersWithViews();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 

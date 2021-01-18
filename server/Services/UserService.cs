@@ -58,6 +58,20 @@ namespace server.Services
             return "ok";
         }
 
+        public string ChangeEmail(ChangeEmailRequest model)
+        {
+            var user = _Users.Find(x => x.Id == model.id).SingleOrDefault();
+            if (user == null) return null;
+
+
+            user.email = model.email;
+
+            _Users.ReplaceOne(sub => sub.Id == model.id, user);
+
+
+            return "ok";
+        }
+
         public AuthenticateResponse SignUp(User newUser)
         {
             newUser.password = BC.HashPassword(newUser.password);
@@ -76,7 +90,7 @@ namespace server.Services
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()),  new Claim("name", user.name.ToString()), new Claim("profile_img", user.profile_img.ToString())  }),
+                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()),  new Claim("name", user.name.ToString()), new Claim("profile_img", user.profile_img.ToString()), new Claim("email", user.email.ToString())  }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

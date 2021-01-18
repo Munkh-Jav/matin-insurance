@@ -29,13 +29,18 @@ class ChangePassModal extends React.Component {
         this.setState({ content: { ...this.state.content, [e.target.name]: e.target.value} });
     }
 
+    componentDidMount() {
+        document.addEventListener('change_pass', e => {
+            if(e.detail.success){
+                this.props.closeModal(undefined, true);
+            }
+        }, false);
+    }
+
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(prevState.content.new_password !== this.state.content.new_password || prevState.content.new_password_confirmation !== this.state.content.new_password_confirmation || prevState.content.old_password !== this.state.content.old_password){
             this.setState({changed:true});
-        }
-        if(this.props.message === "changed"){
-            this.props.closeModal();
-            window.location.reload(false);
         }
     }
 
@@ -69,23 +74,23 @@ class ChangePassModal extends React.Component {
                       <i className="fas fa-lock" style={{color: (error && !changed && error !== "Passwords don't match") ? 'red' : ''}}/>
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input placeholder="Old Password" type="text" name="old_password"  onChange={this.onChange}/>
+                  <Input placeholder="Old Password" type="password" name="old_password"  onChange={this.onChange}/>
                 </InputGroup>
                 <InputGroup className="input-group-alternative mt-3">
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
-                      <i className= "fas fa-lock-open" style={{color: (error && !changed && error != "Old password wrong") ? 'red' : ''}}/>
+                      <i className= "fas fa-lock-open" style={{color: (error && !changed && error !== "Old password wrong") ? 'red' : ''}}/>
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input placeholder="New Password" type="text" name="new_password" onChange={this.onChange}/>
+                  <Input placeholder="New Password" type="password" name="new_password" onChange={this.onChange}/>
                 </InputGroup>
                 <InputGroup className="input-group-alternative mt-3">
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
-                      <i className= "fas fa-lock-open" style={{color: (error && !changed && error != "Old password wrong") ? 'red' : ''}}/>
+                      <i className= "fas fa-lock-open" style={{color: (error && !changed && error !== "Old password wrong") ? 'red' : ''}}/>
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input placeholder="Confirm New Password" type="text" name="new_password_confirmation" onChange={this.onChange}/>
+                  <Input placeholder="Confirm New Password" type="password" name="new_password_confirmation" onChange={this.onChange}/>
                 </InputGroup>
               </FormGroup>
                     {error && <p style={{color: 'red', fontSize: 12}}>{error}</p>}
