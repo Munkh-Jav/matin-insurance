@@ -27,7 +27,7 @@ class VideoPage extends React.Component {
 
   componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
 
-    if(this.state.description.length == 0 && !_.isEmpty(this.props.video)){
+    if(this.state.description.length === 0 && !_.isEmpty(this.props.video)){
       this.getVideoDetails();
     }
   }
