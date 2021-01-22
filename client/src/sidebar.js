@@ -1,7 +1,7 @@
 
 import Index from "views/Index.js";
 import Settings from "views/examples/Settings.js";
-import Maps from "views/examples/Maps.js";
+import Comments from "views/examples/Comments.js";
 
 import Appointments from "views/examples/Appointments.js";
 import Videos from "views/examples/Videos.js";
@@ -33,7 +33,7 @@ var routes = [
     path: "/comments",
     name: "Comments",
     icon: "ni ni-pin-3 text-orange",
-    component: Maps,
+    component: Comments,
     layout: "/admin"
   },
   {

@@ -30,7 +30,7 @@ class Settings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email : this.props.email,
+      email : "",
       contact : this.props.contact,
       is_pass_modal_open: false,
       is_contact_modal_open: false
@@ -146,7 +146,7 @@ class Settings extends React.Component {
                             <Input
                               className="form-control-alternative"
                               id="input-email"
-                              placeholder="admin@example.com"
+                              placeholder="Enter new email address"
                               name="email"
                               type="email"
                               onChange={this.onChange}
