@@ -9,6 +9,7 @@ import Comments from "views/examples/Comments.js";
 import Settings from "views/examples/Settings.js";
 import Icons from "views/examples/Icons.js";
 import Videos from "views/examples/Videos.js";
+import AllVideos from "./views/examples/VideoList";
 
 var routes = [
   {
@@ -81,6 +82,13 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: Register,
     layout: "/auth"
+  },
+  {
+    path: "/list",
+    name: "Videos",
+    icon: "ni ni-circle-08 text-pink",
+    component: AllVideos,
+    layout: "/video"
   }
 ];
 export default routes;

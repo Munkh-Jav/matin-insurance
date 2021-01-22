@@ -54,6 +54,30 @@
   transform: translate(-50%, -1px) !important;
 }
 
+.border-5 {
+  border-radius: 3% !important;
+}
+.overlay {
+  object-fit: cover;
+  opacity: 0.4;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.play {
+  background-image:url('/assets/img/play_white.png');
+  background-repeat:no-repeat;
+  width:20%;
+  height:20%;
+  position:absolute;
+  left:0%;
+  right:0%;
+  top:0%;
+  bottom:0%;
+  margin:auto;
+  background-size:contain;
+  background-position: center;
+}
+
 @media (min-width: 992px) {
   .update-btn {
     position:relative;

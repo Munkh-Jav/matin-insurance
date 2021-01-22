@@ -17,7 +17,7 @@ import {
 // core components
 
 
-import Header from "components/Headers/Header.js";
+import Header from "../components/Headers/Header";
 import TableCard from "../components/Cards/TableCard";
 import BarGraph from "../components/Cards/BarGraph";
 import ContentCard from "../components/Cards/ContentCard";

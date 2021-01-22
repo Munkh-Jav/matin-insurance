@@ -9,6 +9,7 @@ import "assets/scss/argon-dashboard-react.scss";
 
 import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
+import VideoLayout from "layouts/Video.js";
 
 import {Provider} from 'react-redux'
 import {createStore, applyMiddleware, compose} from "redux";
@@ -40,6 +41,7 @@ ReactDOM.render(
         <Switch>
             <Route path="/admin" component={requireAuth(AdminLayout)} />
             <Route path="/auth" component={checkIfAuth(AuthLayout)} />
+            <Route path="/video" component={VideoLayout} />
             <Redirect from="/" to="/auth/login" />
         </Switch>
       </Router>
