@@ -10,6 +10,7 @@ import MainHeader from "components/Headers/MainHeader.js";
 import {connect} from 'react-redux';
 import {getVideos} from "../../actions/videoActions";
 import getVideoDetails from "../../utils/getVideoDetails";
+import history from "../../history";
 
 
 class VideoList extends React.Component {
@@ -44,6 +45,12 @@ class VideoList extends React.Component {
     this.props.getVideos();
   }
 
+  redirectToVideo = (video_id) => {
+  
+    history.push(`/video/${video_id}`);
+
+  }
+
   displayVideos() {
     return this.props.videos.map((video, i) => {
       if(!video.video_url || video.video_url.length < 5){
@@ -65,12 +72,14 @@ class VideoList extends React.Component {
                   </div>
                 </Row>
               </CardHeader>
-              <CardBody>
+              <CardBody onClick={() => this.redirectToVideo(video.id)}>
                 <div className="pl-3 pr-3">
-                  <Col xl="12">
+                  <Col xl="12"
+                   
+                    >
                     <img style={{width: '100%'}} src={this.state.thumbnails[i]}/>
-                    {this.state.thumbnails[i] && <img style={{width: '100%'}} src="https://dummyimage.com/600x400/000/000000.png" className="overlay card-img-overlay"/>}
-                    {this.state.thumbnails[i] &&  <div className="play"></div>}
+                    {this.state.thumbnails[i] && <div className="overlay card-img-overlay"> <div className="play"></div></div>}
+                    {/*this.state.thumbnails[i] && */}
                   </Col>
                 </div>
               </CardBody>

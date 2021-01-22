@@ -7,6 +7,8 @@ import Comments from "views/examples/Comments.js";
 import Settings from "views/examples/Settings.js";
 import Videos from "views/examples/Videos.js";
 import AllVideos from "./views/examples/VideoList";
+import VideoPage from "./views/examples/VideoPage";
+
 
 var routes = [
   {
@@ -64,6 +66,13 @@ var routes = [
     name: "Videos",
     icon: "ni ni-circle-08 text-pink",
     component: AllVideos,
+    layout: "/video"
+  },
+  {
+    path: "/:id",
+    name: "Video",
+    icon: "ni ni-circle-08 text-pink",
+    component: VideoPage,
     layout: "/video"
   }
 ];
