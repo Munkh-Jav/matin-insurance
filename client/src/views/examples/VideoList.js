@@ -77,7 +77,7 @@ class VideoList extends React.Component {
                   <Col xl="12"
                    
                     >
-                    <img style={{width: '100%'}} src={this.state.thumbnails[i]}/>
+                    <img style={{width: '270px', height : '152px', objectFit: 'cover'}} src={this.state.thumbnails[i]}/>
                     {this.state.thumbnails[i] && <div className="overlay card-img-overlay"> <div className="play"></div></div>}
                     {/*this.state.thumbnails[i] && */}
                   </Col>

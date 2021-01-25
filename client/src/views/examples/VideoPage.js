@@ -8,8 +8,10 @@ import {
 } from "reactstrap";
 import MainHeader from "components/Headers/MainHeader.js";
 import {connect} from 'react-redux';
-import {getVideos} from "../../actions/videoActions";
+import ContentCard from "../../components/Cards/ContentCard";
 import {getVideo} from "../../actions/videoActions";
+import Comment from "../../components/Groups/Comment";
+import {getComments} from "../../actions/commentActions";
 import getVideoDetails from "../../utils/getVideoDetails";
 import ReactPlayer from "react-player";
 import _ from "lodash";
@@ -33,6 +35,7 @@ class VideoPage extends React.Component {
   }
   componentDidMount() {
     this.props.getVideo(this.props.match.params.id);
+    this.props.getComments("5ffe0784fb4f491f7cf72a75");
     
   }
 
@@ -47,8 +50,12 @@ class VideoPage extends React.Component {
     this.setState({description: videoDescription});
 
   }
-
-  
+/*
+  getComments = () => {
+    return this.props.comments.map(comment => {
+      return <Comment key={comment.id} comment={comment} hide_buttons={true}/>
+    })
+  }*/
 
  
   render() {
@@ -59,12 +66,12 @@ class VideoPage extends React.Component {
         <Container className="mt-4" fluid>
             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}  >
                 <Row className="mr-6 ml-6">
-                <div >
+                <di v >
                 <ReactPlayer
                  url={this.props.video.video_url}
                      />
                      
-                </div>
+                </di>
             </Row>
             
               <Row className="align-items-center">
@@ -78,6 +85,21 @@ class VideoPage extends React.Component {
                   </div>
                 </Row>
 
+                <Row>
+            <div className="col">
+           { /*<ContentCard
+                    title="Comments"
+                    top_button="See all"
+
+                    top_callback={this.showSomething}
+                    toggleComments={true}
+                >
+                  {this.getComments()}
+                  </ContentCard> */}
+          
+            </div>
+          </Row>
+
             
                     
                     
@@ -90,8 +112,10 @@ class VideoPage extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    video: state.videos.video
+    video: state.videos.video,
+    comments: state.comments.comments
+
   }
 }
 
-export default connect(mapStateToProps, {getVideo})(VideoPage);
+export default connect(mapStateToProps, {getVideo, getComments})(VideoPage);
