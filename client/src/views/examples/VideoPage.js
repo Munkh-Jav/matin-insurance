@@ -35,7 +35,7 @@ class VideoPage extends React.Component {
   }
   componentDidMount() {
     this.props.getVideo(this.props.match.params.id);
-    this.props.getComments("5ffe0784fb4f491f7cf72a75");
+    this.props.getComments(this.props.match.params.id);
     
   }
 
@@ -50,61 +50,56 @@ class VideoPage extends React.Component {
     this.setState({description: videoDescription});
 
   }
-/*
+
   getComments = () => {
     return this.props.comments.map(comment => {
       return <Comment key={comment.id} comment={comment} hide_buttons={true}/>
     })
-  }*/
+  }
 
  
   render() {
 
     return (
       <>
-        <MainHeader />
-        <Container className="mt-4" fluid>
-            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}  >
-                <Row className="mr-6 ml-6">
-                <di v >
-                <ReactPlayer
-                 url={this.props.video.video_url}
-                     />
-                     
-                </di>
-            </Row>
-            
-              <Row className="align-items-center">
-                  <div className="col">
-                    <h6 className="text-uppercase text-muted ls-1 mb-1">
-                      Video
-                    </h6>
-                    <h2 className="mb-0">{this.props.video.video_title}</h2>
-                    <hr/>
-                    <p>{this.state.description}</p>
-                  </div>
-                </Row>
+          <MainHeader/>
+          <Container className="mt-4" fluid>
+              <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                  <Row className="mr-6 ml-6">
+                      <div>
+                          <ReactPlayer url={this.props.video.video_url}/>
+                      </div>
+                  </Row>
 
-                <Row>
-            <div className="col">
-           { /*<ContentCard
-                    title="Comments"
-                    top_button="See all"
-
-                    top_callback={this.showSomething}
-                    toggleComments={true}
-                >
-                  {this.getComments()}
-                  </ContentCard> */}
-          
-            </div>
-          </Row>
-
-            
-                    
-                    
-            </div>
-        </Container>
+                  <Row className="align-items-center">
+                      <div className="col">
+                          <h6 className="text-uppercase text-muted ls-1 mb-1">
+                              Video
+                          </h6>
+                          <h2 className="mb-0">{this.props.video.video_title}</h2>
+                          <hr/>
+                          <p>{this.state.description}</p>
+                      </div>
+                  </Row>
+              </div>
+          </Container>
+          <Container className="mt-4" fluid>
+              <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                  <Row>
+                      <div>
+                          <ContentCard
+                              title="Comments"
+                              hide_top_button={true}
+                              top_button="See all"
+                              top_callback={this.showSomething}
+                              toggleComments={true}
+                          >
+                              {this.getComments()}
+                          </ContentCard>
+                      </div>
+                  </Row>
+              </div>
+          </Container>
       </>
     );
   }
@@ -114,7 +109,6 @@ const mapStateToProps = (state) => {
   return {
     video: state.videos.video,
     comments: state.comments.comments
-
   }
 }
 
