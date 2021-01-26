@@ -78,15 +78,15 @@ class VideoPage extends React.Component {
                           </h6>
                           <h2 className="mb-0">{this.props.video.video_title}</h2>
                           <hr/>
-                          <p>{this.state.description}</p>
+                          <p style={{fontSize :'0.7rem'}}>{this.state.description}</p>
                       </div>
                   </Row>
               </div>
           </Container>
-          <Container className="mt-4" fluid>
-              <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                  <Row>
-                      <div>
+          <Container className="mt-4">
+              <div style={{alignItems: 'center', justifyContent: 'center'}}>
+                  <Row >
+                      <div style={{width : '100%'}}>
                           <ContentCard
                               title="Comments"
                               hide_top_button={true}

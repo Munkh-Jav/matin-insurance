@@ -11,6 +11,7 @@ import {connect} from 'react-redux';
 import {getVideos} from "../../actions/videoActions";
 import getVideoDetails from "../../utils/getVideoDetails";
 import history from "../../history";
+import _ from "lodash";
 
 
 class VideoList extends React.Component {
@@ -18,25 +19,25 @@ class VideoList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      thumbnails: []
+      thumbnails: {}
     }
   }
 
   componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
-    if(this.state.thumbnails.length == 0 && this.props.videos.length > 0){
+    if(_.isEmpty(this.state.thumbnails) && this.props.videos.length > 0){
       this.getVideoDetails();
     }
   }
 
   async getVideoDetails() {
-    const thumbnails = []
+    const thumbnails = {}
     await Promise.all(this.props.videos.map(async video => {
       var videoData = await getVideoDetails(video.video_url);
       if(videoData.items.length < 1){
         return;
       }
       var videoThumbnail = videoData.items[0].snippet.thumbnails.maxres.url;
-      thumbnails.push(videoThumbnail);
+        thumbnails = {...thumbnails, [video.id]: videoThumbnail }
     }))
     this.setState({thumbnails: thumbnails});
   }
@@ -60,9 +61,18 @@ class VideoList extends React.Component {
       if(!video_id)
         return null;
       return (
-          <Col xl="6">
-            <Card className="border-5 shadow p-3 ml-4 mr-4 mb-5 bg-white rounded">
-              <CardHeader className="bg-transparent">
+          <Col xl="4" className="mb-5">            
+                <div className="pl-1 pr-1">
+                  <Col xl="12"
+                   onClick={() => this.redirectToVideo(video.id)}
+                    className="mb-1"
+                    >
+                    <img style={{width: '100%', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'}} src={this.state.thumbnails[video.id]}/>
+                    {this.state.thumbnails[video.id] && <div className="overlay card-img-overlay"> <div className="play"></div></div>}
+                    {/*this.state.thumbnails[i] && */}
+                  </Col>
+                </div>
+                <hr className="mb-1 mt-4"/>
                 <Row className="align-items-center">
                   <div className="col">
                     <h6 className="text-uppercase text-muted ls-1 mb-1">
@@ -71,19 +81,6 @@ class VideoList extends React.Component {
                     <h2 className="mb-0">{video.video_title}</h2>
                   </div>
                 </Row>
-              </CardHeader>
-              <CardBody onClick={() => this.redirectToVideo(video.id)}>
-                <div className="pl-3 pr-3">
-                  <Col xl="12"
-                   
-                    >
-                    <img style={{width: '100%'}} src={this.state.thumbnails[i]}/>
-                    {this.state.thumbnails[i] && <div className="overlay card-img-overlay"> <div className="play"></div></div>}
-                    {/*this.state.thumbnails[i] && */}
-                  </Col>
-                </div>
-              </CardBody>
-            </Card>
           </Col>
       )
     })
@@ -93,7 +90,8 @@ class VideoList extends React.Component {
     return (
       <>
         <MainHeader />
-        <h1>VIDEO GALLERY</h1>
+        
+        <h1 className="mt-3 mb-4 text-center display-1 text-muted">Video Gallery</h1>
         <Container className="mt-2" fluid>
             <div>
               <Col>
