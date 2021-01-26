@@ -32,14 +32,15 @@ namespace server.Services
         }
 
         public List<Comment> Get() {
-        
                 var comments = _Comments.Find(sub => true).Sort("{date: -1}").ToList();
-        return  comments  ;
-        
+                return  comments  ;
         }
 
         public Comment Get(string id) =>
             _Comments.Find(sub=>sub.Id == id).SingleOrDefault();
+
+        public List<Comment> GetByVideo(string id) =>
+            _Comments.Find(sub=>sub.video_id == id).ToList();
 
         public void Update(string id, Comment Comment) {
             if(Comment.status != 0){

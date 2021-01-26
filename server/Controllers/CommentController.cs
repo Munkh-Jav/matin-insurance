@@ -20,10 +20,23 @@ namespace CommentsApi.Controllers
         public ActionResult<List<Comment>> Get() =>
             _CommentService.Get();
 
-        [HttpGet("{id:length(24)}", Name = "GetComment")]
+        [HttpGet("{id:length(24)}")]
         public ActionResult<Comment> Get(string id)
         {
             var Comment = _CommentService.Get(id);
+
+            if (Comment == null)
+            {
+                return NotFound();
+            }
+
+            return Comment;
+        }
+
+        [HttpGet("by-video/{id:length(24)}")]
+        public ActionResult<List<Comment>> GetByVideo(string id)
+        {
+            var Comment = _CommentService.GetByVideo(id);
 
             if (Comment == null)
             {

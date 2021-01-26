@@ -5,6 +5,7 @@ import {
     DELETE_COMMENT_FAIL,
     GET_COMMENTS,
     GET_COMMENTS_FAIL,
+    GET_VIDEO_COMMENTS, GET_VIDEO_COMMENTS_FAIL,
     UPDATE_COMMENT,
     UPDATE_COMMENT_FAIL
 } from "./types";
@@ -12,12 +13,12 @@ import axios from "axios";
 
 export const getComments = (video_id) => async dispatch => {
     try{
-        const {data} = await server.get(comments_route + `/${video_id}`);
-        dispatch({type: GET_COMMENTS, comments: data});
+        const {data} = await server.get(comments_route + `/by-video/${video_id}`);
+        dispatch({type: GET_VIDEO_COMMENTS, comments: data});
     }catch(e){
         if(!e.response)
-            return dispatch({type: GET_COMMENTS_FAIL, error: 'Server error'});
-        dispatch({type: GET_COMMENTS_FAIL, error: e.response.data});
+            return dispatch({type: GET_VIDEO_COMMENTS_FAIL, error: 'Server error'});
+        dispatch({type: GET_VIDEO_COMMENTS_FAIL, error: e.response.data});
     }
 }
 

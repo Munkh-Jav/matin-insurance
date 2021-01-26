@@ -2,7 +2,7 @@ import {
     DELETE_COMMENT,
     DELETE_COMMENT_FAIL,
     GET_COMMENTS,
-    GET_COMMENTS_FAIL,
+    GET_COMMENTS_FAIL, GET_VIDEO_COMMENTS, GET_VIDEO_COMMENTS_FAIL,
     UPDATE_COMMENT, UPDATE_COMMENT_FAIL
 } from '../actions/types';
 
@@ -34,12 +34,19 @@ export default (state = initialState, action = {}) => {
                 }),
                 comments_error: ''
             };
+        case GET_VIDEO_COMMENTS:
+            return {
+                ...state,
+                comments: action.comments,
+                comments_error: ''
+            };
         case DELETE_COMMENT:
             return {
                 ...state,
                 comments: state.comments.filter(item => item.id !== action.comment.id),
                 comments_error: ''
             };
+        case GET_VIDEO_COMMENTS_FAIL:
         case UPDATE_COMMENT_FAIL:
         case DELETE_COMMENT_FAIL:
         case GET_COMMENTS_FAIL:
