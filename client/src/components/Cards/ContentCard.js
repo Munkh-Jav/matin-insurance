@@ -1,5 +1,9 @@
 import React from 'react';
-import {Button, Card, CardBody, CardHeader, Row} from "reactstrap";
+import {Button, Card, CardBody, CardHeader, Row, Form,
+    InputGroupAddon,
+    InputGroupText,
+    Input,
+    InputGroup} from "reactstrap";
 
 class ContentCard extends React.Component {
     render() {
@@ -10,10 +14,10 @@ class ContentCard extends React.Component {
                         <div className="col">
                             <h3 className="mb-0">{this.props.title}</h3>
                         </div>
+                        
                         <div className="col text-right">
                             <Button
                                 color="primary"
-                                href="#pablo"
                                 onClick={this.props.top_callback}
                                 size="sm"
                                 style={{ display :  (this.props.hide_top_button) && "none"}}
@@ -22,7 +26,9 @@ class ContentCard extends React.Component {
                             </Button>
                         </div>
                     </Row>
+                    
                 </CardHeader>
+
                 <CardBody>
                     {this.props.children}
                 </CardBody>

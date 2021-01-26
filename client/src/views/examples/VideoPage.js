@@ -4,9 +4,10 @@ import React from "react";
 // reactstrap components
 import {
   Card, CardBody, CardHeader, CardFooter,
-  Col, Container, Row    
+  Col, Container, Row
 } from "reactstrap";
 import MainHeader from "components/Headers/MainHeader.js";
+import DetailModal from "../../components/Modals/DetailModal";
 import {connect} from 'react-redux';
 import ContentCard from "../../components/Cards/ContentCard";
 import {getVideo} from "../../actions/videoActions";
@@ -15,6 +16,7 @@ import {getComments} from "../../actions/commentActions";
 import getVideoDetails from "../../utils/getVideoDetails";
 import ReactPlayer from "react-player";
 import _ from "lodash";
+import UserAddCommentModal from "components/Modals/UserAddCommentModal";
 
 
 
@@ -23,6 +25,8 @@ class VideoPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      is_modal_open: false,
+      is_confirm_modal_open: false,
       description: ""
     }
   }
@@ -57,6 +61,30 @@ class VideoPage extends React.Component {
     })
   }
 
+  onChange(e) {
+    this.setState({ content: { ...this.state.content, [e.target.name]: e.target.value} });
+}
+
+openModal = (e) => {
+  if(e)
+    e.preventDefault();
+  this.setState({is_modal_open: true});
+}
+
+closeModal = (e) => {
+  e.preventDefault();
+  this.setState({is_modal_open:false})
+}
+
+openConfirmModal = (video) => {
+  this.setState({is_confirm_modal_open: true});
+}
+
+closeConfirmModal = () => {
+  this.setState({is_confirm_modal_open:false})
+}
+
+
  
   render() {
 
@@ -87,17 +115,27 @@ class VideoPage extends React.Component {
               <div style={{alignItems: 'center', justifyContent: 'center'}}>
                   <Row >
                       <div style={{width : '100%'}}>
+                        
                           <ContentCard
                               title="Comments"
-                              hide_top_button={true}
-                              top_button="See all"
-                              top_callback={this.showSomething}
+                              top_button="Add Comment"
+                              top_callback={this.openModal}
                               toggleComments={true}
                           >
                               {this.getComments()}
                           </ContentCard>
                       </div>
+                      
                   </Row>
+                  <DetailModal
+                          isOpen={this.state.is_modal_open}
+                          onRequestClose={this.closeModal}
+                          >
+                            <UserAddCommentModal
+                                  closeModal={this.closeModal}
+                                  onSubmit={this.submitSomething}
+                              />
+                      </DetailModal>
               </div>
           </Container>
       </>
