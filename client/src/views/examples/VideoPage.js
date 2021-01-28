@@ -10,9 +10,10 @@ import MainHeader from "components/Headers/MainHeader.js";
 import DetailModal from "../../components/Modals/DetailModal";
 import {connect} from 'react-redux';
 import ContentCard from "../../components/Cards/ContentCard";
-import {getVideo} from "../../actions/videoActions";
+import {getVideo, cleanVideo} from "../../actions/videoActions";
 import Comment from "../../components/Groups/Comment";
 import {getComments} from "../../actions/commentActions";
+import {CLEAN_VIDEO} from "../../actions/types";
 import getVideoDetails from "../../utils/getVideoDetails";
 import ReactPlayer from "react-player";
 import _ from "lodash";
@@ -38,6 +39,7 @@ class VideoPage extends React.Component {
     }
   }
   componentDidMount() {
+    this.props.cleanVideo();
     this.props.getVideo(this.props.match.params.id);
     this.props.getComments(this.props.match.params.id);
     
@@ -150,4 +152,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {getVideo, getComments})(VideoPage);
+export default connect(mapStateToProps, {getVideo, getComments, cleanVideo})(VideoPage);

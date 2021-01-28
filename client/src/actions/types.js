@@ -30,6 +30,7 @@ export const DELETE_COMMENT = 'DELETE_COMMENT';
 export const DELETE_COMMENT_FAIL = 'DELETE_COMMENT_FAIL';
 
 //Video HTTP requests
+export const CLEAN_VIDEO = 'CLEAN_VIDEO';
 export const GET_VIDEO = 'GET_VIDEO';
 export const POST_VIDEO = 'POST_VIDEO';
 export const POST_VIDEO_FAIL = 'POST_VIDEO_FAIL';

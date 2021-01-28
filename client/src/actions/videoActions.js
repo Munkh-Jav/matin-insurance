@@ -8,7 +8,7 @@ import {
     POST_VIDEO,
     POST_VIDEO_FAIL,
     DELETE_VIDEO,
-    DELETE_VIDEO_FAIL, UPDATE_VIDEO, UPDATE_VIDEO_FAIL,
+    DELETE_VIDEO_FAIL, UPDATE_VIDEO, UPDATE_VIDEO_FAIL, CLEAN_VIDEO,
 } from "./types";
 import axios from "axios";
 
@@ -93,6 +93,12 @@ export const deleteVideo = (video) => async dispatch => {
 
         dispatch({type: DELETE_VIDEO_FAIL, error: e.response.data});
     }
+}
+
+export const cleanVideo = () => dispatch => {
+   
+        dispatch({type: CLEAN_VIDEO});
+    
 }
 
 

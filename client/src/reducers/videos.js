@@ -6,7 +6,7 @@ import {
     POST_VIDEO,
     POST_VIDEO_FAIL,
     DELETE_VIDEO_FAIL,
-    DELETE_VIDEO, UPDATE_VIDEO, UPDATE_VIDEO_FAIL
+    DELETE_VIDEO, UPDATE_VIDEO, UPDATE_VIDEO_FAIL, CLEAN_VIDEO
 } from '../actions/types';
 
 const initialState = {
@@ -23,6 +23,13 @@ export default (state = initialState, action = {}) => {
                 videos: action.videos,
                 videos_error: ''
             };
+
+        case CLEAN_VIDEO:
+            return {
+                ...state,
+                video: {},
+            };
+    
 
         case POST_VIDEO:
             return {
