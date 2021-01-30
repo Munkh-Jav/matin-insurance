@@ -30,7 +30,7 @@ class VideoList extends React.Component {
   }
 
   async getVideoDetails() {
-    const thumbnails = {}
+    let thumbnails = {}
     await Promise.all(this.props.videos.map(async video => {
       var videoData = await getVideoDetails(video.video_url);
       if(videoData.items.length < 1){

@@ -20,7 +20,7 @@ namespace CommentsApi.Controllers
         public ActionResult<List<Comment>> Get() =>
             _CommentService.Get();
 
-        [HttpGet("{id:length(24)}")]
+        [HttpGet("{id:length(24)}", Name = "GetComment")]
         public ActionResult<Comment> Get(string id)
         {
             var Comment = _CommentService.Get(id);
@@ -46,7 +46,7 @@ namespace CommentsApi.Controllers
             return Comment;
         }
         
-        [Authorize]    
+        //[Authorizeg]
         [HttpPost]
         public ActionResult<Comment> Create(Comment Comment)
         {

@@ -1,6 +1,8 @@
 import server from "../api/server";
 import {comments_route} from "../utils/serverRoutes";
 import {
+    ADD_COMMENT,
+    ADD_COMMENT_FAIL,
     DELETE_COMMENT,
     DELETE_COMMENT_FAIL,
     GET_COMMENTS,
@@ -46,6 +48,34 @@ export const updateComment = (comment) => async dispatch => {
             return dispatch({type: UPDATE_COMMENT_FAIL, error: 'Server error'});
 
         dispatch({type: UPDATE_COMMENT_FAIL, error: e.response.data});
+    }
+}
+
+export const addComment = (comment, user, video) => async dispatch => {
+    try{
+        const req = {
+            user_id: user.id,
+            user_name: user.name,
+            user_avatar: user.profile_img,
+            comment_text: comment,
+            status: 0,
+            date: new Date(),
+            video_id: video.id,
+            video_title:video.video_title
+        };
+        const {data} = await server.post(comments_route, req,{
+            headers: {
+                'Authorization': axios.defaults.headers.common['Authorization']
+            }
+        });
+        document.dispatchEvent(new CustomEvent('post_comment', { detail : {success: true} }));
+        dispatch({type: ADD_COMMENT, comment: data});
+    }catch(e){
+        document.dispatchEvent(new CustomEvent('post_comment', { detail : {success: false} }));
+        if(!e.response)
+            return dispatch({type: ADD_COMMENT_FAIL, error: 'Server error'});
+
+        dispatch({type: ADD_COMMENT_FAIL, error: e.response.data});
     }
 }
 

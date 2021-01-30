@@ -1,4 +1,5 @@
 import {
+    ADD_COMMENT, ADD_COMMENT_FAIL,
     DELETE_COMMENT,
     DELETE_COMMENT_FAIL,
     GET_COMMENTS,
@@ -34,6 +35,12 @@ export default (state = initialState, action = {}) => {
                 }),
                 comments_error: ''
             };
+        case ADD_COMMENT:
+            return {
+                ...state,
+                comments:[...state.comments, action.comment],
+                comments_error: ''
+            };
         case GET_VIDEO_COMMENTS:
             return {
                 ...state,
@@ -46,6 +53,7 @@ export default (state = initialState, action = {}) => {
                 comments: state.comments.filter(item => item.id !== action.comment.id),
                 comments_error: ''
             };
+        case ADD_COMMENT_FAIL:
         case GET_VIDEO_COMMENTS_FAIL:
         case UPDATE_COMMENT_FAIL:
         case DELETE_COMMENT_FAIL:

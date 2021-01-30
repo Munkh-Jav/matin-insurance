@@ -53,9 +53,8 @@ class ChangePassModal extends React.Component {
             this.setState({error: "Password must be at least 8 characters long", changed:false});
         }else{
             this.setState({error: '', isLoading: true, changed:false});
-            this.props.onSubmit( this.state.content);
+            this.props.onSubmit(this.state.content);
         }
-
     }
 
 

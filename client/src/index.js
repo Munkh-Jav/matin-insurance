@@ -13,23 +13,13 @@ import VideoLayout from "layouts/Video.js";
 import AppointmentLayout from "layouts/Appointment.js";
 
 import {Provider} from 'react-redux'
-import {createStore, applyMiddleware, compose} from "redux";
-import reducers from './reducers';
-import reduxThunk from 'redux-thunk';
 import history from "./history";
 import requireAuth from "./utils/requireAuth";
 import checkIfAuth from "./utils/checkIfAuth";
 import setAuthorizationToken from "./utils/setAuthorizationToken";
 import {SIGN_IN} from "./actions/types";
 import jwtDecode from "jwt-decode";
-
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const store = createStore(
-    reducers,
-    composeEnhancers(applyMiddleware(reduxThunk))
-)
+import store from 'store'
 
 if (localStorage.jwtToken) {
     setAuthorizationToken(localStorage.jwtToken);

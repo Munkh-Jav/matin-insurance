@@ -40,7 +40,7 @@ namespace server.Services
             _Comments.Find(sub=>sub.Id == id).SingleOrDefault();
 
         public List<Comment> GetByVideo(string id) =>
-            _Comments.Find(sub=>sub.video_id == id).ToList();
+            _Comments.Find(sub=>sub.video_id == id).Sort("{date: -1}").ToList();
 
         public void Update(string id, Comment Comment) {
             if(Comment.status != 0){

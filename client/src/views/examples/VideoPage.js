@@ -1,10 +1,9 @@
-
 import React from "react";
 
 // reactstrap components
 import {
-  Card, CardBody, CardHeader, CardFooter,
-  Col, Container, Row
+    Card, CardBody, CardHeader, CardFooter,
+    Col, Container, Row, FormGroup, InputGroup, InputGroupAddon, InputGroupText, Input, Button, Form
 } from "reactstrap";
 import MainHeader from "components/Headers/MainHeader.js";
 import DetailModal from "../../components/Modals/DetailModal";
@@ -12,144 +11,184 @@ import {connect} from 'react-redux';
 import ContentCard from "../../components/Cards/ContentCard";
 import {getVideo, cleanVideo} from "../../actions/videoActions";
 import Comment from "../../components/Groups/Comment";
-import {getComments} from "../../actions/commentActions";
+import {addComment, getComments} from "../../actions/commentActions";
 import {CLEAN_VIDEO} from "../../actions/types";
 import getVideoDetails from "../../utils/getVideoDetails";
 import ReactPlayer from "react-player";
 import _ from "lodash";
 import UserAddCommentModal from "components/Modals/UserAddCommentModal";
-
+import authCheck from "../../utils/authCheck";
+import validateEmail from "../../utils/validateEmail";
 
 
 class VideoPage extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      is_modal_open: false,
-      is_confirm_modal_open: false,
-      description: ""
+    constructor(props) {
+        super(props);
+        this.state = {
+            is_modal_open: false,
+            is_confirm_modal_open: false,
+            description: "",
+            content: {
+                new_comment: ''
+            },
+            error: '',
+            isLoading: false
+        }
+        this.onChange = this.onChange.bind(this)
     }
-  }
 
-  componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
 
-    if(this.state.description.length === 0 && !_.isEmpty(this.props.video)){
-      this.getVideoDetails();
+        if (this.state.description.length === 0 && !_.isEmpty(this.props.video)) {
+            this.getVideoDetails();
+        }
     }
-  }
-  componentDidMount() {
-    this.props.cleanVideo();
-    this.props.getVideo(this.props.match.params.id);
-    this.props.getComments(this.props.match.params.id);
-    
-  }
 
-  async getVideoDetails() {
-    
-      var videoData = await getVideoDetails(this.props.video.video_url);
-      if(videoData.items.length < 1){
-        return;
-      }
-      var videoDescription = videoData.items[0].snippet.description;
+    componentDidMount() {
+        this.props.cleanVideo();
+        this.props.getVideo(this.props.match.params.id);
+        this.props.getComments(this.props.match.params.id);
+        document.addEventListener('post_comment', e=> {
+            if(e.detail.success){
+                this.showSnackBar("Comment submitted for approval");
+            }else{
+                this.showSnackBar("Something went wrong");
+            }
+        }, false);
+    }
 
-    this.setState({description: videoDescription});
+    async getVideoDetails() {
 
-  }
+        var videoData = await getVideoDetails(this.props.video.video_url);
+        if (videoData.items.length < 1) {
+            return;
+        }
+        var videoDescription = videoData.items[0].snippet.description;
 
-  getComments = () => {
-    return this.props.comments.map(comment => {
-      return <Comment key={comment.id} comment={comment} hide_buttons={true}/>
-    })
-  }
+        this.setState({description: videoDescription});
 
-  onChange(e) {
-    this.setState({ content: { ...this.state.content, [e.target.name]: e.target.value} });
-}
+    }
 
-openModal = (e) => {
-  if(e)
-    e.preventDefault();
-  this.setState({is_modal_open: true});
-}
+    getComments = () => {
+        return this.filterComments(this.props.comments).map(comment => {
+            return <Comment key={comment.id} comment={comment} hide_buttons={true}/>
+        })
+    }
 
-closeModal = (e) => {
-  e.preventDefault();
-  this.setState({is_modal_open:false})
-}
+    filterComments = (comments) => {
+        if(comments.length === 0)
+            return []
+        return comments.filter(function(comment) {
+            return comment.status === 1;
+        });
+    }
 
-openConfirmModal = (video) => {
-  this.setState({is_confirm_modal_open: true});
-}
+    onChange(e) {
+        this.setState({content: {...this.state.content, [e.target.name]: e.target.value}});
+    }
 
-closeConfirmModal = () => {
-  this.setState({is_confirm_modal_open:false})
-}
+    onCommentSubmit = (e) => {
+        e.preventDefault();
+        if(this.state.content.new_comment.length < 1)
+            return this.showSnackBar("Please write a comment to post");
+        this.props.addComment(this.state.content.new_comment, this.props.user, this.props.video);
+    }
 
+    showSnackBar(message){
+        const x = document.getElementById("snackbar");
+        x.className = "show";
 
- 
-  render() {
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        this.setState({snackbar_message: message})
+    }
 
-    return (
-      <>
-          <MainHeader/>
-          <Container className="mt-4" fluid>
-              <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                  <Row className="mr-6 ml-6">
-                      <div>
-                          <ReactPlayer url={this.props.video.video_url}/>
-                      </div>
-                  </Row>
+    render() {
+        return (
+            <>
+                <MainHeader/>
+                <Container className="mt-4" fluid>
+                    <Col style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <Row>
+                            <Col xl={6}>
+                                <div>
+                                    <ReactPlayer width="100%" url={this.props.video.video_url}/>
+                                </div>
+                            </Col>
+                            <Col xl={6}>
+                                <Row className="align-items-center">
+                                    <Col>
+                                        <h6 className="text-uppercase text-muted ls-1 mb-1">
+                                            Video
+                                        </h6>
+                                        <h2 className="mb-0">{this.props.video.video_title}</h2>
+                                        <hr/>
+                                        <p style={{fontSize: '0.7rem'}}>{this.state.description}</p>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Container>
+                <Container className="mt-4 mb-4">
+                    <div style={{alignItems: 'center', justifyContent: 'center'}}>
+                        <Row>
+                            <div style={{width: '100%'}}>
+                                <ContentCard
+                                    title="Comments"
+                                    hide_top_button={true}
+                                    toggleComments={true}
+                                    can_add_comment={true}
+                                >
+                                    <div className="ml-2 mr-2 mb-2">
+                                        {authCheck() &&
+                                            <Form onSubmit={this.onCommentSubmit}>
+                                                <Row>
+                                                    <Col xl={10} md={10}>
+                                                        <FormGroup className="mt-0">
+                                                            <InputGroup className="input-group-alternative">
+                                                                <InputGroupAddon addonType="prepend">
+                                                                    <InputGroupText>
+                                                                        <i className="fas fa-comment"/>
+                                                                    </InputGroupText>
+                                                                </InputGroupAddon>
+                                                                <Input autoComplete="off" placeholder="Add a public comment..." type="text"
+                                                                       name="new_comment" onChange={this.onChange}/>
+                                                            </InputGroup>
+                                                        </FormGroup>
+                                                    </Col>
+                                                    <Col xl={2} md={2}>
+                                                        <div>
+                                                            <Button color="success" className="full-width" type="submit">
+                                                                Send
+                                                            </Button>
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+                                            </Form>
+                                        }
 
-                  <Row className="align-items-center">
-                      <div className="col">
-                          <h6 className="text-uppercase text-muted ls-1 mb-1">
-                              Video
-                          </h6>
-                          <h2 className="mb-0">{this.props.video.video_title}</h2>
-                          <hr/>
-                          <p style={{fontSize :'0.7rem'}}>{this.state.description}</p>
-                      </div>
-                  </Row>
-              </div>
-          </Container>
-          <Container className="mt-4">
-              <div style={{alignItems: 'center', justifyContent: 'center'}}>
-                  <Row >
-                      <div style={{width : '100%'}}>
-                        
-                          <ContentCard
-                              title="Comments"
-                              top_button="Add Comment"
-                              top_callback={this.openModal}
-                              toggleComments={true}
-                          >
-                              {this.getComments()}
-                          </ContentCard>
-                      </div>
-                      
-                  </Row>
-                  <DetailModal
-                          isOpen={this.state.is_modal_open}
-                          onRequestClose={this.closeModal}
-                          >
-                            <UserAddCommentModal
-                                  closeModal={this.closeModal}
-                                  onSubmit={this.submitSomething}
-                              />
-                      </DetailModal>
-              </div>
-          </Container>
-      </>
-    );
-  }
+                                        {this.getComments()}
+
+                                    </div>
+                                </ContentCard>
+                            </div>
+
+                        </Row>
+                    </div>
+                </Container>
+                <div id="snackbar">{this.state.snackbar_message}</div>
+            </>
+        );
+    }
 }
 
 const mapStateToProps = (state) => {
-  return {
-    video: state.videos.video,
-    comments: state.comments.comments
-  }
+    return {
+        video: state.videos.video,
+        comments: state.comments.comments,
+        user : state.auth.user
+    }
 }
 
-export default connect(mapStateToProps, {getVideo, getComments, cleanVideo})(VideoPage);
+export default connect(mapStateToProps, {getVideo, getComments, cleanVideo, addComment})(VideoPage);

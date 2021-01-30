@@ -197,10 +197,10 @@ class Settings extends React.Component {
                       </Row>
                       <DetailModal
                           isOpen={this.state.is_pass_modal_open}
-                          onRequestClose={this.closeContactModal}
+                          onRequestClose={this.closePassModal}
                           >
                             <ChangePassModal
-                                  closeModal={this.closeContactModal}
+                                  closeModal={this.closePassModal}
                                   onSubmit={this.modalSubmitPass}
                               />
                       </DetailModal>

@@ -91,7 +91,6 @@ namespace server.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()),  new Claim("name", user.name.ToString()), new Claim("profile_img", user.profile_img.ToString()), new Claim("email", user.email.ToString())  }),
-                Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
