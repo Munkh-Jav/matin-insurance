@@ -8,6 +8,7 @@ import Settings from "views/examples/Settings.js";
 import Videos from "views/examples/Videos.js";
 import AllVideos from "./views/examples/VideoList";
 import VideoPage from "./views/examples/VideoPage";
+import BookAppointmentPage from "./views/examples/BookAppointmentPage";
 
 
 var routes = [
@@ -74,6 +75,13 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: VideoPage,
     layout: "/video"
+  },
+  {
+    path: "/book",
+    name: "BookAppointment",
+    icon: "",
+    component: BookAppointmentPage,
+    layout: "/appointment"
   }
 ];
 export default routes;

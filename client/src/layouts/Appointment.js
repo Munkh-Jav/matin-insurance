@@ -1,16 +1,11 @@
 
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-// reactstrap components
-import { Container } from "reactstrap";
-// core components
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
-import AdminFooter from "components/Footers/AdminFooter.js";
 
 import routes from "routes.js";
 import MainNavbar from "../components/Navbars/MainNavbar";
 
-class Video extends React.Component {
+class Appointment extends React.Component {
   componentDidUpdate(e) {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -18,7 +13,7 @@ class Video extends React.Component {
   }
   getRoutes = routes => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/video") {
+      if (prop.layout === "/appointment") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -41,7 +36,7 @@ class Video extends React.Component {
         return routes[i].name;
       }
     }
-    return "Video Gallery";
+    return "Appointment";
   };
   render() {
     return (
@@ -53,7 +48,7 @@ class Video extends React.Component {
           />
           <Switch>
             {this.getRoutes(routes)}
-            <Redirect from="*" to="/video" />
+            <Redirect from="*" to="/appointment" />
           </Switch>
 
         </div>
@@ -62,4 +57,4 @@ class Video extends React.Component {
   }
 }
 
-export default Video;
+export default Appointment;
