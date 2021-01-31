@@ -1,6 +1,12 @@
 import server from "../api/server";
 import {appointments_route} from "../utils/serverRoutes";
-import {UPDATE_APPOINTMENT, UPDATE_APPOINTMENT_FAIL, GET_APPOINTMENTS, GET_APPOINTMENTS_FAIL} from "./types";
+import {
+    UPDATE_APPOINTMENT,
+    UPDATE_APPOINTMENT_FAIL,
+    GET_APPOINTMENTS,
+    GET_APPOINTMENTS_FAIL,
+    CREATE_APPOINTMENT, CREATE_APPOINTMENT_FAIL
+} from "./types";
 import axios from "axios";
 
 export const getAppointments = () => async dispatch => {
@@ -34,4 +40,24 @@ export const updateAppointment = (appointment) => async dispatch => {
         dispatch({type: UPDATE_APPOINTMENT_FAIL, error: e.response.data});
     }
 }
+
+export const newAppointment = (appointment_data, user_id) => async dispatch => {
+    try{
+        const req = {
+            client_id: user_id,
+            client_name: appointment_data.first_name.replace(/\s+/g,'') + " " + appointment_data.last_name.replace(/\s+/g,''),
+            client_email: appointment_data.email,
+            date: appointment_data.selectedDate,
+        };
+        const {data} = await server.post(appointments_route, req,{
+            headers: {
+                'Authorization': axios.defaults.headers.common['Authorization']
+            }
+        });
+        document.dispatchEvent(new CustomEvent('book_appointment', { detail : {success: true} }));
+    }catch(e){
+        document.dispatchEvent(new CustomEvent('book_appointment', { detail : {success: false} }));
+    }
+}
+
 

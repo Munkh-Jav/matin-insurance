@@ -105,8 +105,10 @@ class Index extends React.Component {
                     title="Pending Appointments"
                     top_button="Show All"
                     top_callback={this.showMoreAppointments}
-                    cols={["With", "Status", "Date", "Time", "Actions"]}
-                    rows={tableContentFromAppointments(filterAppointments(this.props.appointments), ["status", "date", "time"],[{title:"Accept"}, {title:"Deny"}])}
+                    //cols={["With", "Status", "Date", "Time", "Actions"]}
+                    //rows={tableContentFromAppointments(filterAppointments(this.props.appointments), ["status", "date", "time"],[{title:"Accept"}, {title:"Deny"}])}
+                    cols={["With", "Status", "Date", "Time"]}
+                    rows={tableContentFromAppointments(filterAppointments(this.props.appointments), ["status", "date", "time"])}
                     with_images={false}
                     rowClick={e => e.preventDefault()}
                     dark={localStorage.getItem("dark") === 'true'}
