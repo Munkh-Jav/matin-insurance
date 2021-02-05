@@ -11,6 +11,7 @@ import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
 import VideoLayout from "layouts/Video.js";
 import AppointmentLayout from "layouts/Appointment.js";
+import UserLayout from "layouts/User.js";
 
 import {Provider} from 'react-redux'
 import history from "./history";
@@ -34,6 +35,7 @@ ReactDOM.render(
             <Route path="/auth" component={checkIfAuth(AuthLayout)} />
             <Route path="/video" component={VideoLayout} />
             <Route path="/appointment" component={AppointmentLayout} />
+            <Route path="/user" component={requireAuth(UserLayout)}/>
             <Redirect from="/" to="/auth/login" />
         </Switch>
       </Router>

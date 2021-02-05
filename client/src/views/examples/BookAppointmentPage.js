@@ -30,9 +30,9 @@ class BookAppointmentPage extends React.Component {
             loading: false,
             is_confirm_modal_open: false,
             description: "",
-            first_name: "",
-            last_name: "",
-            email: "",
+            first_name: (this.props.user.name)?this.props.user.name.split(" ")[0]: "",
+            last_name: (this.props.user.name && this.props.user.name.split(" ")[1])?this.props.user.name.split(" ")[1]: "",
+            email: this.props.user.email,
             selectedDate: ""
         }
         this.onChange = this.onChange.bind(this);
@@ -50,7 +50,8 @@ class BookAppointmentPage extends React.Component {
                 //a changer le redirect
                 history.push('/video/list')
             }else{
-                this.showSnackBar("Something went wrong");
+                this.showSnackBar("Please make sure to enter all information");
+                this.setState({error : true});
             }
         }, false);
     }
@@ -65,12 +66,14 @@ class BookAppointmentPage extends React.Component {
     }
 
     isValidInput(){
-        //SAOUD
+        
 
-        //Example of error return
-        //return {message: "A date must be selected"};
+        if(this.state.first_name.length <= 0 || this.state.last_name.length <= 0  || 
+            this.state.email.length <= 0  || this.state.selectedDate.length <= 0 )
+        {
+          return {message : "Please make sure to enter all fields"}
+        }
 
-        //If no error, return true
         return true;
     }
 
@@ -79,7 +82,7 @@ class BookAppointmentPage extends React.Component {
         const isValid = this.isValidInput();
         if(typeof (isValid) === "object")
             return this.showSnackBar(isValid.message);
-        this.setState({loading: true})
+        this.setState({error: '', loading: true})
         this.props.newAppointment(this.state, this.props.user.id)
     }
 
@@ -87,7 +90,7 @@ class BookAppointmentPage extends React.Component {
         const x = document.getElementById("snackbar");
         x.className = "show";
 
-        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
         this.setState({snackbar_message: message})
     }
 
@@ -116,6 +119,7 @@ class BookAppointmentPage extends React.Component {
                 </InputGroup>
             </>
         );
+        const {error} = false;
 
         return (
             <>
@@ -165,7 +169,7 @@ class BookAppointmentPage extends React.Component {
                                                 <i className="fas fa-envelope"/>
                                             </InputGroupText>
                                         </InputGroupAddon>
-                                        <Input placeholder="Email address" defaultValue={(this.props.user.email)} type="text" name="email"
+                                        <Input placeholder="Email address" defaultValue={(this.props.user.email)} type="email" name="email"
                                                onChange={this.onChange}/>
                                     </InputGroup>
                                     <Row>
@@ -194,6 +198,7 @@ class BookAppointmentPage extends React.Component {
                                     </Row>
                                 </FormGroup>
                                 <div className=" mt-3">
+                                <p style={{color: 'red', fontSize: 14}}>{this.state.error}</p>
                                     <Button color="primary"
                                             type="submit"
                                             className="mt-2 center"
@@ -208,6 +213,7 @@ class BookAppointmentPage extends React.Component {
                                         }
                                     </Button>
                                 </div>
+                                
                             </Form>
 
                         </Col>

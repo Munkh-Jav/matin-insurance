@@ -9,6 +9,7 @@ import Videos from "views/examples/Videos.js";
 import AllVideos from "./views/examples/VideoList";
 import VideoPage from "./views/examples/VideoPage";
 import BookAppointmentPage from "./views/examples/BookAppointmentPage";
+import UserProfilePage from "./views/examples/UserProfilePage";
 
 
 var routes = [
@@ -82,6 +83,13 @@ var routes = [
     icon: "",
     component: BookAppointmentPage,
     layout: "/appointment"
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    icon: "",
+    component: UserProfilePage,
+    layout: "/user"
   }
 ];
 export default routes;

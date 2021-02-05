@@ -93,6 +93,8 @@ class VideoPage extends React.Component {
         if(this.state.content.new_comment.length < 1)
             return this.showSnackBar("Please write a comment to post");
         this.props.addComment(this.state.content.new_comment, this.props.user, this.props.video);
+        this.setState({content : {new_comment : ""}})
+
     }
 
     showSnackBar(message){
@@ -153,7 +155,7 @@ class VideoPage extends React.Component {
                                                                     </InputGroupText>
                                                                 </InputGroupAddon>
                                                                 <Input autoComplete="off" placeholder="Add a public comment..." type="text"
-                                                                       name="new_comment" onChange={this.onChange}/>
+                                                                       value={this.state.content.new_comment} name="new_comment" onChange={this.onChange}/>
                                                             </InputGroup>
                                                         </FormGroup>
                                                     </Col>

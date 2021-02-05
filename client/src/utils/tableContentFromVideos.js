@@ -21,7 +21,7 @@ export default async (videos, filters, buttons) => {
        if(videoData.items.length < 1){
            return;
        }
-       var videoThumbnail = videoData.items[0].snippet.thumbnails.maxres.url;
+       var videoThumbnail = videoData.items[0].snippet.thumbnails.standard.url;
        var videoStats = videoData.items[0].statistics;
 
 

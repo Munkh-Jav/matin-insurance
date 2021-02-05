@@ -14,7 +14,7 @@ class Login extends React.Component {
             <Row className="align-items-center justify-content-xl-between">
               <Col xl="12">
                 <div className="copyright text-center text-xl-center text-muted">
-                  © 2020 Novem
+                  © 2020 Matin
                 </div>
               </Col>
 

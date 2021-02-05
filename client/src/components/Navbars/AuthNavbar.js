@@ -24,7 +24,7 @@ class AdminNavbar extends React.Component {
         >
           <Container className="px-4">
             <NavbarBrand to="/" tag={Link}>
-              <img alt="..." src={require("assets/img/brand/novem-logo-white.png").default} />
+            {/* <img alt="..." src={require("assets/img/brand/novem-logo-white.png").default> />*/}
             </NavbarBrand>
             <button className="navbar-toggler" id="navbar-collapse-main">
               <span className="navbar-toggler-icon" />
@@ -34,10 +34,10 @@ class AdminNavbar extends React.Component {
                 <Row>
                   <Col className="collapse-brand" xs="6">
                     <Link to="/">
-                      <img
+                     {/* <img
                         alt="..."
                         src={require("assets/img/brand/novem-logo.png").default}
-                      />
+                     />*/}
                     </Link>
                   </Col>
                   <Col className="collapse-close" xs="6">

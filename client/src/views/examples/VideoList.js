@@ -36,7 +36,8 @@ class VideoList extends React.Component {
       if(videoData.items.length < 1){
         return;
       }
-      var videoThumbnail = videoData.items[0].snippet.thumbnails.maxres.url;
+      console.log(videoData);
+      var videoThumbnail = videoData.items[0].snippet.thumbnails.standard.url;
         thumbnails = {...thumbnails, [video.id]: videoThumbnail }
     }))
     this.setState({thumbnails: thumbnails});
