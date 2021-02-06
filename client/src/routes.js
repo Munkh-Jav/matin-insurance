@@ -57,8 +57,8 @@ var routes = [
     layout: "/auth"
   },
   {
-    path: "/forgot",
-    name: "Forgot Password",
+    path: "/register",
+    name: "Register",
     icon: "ni ni-circle-08 text-pink",
     component: Register,
     layout: "/auth"
