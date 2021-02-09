@@ -83,24 +83,23 @@ class Register extends React.Component {
                   </InputGroup>
                 </FormGroup>
                 <FormGroup>
-                  <InputGroup className="input-group-alternative">
+                  <InputGroup className="input-group-alternative d-inline-flex" style={{width:'48%'}}>
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
-                        <i className="ni ni-lock-circle-open" />
+                        <i className="ni ni-hat-3" />
                       </InputGroupText>
                     </InputGroupAddon>
                     <Input placeholder="Password" type="password" name="password" value={this.state.password} onChange={this.onChange}  autoComplete="new-password"/>
                   </InputGroup>
-                </FormGroup>
-                <FormGroup>
-                  <InputGroup className="input-group-alternative">
+                  <InputGroup className="input-group-alternative d-inline-flex" style={{width:'48%', float:'right'}}>
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
-                        <i className="ni ni-lock-circle-open" />
+                        <i className="ni ni-hat-3" />
                       </InputGroupText>
                     </InputGroupAddon>
                     <Input placeholder="Password Confirmation" type="password" name="password_confirmation" value={this.state.password_confirmation} onChange={this.onChange}  autoComplete="new-password"/>
                   </InputGroup>
+
                 </FormGroup>
                 <div className="text-muted font-italic">
                   <small>
