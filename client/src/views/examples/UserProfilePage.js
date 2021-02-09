@@ -12,13 +12,15 @@ import ContentCard from "../../components/Cards/ContentCard";
 import {getVideo, cleanVideo} from "../../actions/videoActions";
 import Comment from "../../components/Groups/Comment";
 import {addComment, getComments} from "../../actions/commentActions";
-import {CLEAN_VIDEO} from "../../actions/types";
 import getVideoDetails from "../../utils/getVideoDetails";
-import ReactPlayer from "react-player";
 import _ from "lodash";
-import UserAddCommentModal from "components/Modals/UserAddCommentModal";
+import {changePass, changeEmail} from "../../actions/userActions";
+import ChangePassModal from "../../components/Modals/ChangePassModal";
+
 import authCheck from "../../utils/authCheck";
 import validateEmail from "../../utils/validateEmail";
+import ChangeUserInfoModal from "components/Modals/ChangeUserInfoModal";
+import UploadPicModal from "components/Modals/UploadPicModal";
 
 
 class UserProfilePage extends React.Component {
@@ -28,6 +30,8 @@ class UserProfilePage extends React.Component {
         this.state = {
             is_modal_open: false,
             is_confirm_modal_open: false,
+            is_contact_modal_open: false,
+            is_upload_modal_open: false,
             description: "",
             content: {
                 new_comment: ''
@@ -84,18 +88,68 @@ class UserProfilePage extends React.Component {
         });
     }
 
-    onChange(e) {
-        this.setState({content: {...this.state.content, [e.target.name]: e.target.value}});
-    }
+    //Password Modal Handlers
+  openPassModal = (e) => {
+    if(e)
+      e.preventDefault();
+    this.setState({is_pass_modal_open: true});
+  }
 
-    onCommentSubmit = (e) => {
-        e.preventDefault();
-        if(this.state.content.new_comment.length < 1)
-            return this.showSnackBar("Please write a comment to post");
-        this.props.addComment(this.state.content.new_comment, this.props.user, this.props.video);
-        this.setState({content : {new_comment : ""}})
+  onChange(e) {
+    this.setState({  [e.target.name]: e.target.value});
+  }
 
-    }
+  closePassModal = (e, updated, error) => {
+    if(e)
+      e.preventDefault();
+    this.setState({is_pass_modal_open:false})
+    if(updated)
+      this.showSnackBar("Password updated !");
+    if(error)
+      this.showSnackBar("Something went wrong");
+  }
+
+  modalSubmitPass = (formContent) => {
+    this.props.changePass(formContent);
+  }
+   //Contact Modal Handlers 
+  openContactModal = (e) => {
+    if(e)
+      e.preventDefault();
+    this.setState({is_contact_modal_open: true});
+  }
+
+  closeContactModal = (e, updated) => {
+    if(e)
+      e.preventDefault();
+    this.setState({is_contact_modal_open:false})
+    if(updated)
+      this.showSnackBar("Info updated !");
+  }
+
+  modalSubmitContact = (formContent) => {
+    this.props.updateAdminInfo(formContent);
+  }
+
+   //Upload Picture Modal Handlers 
+   openUploadModal = (e) => {
+    if(e)
+      e.preventDefault();
+    this.setState({is_upload_modal_open: true});
+  }
+
+  closeUploadModal = (e, updated) => {
+    if(e)
+      e.preventDefault();
+    this.setState({is_upload_modal_open:false})
+    if(updated)
+      this.showSnackBar("Info updated !");
+  }
+
+  modalUploadSubmit = (formContent) => {
+    this.props.updateAdminInfo(formContent);
+  }
+
 
     showSnackBar(message){
         const x = document.getElementById("snackbar");
@@ -104,6 +158,7 @@ class UserProfilePage extends React.Component {
         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
         this.setState({snackbar_message: message})
     }
+
 
     render() {
         return (
@@ -117,15 +172,111 @@ class UserProfilePage extends React.Component {
                         alt="..."
                         src={process.env.PUBLIC_URL + `/profile-pics/petitsaoud.PNG`}
                       />
-                    </span> {/*CHANGER A USER IMAGE*/}
+                </span>
+                <div className="ml-5 mt-5">
+                    <Button
+                    style={{color:"#f5365c",   border: '2px solid #f5365c'}}
+                    onClick = {this.openUploadModal}
+                    >
+                            Upload Picture
+                    </Button>
+                </div>
+                <DetailModal
+                      isOpen={this.state.is_upload_modal_open}
+                      onRequestClose={this.closeUploadModal}
+                      >
+                      <UploadPicModal
+                        closeModal={this.closeUploadModal}
+                        onSubmit={this.modalUploadSubmit}
+                     />  
+               </DetailModal>
+
                 </Col>
+                
                 <Col xs="8">
+                <Form>
+                    <h6 className="heading-small text-muted mb-4">
+                      Connection and Security
+                    </h6>
+                    <div className="pl-lg-4">
+                      <Row>
+                        <Col lg="6">
+                          <FormGroup >
+                            <label
+                              className="form-control-label"
+                              htmlFor="input-email"
+                            >
+                              Email address
+                            </label>
+
+                            <Input
+                              className="form-control-alternative"
+                              id="input-email"
+                              placeholder="Enter new email address"
+                              name="email"
+                              type="email"
+                              onChange={this.onChange}
+                              value={this.state.email}
+                            />
+
+                          </FormGroup>
+                          
+                        </Col>
+                        <Col lg="6">
+                          <FormGroup className="update-btn">
+                            <Button
+                                color="primary"
+                                className="btn bg-red"
+                                onClick={this.updateEmail}
+                                size="sm"
+                            >
+                              Update
+                            </Button>
+                          </FormGroup>
+
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col lg="6">
+                          <FormGroup>
+                            <label
+                              className="form-control-label"
+                              htmlFor="input-password"
+                            >
+                              Password
+                            </label>
+                            <Input
+                              className="form-control-alternative"
+                              id="input-password"
+                              defaultValue="******"
+                              disabled
+                            />
+                          </FormGroup>
+                          <Button
+                            color="primary"
+                            className="btn bg-red mb-4"
+                            onClick={this.openPassModal}
+                            size="sm"
+                          >
+                            Change password
+                          </Button>
+                        </Col>
+                      </Row>
+                      <DetailModal
+                          isOpen={this.state.is_pass_modal_open}
+                          onRequestClose={this.closePassModal}
+                          >
+                            <ChangePassModal
+                                  closeModal={this.closePassModal}
+                                  onSubmit={this.modalSubmitPass}
+                              />
+                      </DetailModal>
                 <h6 className="heading-small text-muted mb-4">
                       Personal Information
                     </h6>
                     <div className="pl-lg-4">
                       <Row>
-                      <Col md="4">
+                      <Col md="6">
                           <FormGroup>
                             <label
                               className="form-control-label"
@@ -143,7 +294,7 @@ class UserProfilePage extends React.Component {
                             />
                           </FormGroup>
                         </Col>
-                        <Col md="4">
+                        <Col md="6">
                           <FormGroup>
                             <label
                               className="form-control-label"
@@ -162,103 +313,16 @@ class UserProfilePage extends React.Component {
                           </FormGroup>
                         </Col>
                        
-                        <Col md="4">
-                          <FormGroup>
-                            <label
-                                className="form-control-label"
-                                htmlFor="input-country"
-                            >
-                              Phone Number
-                            </label>
-                            <Input
-                                className="form-control-alternative"
-                                id="input-phone"
-                                value="blabla"
-                                placeholder="Phone"
-                                disabled
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col md="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-address"
-                            >
-                              Address
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              id="input-address"
-                              value="blabla"
-                              placeholder="Home Address"
-                              type="text"
-                              disabled
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col lg="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-city"
-                            >
-                              City
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              value="blabla"
-                              id="input-city"
-                              placeholder="City"
-                              type="text"
-                              disabled
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col lg="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-country"
-                            >
-                              Country
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              value="blabla"
-                              id="input-country"
-                              placeholder="Country"
-                              type="text"
-                              disabled
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col lg="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-country"
-                            >
-                              Postal code
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              id="input-postal-code"
-                              value="blabla"
-                              placeholder="Postal code"
-                              disabled
-                            />
-                          </FormGroup>
-                        </Col>
-
-                        </Row>
+                        
+                       
+                        
+                    
                         <Row>                   
                         <Col lg="4">
                              <Button
                             color="primary"
-                            className="btn bg-red"
+                            className="btn bg-red mb-5"
+                            onClick={this.openContactModal}
                             value="blabla"
                             size="sm"
                           >
@@ -266,9 +330,23 @@ class UserProfilePage extends React.Component {
                           </Button>
                         </Col>
                         </Row>
+                    </Row>
+                    
                     </div>
+                    </div>
+                    </Form>
                 </Col>
                 </Row>
+                <DetailModal
+                      isOpen={this.state.is_contact_modal_open}
+                      onRequestClose={this.closeContactModal}
+                      >
+                      <ChangeUserInfoModal
+                        info={this.state.info}
+                        closeModal={this.closeContactModal}
+                        onSubmit={this.modalSubmitContact}
+                     />  
+              </DetailModal>
                 </Container>
             </>
         );
