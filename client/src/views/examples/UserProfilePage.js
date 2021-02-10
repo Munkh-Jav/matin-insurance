@@ -146,8 +146,11 @@ class UserProfilePage extends React.Component {
       this.showSnackBar("Info updated !");
   }
 
-  modalUploadSubmit = (formContent) => {
-    this.props.updateAdminInfo(formContent);
+  modalUploadSubmit = (file) => {
+    if(file.length <= 0){
+        this.showSnackBar("Please upload a file.")
+    }
+
   }
 
 
@@ -175,7 +178,7 @@ class UserProfilePage extends React.Component {
                 </span>
                 <div className="ml-5 mt-5">
                     <Button
-                    style={{color:"#f5365c",   border: '2px solid #f5365c'}}
+                    style={{color:"#f5365c", border: '2px solid #f5365c'}}
                     onClick = {this.openUploadModal}
                     >
                             Upload Picture
@@ -312,11 +315,7 @@ class UserProfilePage extends React.Component {
                             />
                           </FormGroup>
                         </Col>
-                       
-                        
-                       
-                        
-                    
+
                         <Row>                   
                         <Col lg="4">
                              <Button
@@ -348,6 +347,7 @@ class UserProfilePage extends React.Component {
                      />  
               </DetailModal>
                 </Container>
+                <div id="snackbar">{this.state.snackbar_message}</div>
             </>
         );
     }

@@ -330,7 +330,7 @@ class Settings extends React.Component {
                   </Form>
                 </CardBody>
               </Card>
-        <div id="snackbar">{this.state.snackbar_message}</div>
+              <div id="snackbar">{this.state.snackbar_message}</div>
         
       </>
     );

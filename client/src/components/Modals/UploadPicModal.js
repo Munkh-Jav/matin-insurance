@@ -1,74 +1,134 @@
-import React from 'react';
-import {
-    Button,
-    Card,
-    Form,
-    Col,
-    Row,
-    FormGroup,
-    InputGroupAddon,
-    InputGroupText,
-    Input,
-    InputGroup} from "reactstrap";
-import {connect} from "react-redux";
+import React, {useEffect, useMemo, useState} from 'react';
+import {useDropzone} from 'react-dropzone';
+import {Button, Card} from "reactstrap";
 
-class UploadPicModal extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state= {
-            content : {
-                       
-            },
-            error: '',
-            changed:false,
-            isLoading: false,
+const baseStyle = {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '20px',
+    borderWidth: 2,
+    borderRadius: 2,
+    borderColor: '#eeeeee',
+    borderStyle: 'dashed',
+    backgroundColor: '#fafafa',
+    color: '#bdbdbd',
+    outline: 'none',
+    transition: 'border .24s ease-in-out'
+};
+
+const activeStyle = {
+    borderColor: '#2196f3'
+};
+
+const acceptStyle = {
+    borderColor: '#00e676'
+};
+
+const rejectStyle = {
+    borderColor: '#ff1744'
+};
+const thumbsContainer = {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 16
+};
+
+const thumb = {
+    display: 'inline-flex',
+    borderRadius: 2,
+    border: '1px solid #eaeaea',
+    marginBottom: 8,
+    marginRight: 8,
+    width: 100,
+    height: 100,
+    padding: 4,
+    boxSizing: 'border-box'
+};
+
+const thumbInner = {
+    display: 'flex',
+    minWidth: 0,
+    overflow: 'hidden'
+};
+
+const img = {
+    display: 'block',
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+};
+
+
+
+function UploadPicModal(props) {
+    const [files, setFiles] = useState([]);
+    const {
+        getRootProps,
+        getInputProps,
+        isDragActive,
+        isDragAccept,
+        isDragReject
+    } = useDropzone({
+        accept: 'image/*',
+        onDrop: acceptedFiles => {
+            setFiles(acceptedFiles.map(file => Object.assign(file, {
+                preview: URL.createObjectURL(file)
+            })));
         }
-    this.onChange = this.onChange.bind(this);
-    }
-    onChange(e) {
-        this.setState({ content: { ...this.state.content, [e.target.name]: e.target.value} });
-    }
+    });
 
-    componentDidMount() {
-        document.addEventListener('change_contact', e => {
-            if(e.detail.success){
-                this.props.closeModal(undefined, true);
-            }else{
-                this.props.closeModal(undefined, false, true);
-            }
-        }, false);
-    }
+    const thumbs = files.map(file => (
+        <div style={thumb} key={file.name}>
+            <div style={thumbInner}>
+                <img
+                    src={file.preview}
+                    style={img}
+                />
+            </div>
+        </div>
+    ));
 
+    const style = useMemo(() => ({
+        ...baseStyle,
+        ...(isDragActive ? activeStyle : {}),
+        ...(isDragAccept ? acceptStyle : {}),
+        ...(isDragReject ? rejectStyle : {})
+    }), [
+        isDragActive,
+        isDragReject,
+        isDragAccept
+    ]);
 
-    onSubmitContactInfo = (e) =>{
-        e.preventDefault()
-        this.props.onSubmit(this.state.content);
-    }
+    useEffect(() => () => {
+        files.forEach(file => URL.revokeObjectURL(file.preview));
+    }, [files]);
 
-
-    render() {
-        const {error: state_error, changed} = this.state;
-        const error = (this.props.error) ? this.props.error : state_error;
-
-        return (
-            <Card className={`shadow`}>
-                <Form className="m-5" onSubmit={this.onSubmitContactInfo}>
-                    <h1 className="ml--3 mb-3">Upload Picture</h1>
-
-            </Form>
-        
-
-            </Card>
-        );
-    }
+    return (
+        <Card className={`shadow p-4`}>
+            <div className="container">
+                <h1 className="ml--3 mb-3">Upload Picture</h1>
+                <div {...getRootProps({style})}>
+                    <input {...getInputProps()} />
+                    <p>Drag and drop some files here, or click to select files</p>
+                </div>
+                <aside style={thumbsContainer}>
+                    {thumbs}
+                </aside>
+            </div>
+            <div className="align-self-center mt-3">
+                <Button color="primary" onClick={() => props.onSubmit(files)}>
+                    Change
+                </Button>
+                <Button color="danger" onClick={props.closeModal}>
+                    Cancel
+                </Button>
+            </div>
+        </Card>
+    );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        error: state.auth.change_pass_error,
-        message: state.auth.change_pass_message
-    }
-}
-
-export default connect(mapStateToProps)(UploadPicModal);
+export default UploadPicModal;
 
