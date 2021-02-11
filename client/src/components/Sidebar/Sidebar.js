@@ -39,6 +39,7 @@ import {
 } from "reactstrap";
 import {connect} from "react-redux";
 import {logout} from "../../actions/userActions";
+import filepath from "../../filepath";
 
 var ps;
 
@@ -140,7 +141,7 @@ class Sidebar extends React.Component {
                   <span className="avatar avatar-sm rounded-circle">
                     <img
                       alt="..."
-                      src={process.env.PUBLIC_URL + `/profile-pics/${user.profile_img}`}
+                      src={filepath + `/profile-pics/${user.profile_img}`}
                     />
                   </span>
                 </Media>

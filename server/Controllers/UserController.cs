@@ -1,7 +1,10 @@
 using server.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using server.Services;
+using System;
+using System.IO;
 
 namespace UsersApi.Controllers
 {
@@ -49,6 +52,30 @@ namespace UsersApi.Controllers
 
             return Ok(response);
         }
+
+        [HttpPost("change-avatar")]
+        public ActionResult ChangeAvatar([FromForm] ChangeAvatarRequest model)
+        {
+            try {
+                string ext = Path.GetExtension(model.FormFile.FileName);
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/profile-pics", model.id+ext);
+                
+
+                using (Stream stream = new FileStream(path, FileMode.Create)){
+                    model.FormFile.CopyTo(stream);
+                }
+                var response = _UserService.ChangeAvatar(model.id, model.id+ext);
+
+                if (response == null)
+                    return BadRequest("Something went wrong" );
+
+                return Ok(response);
+            }catch{
+                return BadRequest("Something went wrong" );
+            }
+            
+        }
+        
 
         [HttpPost("signup")]
         public ActionResult Signup(User user)

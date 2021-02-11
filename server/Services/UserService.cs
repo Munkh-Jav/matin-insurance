@@ -55,7 +55,7 @@ namespace server.Services
             _Users.ReplaceOne(sub => sub.Id == model.id, user);
 
 
-            return "ok";
+            return generateJwtToken(user);
         }
 
         public string ChangeEmail(ChangeEmailRequest model)
@@ -69,7 +69,20 @@ namespace server.Services
             _Users.ReplaceOne(sub => sub.Id == model.id, user);
 
 
-            return "ok";
+            return generateJwtToken(user);
+        }
+
+        public string ChangeAvatar(string id, string avatar){
+            var user = _Users.Find(x => x.Id == id).SingleOrDefault();
+            if (user == null) return null;
+
+
+            user.profile_img = avatar;
+
+            _Users.ReplaceOne(sub => sub.Id == id, user);
+
+
+            return generateJwtToken(user);
         }
 
         public AuthenticateResponse SignUp(User newUser)
@@ -90,7 +103,7 @@ namespace server.Services
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()),  new Claim("name", user.name.ToString()), new Claim("profile_img", user.profile_img.ToString()), new Claim("email", user.email.ToString())  }),
+                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()),  new Claim("name", user.name.ToString()), new Claim("profile_img", user.profile_img.ToString()), new Claim("email", user.email.ToString()), new Claim("admin", user.admin.ToString()) }),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);

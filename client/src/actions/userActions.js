@@ -8,7 +8,7 @@ import {
     SIGN_OUT,
     UPDATE_TOKEN,
     CHANGE_PASS,
-    CHANGE_PASS_ERROR, CHANGE_EMAIL_ERROR, CHANGE_EMAIL
+    CHANGE_PASS_ERROR, CHANGE_EMAIL_ERROR, CHANGE_EMAIL, CHANGE_AVATAR, CHANGE_AVATAR_ERROR
 } from './types';
 import {user_route} from "../utils/serverRoutes";
 import history from "../history";
@@ -38,7 +38,7 @@ export const changePass = (formValues) => async (dispatch, getState) => {
         const {data} = await server.post(user_route + "/change-pass", {id: id, old:formValues.old_password, password : formValues.new_password});
 
         document.dispatchEvent(new CustomEvent('change_pass', { detail : {success: true} }));
-        dispatch({type: CHANGE_PASS, message: "true"});
+        updateToken(dispatch, data);
     }catch(e){
         if(!e.response)
             return dispatch({type: CHANGE_PASS_ERROR, error: 'Server error'});
@@ -50,7 +50,7 @@ export const changeEmail = (email) => async (dispatch, getState) => {
     try{
         const id = getState().auth.user.id;
         const {data} = await server.post(user_route + "/change-email", {id: id, email : email});
-        dispatch({type: CHANGE_EMAIL, email: email});
+        updateToken(dispatch, data);
         document.dispatchEvent(new CustomEvent('change_email', { detail : {success: true} }));
     }catch(e){
         document.dispatchEvent(new CustomEvent('change_email', { detail : {success: false} }));
@@ -61,17 +61,28 @@ export const changeEmail = (email) => async (dispatch, getState) => {
     }
 }
 
-
-
-export const updateToken = () => async dispatch => {
+export const changeAvatar = (image) => async (dispatch, getState) => {
     try{
-        const {data} = await server.post(user_route + "/new-token");
-        localStorage.setItem('jwtToken', data);
-        setAuthorizationToken(data);
-        dispatch({type: UPDATE_TOKEN, user: jwtDecode(data)});
+        const id = getState().auth.user.id;
+        const formData = new FormData();
+        formData.append("id", id);
+        formData.append("formFile", image);
+        const {data} = await server.post(user_route + "/change-avatar", formData);
+        updateToken(dispatch, data);
+        document.dispatchEvent(new CustomEvent('change_avatar', { detail : {success: true} }));
     }catch(e){
-        //Token update error
+        document.dispatchEvent(new CustomEvent('change_avatar', { detail : {success: false} }));
+        if(!e.response)
+            return dispatch({type: CHANGE_AVATAR_ERROR, error: 'Server error'});
+        dispatch({type: CHANGE_AVATAR_ERROR, error: e.response.data});
+
     }
+}
+
+export const updateToken = (dispatch, data) => {
+    localStorage.setItem('jwtToken', data);
+    setAuthorizationToken(data);
+    dispatch({type: UPDATE_TOKEN, user: jwtDecode(data)});
 }
 
 

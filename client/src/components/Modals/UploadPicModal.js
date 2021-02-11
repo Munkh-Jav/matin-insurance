@@ -119,7 +119,7 @@ function UploadPicModal(props) {
                 </aside>
             </div>
             <div className="align-self-center mt-3">
-                <Button color="primary" onClick={() => props.onSubmit(files)}>
+                <Button color="primary" onClick={() => {props.onSubmit(files);props.closeModal()}}>
                     Change
                 </Button>
                 <Button color="danger" onClick={props.closeModal}>

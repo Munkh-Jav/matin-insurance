@@ -8,6 +8,8 @@ export const CHANGE_PASS = 'CHANGE_PASS';
 export const CHANGE_PASS_ERROR = 'CHANGE_PASS_ERROR';
 export const CHANGE_EMAIL = 'CHANGE_EMAIL';
 export const CHANGE_EMAIL_ERROR = 'CHANGE_EMAIL_ERROR';
+export const CHANGE_AVATAR = 'CHANGE_AVATAR';
+export const CHANGE_AVATAR_ERROR = 'CHANGE_AVATAR_ERROR';
 
 //Stats HTTP requests
 export const GET_STATS = 'GET_STATS';

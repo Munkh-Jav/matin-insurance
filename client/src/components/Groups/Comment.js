@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Col, Row} from "reactstrap";
 import countdown from "../../utils/countdown";
+import filepath from "../../filepath";
 
 class Comment extends React.Component{
 
@@ -52,7 +53,7 @@ class Comment extends React.Component{
                     <Row className="align-items-center">
                         <div className="col" style={{width: "36px"}}>
                         <span className="avatar avatar-sm rounded-circle">
-                            <img src={process.env.PUBLIC_URL + `/profile-pics/${user_avatar}`}/>
+                            <img src={filepath + `/profile-pics/${user_avatar}`}/>
                         </span>
                             <h3 className="mb-0 name">
                                 {user_name}

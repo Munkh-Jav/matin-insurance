@@ -3,6 +3,7 @@ import {UncontrolledTooltip} from "reactstrap";
 import server from "../../api/server";
 //import {tasks_route} from "../../utils/serverRoutes";
 import axios from "axios";
+import filepath from "../../filepath";
 
 class AvatarGroup extends React.Component {
     constructor(props) {
@@ -46,7 +47,7 @@ class AvatarGroup extends React.Component {
                             <img
                                 alt="..."
                                 className="rounded-circle"
-                                src={process.env.PUBLIC_URL + `/profile-pics/${user.profile_img}`}
+                                src={filepath + `/profile-pics/${user.profile_img}`}
                             />
                         </a>
                         <UncontrolledTooltip
