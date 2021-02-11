@@ -8,7 +8,8 @@ import {
     InputGroupText,
     Input,
     InputGroup,
-    Button
+    Button,
+    Dropdown, DropdownToggle, DropdownMenu, DropdownItem
 } from "reactstrap";
 import MainHeader from "components/Headers/MainHeader.js";
 import {connect} from 'react-redux';
@@ -18,6 +19,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
 import history from "../../history";
+
 
 
 class BookAppointmentPage extends React.Component {
@@ -120,7 +122,7 @@ class BookAppointmentPage extends React.Component {
             </>
         );
         const {error} = false;
-
+      
         return (
             <>
 
@@ -129,10 +131,10 @@ class BookAppointmentPage extends React.Component {
                 <Container className="mt-4" fluid>
 
                     <Row>
-                        <Col xl="5" style={{borderRight: '1px solid #333'}}>
-                            <p style={{fontSize: '600%'}}>Book Appointment
+                        <Col xl="5" id="title_book_appointment">
+                            <p id="title_p">Book Appointment
                             </p><br/>
-                            <p><em>Meet with Matin Tireh Dast</em></p>
+                            <p id="subtitle_p"><em>Meet with Matin Tireh Dast</em></p>
 
                         </Col>
                         <Col xl="7">
@@ -172,6 +174,18 @@ class BookAppointmentPage extends React.Component {
                                         <Input placeholder="Email address" defaultValue={(this.props.user.email)} type="email" name="email"
                                                onChange={this.onChange}/>
                                     </InputGroup>
+                                    <Row>
+                                        <label for="insurance-types"><h3 className="mt-2 ml-2">Choose a type of service </h3></label>
+                                    </Row>
+                                    <Row>
+                                    <select name="cars" id="insurance-types" className="input-group-alternative ml-3 border-white form-control">
+                                        <option value="TFSA">TFSA</option>
+                                        <option value="RRSP">RRSP</option>
+                                        <option value="Savings">Savings</option>
+                                        <option value="Loans">Loans</option>
+                                    </select>
+                                    
+                                    </Row>
                                     <Row>
                                         <h3 className="mt-2 ml-2">Choose a date and a time interval</h3>
                                     </Row>

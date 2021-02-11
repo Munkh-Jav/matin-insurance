@@ -161,7 +161,7 @@ class VideoPage extends React.Component {
                                                     </Col>
                                                     <Col xl={2} md={2}>
                                                         <div>
-                                                            <Button color="success" className="full-width" type="submit">
+                                                            <Button id="send_button"color="success" className="full-width" type="submit">
                                                                 Send
                                                             </Button>
                                                         </div>

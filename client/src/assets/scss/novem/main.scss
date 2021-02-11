@@ -155,3 +155,39 @@
 .react-datepicker-wrapper{
   width:100%;
 }
+
+
+@media only screen and (max-width: 600px) {
+
+  #title_book_appointment{
+    border-right: none ;
+  }
+
+  #title_book_appointment #title_p{
+    font-size: 300%;
+  }
+  
+  
+  
+}
+@media only screen and (min-width: 600px) {
+
+  #title_book_appointment{
+    border-right: 1px solid #333;
+  }
+
+  #title_book_appointment #title_p {
+    font-size: 600%
+    
+
+  }
+}
+
+@media only screen and (max-width: 768px) {
+
+  #send_button{
+    margin-bottom : 20px;
+  }
+
+
+}
