@@ -35,6 +35,7 @@ class BookAppointmentPage extends React.Component {
             first_name: (this.props.user.name)?this.props.user.name.split(" ")[0]: "",
             last_name: (this.props.user.name && this.props.user.name.split(" ")[1])?this.props.user.name.split(" ")[1]: "",
             email: this.props.user.email,
+            type: "TFSA",
             selectedDate: ""
         }
         this.onChange = this.onChange.bind(this);
@@ -178,7 +179,7 @@ class BookAppointmentPage extends React.Component {
                                         <label for="insurance-types"><h3 className="mt-2 ml-2">Choose a type of service </h3></label>
                                     </Row>
                                     <Row>
-                                    <select name="cars" id="insurance-types" className="input-group-alternative ml-3 border-white form-control">
+                                    <select name="type" onChange={this.onChange} id="insurance-types" className="input-group-alternative ml-3 border-white form-control">
                                         <option value="TFSA">TFSA</option>
                                         <option value="RRSP">RRSP</option>
                                         <option value="Savings">Savings</option>

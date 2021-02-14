@@ -18,7 +18,17 @@ namespace server.Models
 
         public string client_email { get; set; }
 
+        public string type { get; set; }
+
         public DateTime date { get; set; }
+
+        public override string ToString() {
+            return "\n\n" + 
+                "Client Name: " + client_name + "\n"+
+                "Client Email: " + client_email + "\n"+
+                "Type of service: " + type + "\n"+
+                "Date: " + date + "\n";
+        }
 
     }
 }

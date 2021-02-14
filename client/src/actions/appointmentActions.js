@@ -47,6 +47,7 @@ export const newAppointment = (appointment_data, user_id) => async dispatch => {
             client_id: user_id,
             client_name: appointment_data.first_name.replace(/\s+/g,'') + " " + appointment_data.last_name.replace(/\s+/g,''),
             client_email: appointment_data.email,
+            type: appointment_data.type,
             date: appointment_data.selectedDate,
         };
         const {data} = await server.post(appointments_route, req,{

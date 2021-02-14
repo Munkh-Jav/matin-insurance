@@ -22,6 +22,7 @@ namespace server.Services
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
+        
             _Users = database.GetCollection<User>("Users");
             _appSettings = appSettings.Value;
         }
@@ -89,7 +90,11 @@ namespace server.Services
         {
             newUser.password = BC.HashPassword(newUser.password);
             
-            _Users.InsertOne(newUser);
+            try{
+                _Users.InsertOne(newUser);
+            }catch(Exception e){
+                return null;
+            }
 
             var token = generateJwtToken(newUser);
 

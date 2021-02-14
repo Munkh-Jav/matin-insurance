@@ -83,7 +83,7 @@ namespace UsersApi.Controllers
             var response = _UserService.SignUp(user);
 
             if (response == null)
-                return BadRequest(new { message = "Something went wrong" });
+                return BadRequest(new { message = "Email already exists" });
 
             return Ok(response);
         }

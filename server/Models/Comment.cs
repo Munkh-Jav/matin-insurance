@@ -26,5 +26,12 @@ namespace server.Models
 
         public DateTime date { get; set; }
 
+        public override string ToString() {
+            return "\n\n" + 
+                "Client Name: " + client_name + "\n"+
+                "Comment: \"" + comment_text + "\"\n"+
+                "Video: " + video_title + "\n";
+        }
+
     }
 }

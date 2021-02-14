@@ -3,6 +3,8 @@ using MongoDB.Driver;
 using server.Models;
 using MongoDB.Bson;
 using System;
+using MailKit.Net.Smtp;
+using MimeKit;
 
 namespace server.Services
 {
@@ -31,6 +33,7 @@ namespace server.Services
             }
             stat.value++;
             _Stats.ReplaceOne(sub => sub.type == "active-appointments", stat);
+            EmailService.Send("NEW APPOINTMENT", "YOU GOT A NEW APPOINTMENT: " + Appointment, new string[]{"anisbrachemi@hotmail.com"});
             return Appointment;
         }
 
