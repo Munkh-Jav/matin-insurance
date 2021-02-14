@@ -16,6 +16,9 @@ import {
   Row,
   Col
 } from "reactstrap";
+import {connect} from 'react-redux';
+import {singup} from "../../actions/userActions";
+
 
 class Register extends React.Component {
   constructor(props) {
@@ -27,11 +30,18 @@ class Register extends React.Component {
       password: "",
       password_confirmation: ""
     }
+    this.submitAccount = this.submitAccount.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
   onChange(e) {
     this.setState({  [e.target.name]: e.target.value});
+  }
+
+  submitAccount(e) {
+    e.preventDefault();
+    this.setState({error: '', isLoading: true, changed:false});
+    this.props.singup(this.state);
   }
 
   render() {
@@ -51,7 +61,7 @@ class Register extends React.Component {
               <div className="text-center text-muted mb-4">
                 <small>Sign up with credentials</small>
               </div>
-              <Form role="form">
+              <Form role="form" onSubmit={this.submitAccount}>
                 <FormGroup>
                   <InputGroup className="input-group-alternative d-inline-flex" style={{width:'48%'}}>
                     <InputGroupAddon addonType="prepend">
@@ -59,7 +69,7 @@ class Register extends React.Component {
                         <i className="ni ni-hat-3" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="First Name" name="first_name" value={this.state.first_name} onChange={this.onChange} type="text" />
+                    <Input placeholder="First Name" name="first_name" value={this.state.first_name} onChange={this.onChange} type="text" required/>
                   </InputGroup>
                   <InputGroup className="input-group-alternative d-inline-flex" style={{width:'48%', float:'right'}}>
                   <InputGroupAddon addonType="prepend">
@@ -67,7 +77,7 @@ class Register extends React.Component {
                       <i className="ni ni-hat-3" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input placeholder="Last Name" name="last_name" value={this.state.last_name} onChange={this.onChange} type="text" />
+                  <Input placeholder="Last Name" name="last_name" value={this.state.last_name} onChange={this.onChange} type="text" required />
                 </InputGroup>
                 </FormGroup>
 
@@ -79,28 +89,28 @@ class Register extends React.Component {
                         <i className="ni ni-email-83" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Email" type="email" name="email" value={this.state.email} onChange={this.onChange} autoComplete="new-email"/>
+                    <Input placeholder="Email" type="email" name="email" value={this.state.email} onChange={this.onChange} autoComplete="new-email" required/>
                   </InputGroup>
                 </FormGroup>
                 <FormGroup>
                   <InputGroup className="input-group-alternative d-inline-flex" style={{width:'48%'}}>
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
-                        <i className="ni ni-hat-3" />
+                        <i className="fas fa-lock-open" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Password" type="password" name="password" value={this.state.password} onChange={this.onChange}  autoComplete="new-password"/>
+                    <Input placeholder="Password" type="password" name="password" value={this.state.password} onChange={this.onChange}  autoComplete="new-password" required/>
                   </InputGroup>
                   <InputGroup className="input-group-alternative d-inline-flex" style={{width:'48%', float:'right'}}>
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
-                        <i className="ni ni-hat-3" />
+                        <i className="fas fa-lock-open" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Password Confirmation" type="password" name="password_confirmation" value={this.state.password_confirmation} onChange={this.onChange}  autoComplete="new-password"/>
+                    <Input placeholder="Password Confirmation" type="password" name="password_confirmation" value={this.state.password_confirmation} onChange={this.onChange}  autoComplete="new-password" required/>
                   </InputGroup>
-
                 </FormGroup>
+
                 <div className="text-muted font-italic">
                   <small>
                     password strength:{" "}
@@ -130,7 +140,7 @@ class Register extends React.Component {
                   </Col>
                 </Row>
                 <div className="text-center">
-                  <Button className="mt-4" color="primary" type="button">
+                  <Button className="mt-4" color="primary" type="submit">
                     Create account
                   </Button>
                 </div>
@@ -143,4 +153,7 @@ class Register extends React.Component {
   }
 }
 
-export default Register;
+const mapStateToProps = (state) => {
+  return {error: state.auth.sign_up_error}
+}
+export default connect(mapStateToProps, {singup})(Register);

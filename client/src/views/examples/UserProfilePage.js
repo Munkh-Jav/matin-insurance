@@ -14,7 +14,8 @@ import ChangePassModal from "../../components/Modals/ChangePassModal";
 
 import ChangeUserInfoModal from "components/Modals/ChangeUserInfoModal";
 import UploadPicModal from "components/Modals/UploadPicModal";
-import {changeAvatar, changePass} from "../../actions/userActions";
+import {changeAvatar, changePass, changeEmail} from "../../actions/userActions";
+import validateEmail from "../../utils/validateEmail";
 import filepath from "../../filepath";
 
 
@@ -23,6 +24,7 @@ class UserProfilePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            email : "" ,
             is_modal_open: false,
             is_confirm_modal_open: false,
             is_contact_modal_open: false,
@@ -33,6 +35,7 @@ class UserProfilePage extends React.Component {
             },
             error: '',
             isLoading: false,
+            user : this.props.user,
             imageSrc: filepath + `/profile-pics/${this.props.user.profile_img}`,
             imageHash: Date.now()
         }
@@ -55,34 +58,22 @@ class UserProfilePage extends React.Component {
                 this.showSnackBar("Something went wrong");
             }
         }, false);
+        document.addEventListener('change_email', e=> {
+            if(e.detail.success){
+              this.showSnackBar("Email updated !");
+            }else{
+              this.showSnackBar("Something went wrong");
+            }
+          }, false);
     }
 
-    async getVideoDetails() {
-
-        var videoData = await getVideoDetails(this.props.video.video_url);
-        if (videoData.items.length < 1) {
-            return;
-        }
-        var videoDescription = videoData.items[0].snippet.description;
-
-        this.setState({description: videoDescription});
-
+    updateEmail = e => {
+        e.preventDefault();
+        if(!validateEmail(this.state.email) || this.state.email.length < 5)
+          return this.showSnackBar("Invalid Email");
+        this.props.changeEmail(this.state.email);
     }
-
-    getComments = () => {
-        return this.filterComments(this.props.comments).map(comment => {
-            return <Comment key={comment.id} comment={comment} hide_buttons={true}/>
-        })
-    }
-
-    filterComments = (comments) => {
-        if (comments.length === 0)
-            return []
-        return comments.filter(function (comment) {
-            return comment.status === 1;
-        });
-    }
-
+  
     //Password Modal Handlers
     openPassModal = (e) => {
         if (e)
@@ -271,11 +262,14 @@ class UserProfilePage extends React.Component {
                                             onSubmit={this.modalSubmitPass}
                                         />
                                     </DetailModal>
+                                    <Row>
                                     <h6 className="heading-small text-muted mb-4">
                                         Personal Information
                                     </h6>
-                                    <div className="pl-lg-4">
-                                        <Row>
+                                    </Row>
+                                    <Row>
+                                   
+                                       
                                             <Col md="6">
                                                 <FormGroup>
                                                     <label
@@ -287,7 +281,7 @@ class UserProfilePage extends React.Component {
                                                     <Input
                                                         className="form-control-alternative"
                                                         id="input-fname"
-                                                        value="blabla"
+                                                        value={(this.props.user.name)?this.state.user.name.split(" ")[0]: ""}
                                                         placeholder="First Name"
                                                         type="text"
                                                         disabled
@@ -305,16 +299,14 @@ class UserProfilePage extends React.Component {
                                                     <Input
                                                         className="form-control-alternative"
                                                         id="input-lname"
-                                                        value="blabla"
+                                                        value={(this.state.user.name && this.state.user.name.split(" ")[1])?this.state.user.name.split(" ")[1]: ""}
                                                         placeholder="Last Name"
                                                         type="text"
                                                         disabled
                                                     />
                                                 </FormGroup>
                                             </Col>
-
-                                            <Row>
-                                                <Col lg="4">
+                                             <Col lg="4">
                                                     <Button
                                                         color="primary"
                                                         className="btn bg-red mb-5"
@@ -325,10 +317,7 @@ class UserProfilePage extends React.Component {
                                                         Change Information
                                                     </Button>
                                                 </Col>
-                                            </Row>
                                         </Row>
-
-                                    </div>
                                 </div>
                             </Form>
                         </Col>
@@ -352,8 +341,9 @@ class UserProfilePage extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
+        email: state.auth.user.email,
         user: state.auth.user
     }
 }
 
-export default connect(mapStateToProps, {changeAvatar, changePass})(UserProfilePage);
+export default connect(mapStateToProps, {changeAvatar, changeEmail, changePass})(UserProfilePage);

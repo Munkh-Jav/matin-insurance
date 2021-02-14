@@ -22,6 +22,9 @@ import {
   Media
 } from "reactstrap";
 
+import filepath from "../../filepath";
+
+
 class AdminNavbar extends React.Component {
 
   logout = (e) =>{
@@ -48,7 +51,7 @@ class AdminNavbar extends React.Component {
                     <span className="avatar avatar-sm rounded-circle">
                       <img
                         alt="..."
-                        src={process.env.PUBLIC_URL + `/profile-pics/${user.profile_img}`}
+                        src={filepath+ `/profile-pics/${user.profile_img}`}
                       />
                     </span>
                     <Media className="ml-2 d-none d-lg-block">

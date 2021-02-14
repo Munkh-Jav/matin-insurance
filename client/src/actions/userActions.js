@@ -10,7 +10,7 @@ import {
     CHANGE_PASS,
     CHANGE_PASS_ERROR, CHANGE_EMAIL_ERROR, CHANGE_EMAIL, CHANGE_AVATAR, CHANGE_AVATAR_ERROR
 } from './types';
-import {user_route} from "../utils/serverRoutes";
+import {signup_route, user_route} from "../utils/serverRoutes";
 import history from "../history";
 import server from "../api/server";
 
@@ -32,6 +32,24 @@ export const login = (formValues) => async dispatch => {
         dispatch({type: SIGN_IN_ERROR, error: e.response.data});
     }
 }
+
+export const singup = (formValues) => async dispatch => {
+    try{
+        const {data} = await server.post(signup_route,
+             {name: formValues.first_name + " " + formValues.last_name,  email: formValues.email, password : formValues.password, profile_img : 'default.jpg'
+            , admin : false});
+        localStorage.setItem('jwtToken', data.token);
+        setAuthorizationToken(data.token);
+        dispatch({type: SIGN_UP, user: jwtDecode(data.token)});
+        history.push('/auth/login');
+    }catch(e){
+        dispatch({type: SIGN_UP_ERROR, error: e.response.data});
+        console.log(e.response);
+
+    }
+    console.log(formValues);
+}
+
 export const changePass = (formValues) => async (dispatch, getState) => {
     try{
         const id = getState().auth.user.id;

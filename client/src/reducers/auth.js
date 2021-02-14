@@ -41,7 +41,7 @@ export default (state = initialState, action = {}) => {
                 logged_in: !isEmpty(action.user),
                 user: action.user,
                 sign_up_error: ''
-            };
+            };  
         case SIGN_UP_ERROR:
             return {
                 ...state,

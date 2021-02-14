@@ -17,14 +17,9 @@ class ChangeUserInfoModal extends React.Component {
         super(props);
         this.state= {
             content : {
-               /* fname : this.props.info.fname,
-                lname : this.props.info.lname,
-                phone : this.props.info.phone,
-                address : this.props.contact.address,
-                pcode : this.props.info.pcode,
-                country : this.props.info.country, 
-                city : this.props.info.city  */            
+                name : this.props.user.name
             },
+           
             error: '',
             changed:false,
             isLoading: false,
@@ -69,7 +64,7 @@ class ChangeUserInfoModal extends React.Component {
 
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input placeholder="New First Name" type="text" name="fname" value={this.state.content.fname} onChange={this.onChange}/>
+                  <Input placeholder="New First Name" type="text" name="fname" value={(this.props.user.name)?this.props.user.name.split(" ")[0]: ""} onChange={this.onChange}/>
                 </InputGroup>
                 </Col>
                 <Col xs="12">
@@ -79,7 +74,7 @@ class ChangeUserInfoModal extends React.Component {
                       <i className= "fas fa-signature"/>
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input placeholder="New New Last Name" type="text" name="lname" value={this.state.content.lname} onChange={this.onChange}/>
+                  <Input placeholder="New New Last Name" type="text" name="lname" value={(this.state.content.name && this.state.content.name.split(" ")[1])?this.props.user.name.split(" ")[1]: ""} onChange={this.onChange}/>
                 </InputGroup>
                 </Col>
 
@@ -105,7 +100,8 @@ class ChangeUserInfoModal extends React.Component {
 const mapStateToProps = (state) => {
     return {
         error: state.auth.change_pass_error,
-        message: state.auth.change_pass_message
+        message: state.auth.change_pass_message,
+        user: state.auth.user
     }
 }
 

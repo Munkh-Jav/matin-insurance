@@ -12,7 +12,7 @@ import {
     InputGroup} from "reactstrap";
 import {connect} from "react-redux";
 
-class ChangePassModal extends React.Component {
+class ChangeContactModal extends React.Component {
     constructor(props) {
         super(props);
         this.state= {
@@ -137,5 +137,5 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(ChangePassModal);
+export default connect(mapStateToProps)(ChangeContactModal);
 
