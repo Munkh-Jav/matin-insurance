@@ -47,7 +47,7 @@ namespace server.Services
             if(Comment.status != 0){
                 Stats stat = _Stats.Find(sub=>sub.type == "comments").SingleOrDefault();
                 stat.value--;
-                if(DateTime.Now.AddDays(-7).CompareTo(stat.last_update) < 0){
+                if(DateTime.Now.AddDays(-7).CompareTo(stat.last_update) > 0){
                     stat.last_update = DateTime.Now;
                 }
                 _Stats.ReplaceOne(sub => sub.type == "comments", stat);
@@ -60,7 +60,7 @@ namespace server.Services
             if(comment.status == 0){
                 Stats stat = _Stats.Find(sub=>sub.type == "comments").SingleOrDefault();
                 stat.value--;
-                if(DateTime.Now.AddDays(-7).CompareTo(stat.last_update) < 0){
+                if(DateTime.Now.AddDays(-7).CompareTo(stat.last_update) > 0){
                     stat.last_update = DateTime.Now;
                 }
                 _Stats.ReplaceOne(sub => sub.type == "comments", stat);

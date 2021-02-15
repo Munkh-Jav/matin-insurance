@@ -53,6 +53,9 @@ namespace server.Services
                     stat.last_update = DateTime.Now.AddDays(-7);
                 }
                 _Stats.ReplaceOne(sub => sub.type == "active-appointments", stat);
+                EmailService.Send("APPOINTMENT DENIED", "YOUR APPOINTMENT WITH MATIN TIREH GOT DENIED : " + Appointment, new string[]{Appointment.client_email});
+            }else{
+                EmailService.Send("APPOINTMENT APPROVED", "YOUR APPOINTMENT WITH MATIN TIREH GOT ACCEPTED : " + Appointment, new string[]{Appointment.client_email});
             }
             _Appointments.ReplaceOne(sub => sub.Id == id, Appointment);
         }

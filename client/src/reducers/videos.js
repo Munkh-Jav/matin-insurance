@@ -72,7 +72,7 @@ export default (state = initialState, action = {}) => {
         case GET_VIDEO_FAIL:
             return {
                 ...state,
-                video_error: action.error
+                videos_error: action.error
             };
         default:
             return state;

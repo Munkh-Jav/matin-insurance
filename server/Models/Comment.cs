@@ -28,7 +28,7 @@ namespace server.Models
 
         public override string ToString() {
             return "\n\n" + 
-                "Client Name: " + client_name + "\n"+
+                "Client Name: " + user_name + "\n"+
                 "Comment: \"" + comment_text + "\"\n"+
                 "Video: " + video_title + "\n";
         }

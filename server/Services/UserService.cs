@@ -16,6 +16,7 @@ namespace server.Services
     public class UserService 
     {
         private readonly IMongoCollection<User> _Users;
+        private readonly IMongoCollection<Stats> _Stats;
         private readonly AppSettings _appSettings;
 
         public UserService(IDatabaseSettings settings, IOptions<AppSettings> appSettings)
@@ -24,6 +25,7 @@ namespace server.Services
             var database = client.GetDatabase(settings.DatabaseName);
         
             _Users = database.GetCollection<User>("Users");
+            _Stats = database.GetCollection<Stats>("Stats");
             _appSettings = appSettings.Value;
         }
 
@@ -92,6 +94,13 @@ namespace server.Services
             
             try{
                 _Users.InsertOne(newUser);
+                Stats stat = _Stats.Find(sub=>sub.type == "visitors").SingleOrDefault();
+                if(DateTime.Now.AddDays(-7).CompareTo(stat.last_update) > 0){
+                    stat.previous = stat.value;
+                    stat.last_update = DateTime.Now;
+                }
+                stat.value++;
+                _Stats.ReplaceOne(sub => sub.type == "visitors", stat);
             }catch(Exception e){
                 return null;
             }
