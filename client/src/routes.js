@@ -8,8 +8,11 @@ import Settings from "views/examples/Settings.js";
 import Videos from "views/examples/Videos.js";
 import AllVideos from "./views/examples/VideoList";
 import VideoPage from "./views/examples/VideoPage";
+import Forgot from "./views/examples/Forgot";
 import BookAppointmentPage from "./views/examples/BookAppointmentPage";
 import UserProfilePage from "./views/examples/UserProfilePage";
+import NewPassword from "views/examples/NewPassword";
+
 
 
 var routes = [
@@ -59,16 +62,23 @@ var routes = [
   {
     path: "/register",
     name: "Register",
-    icon: "ni ni-circle-08 text-pink",
+    icon: "",
     component: Register,
     layout: "/auth"
   },
   {
-    path: "/list",
-    name: "Videos",
-    icon: "ni ni-circle-08 text-pink",
-    component: AllVideos,
-    layout: "/video"
+    path: "/forgotten/newpass",
+    name: "NewPass",
+    icon: "",
+    component: NewPassword,
+    layout: "/auth"
+  },
+  {
+    path: "/forgotten",
+    name: "Forgot",
+    icon: "",
+    component: Forgot,
+    layout: "/auth"
   },
   {
     path: "/:id",
@@ -78,18 +88,26 @@ var routes = [
     layout: "/video"
   },
   {
-    path: "/book",
+    path: "/",
+    name: "Videos",
+    icon: "ni ni-circle-08 text-pink",
+    component: AllVideos,
+    layout: "/video"
+  },
+  
+  {
+    path: "/",
     name: "BookAppointment",
     icon: "",
     component: BookAppointmentPage,
     layout: "/appointment"
   },
   {
-    path: "/profile",
+    path: "/",
     name: "Profile",
     icon: "",
     component: UserProfilePage,
-    layout: "/user"
+    layout: "/profile"
   }
 ];
 export default routes;

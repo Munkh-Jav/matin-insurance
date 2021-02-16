@@ -150,15 +150,20 @@ class UserProfilePage extends React.Component {
         this.setState({snackbar_message: message})
     }
 
+    
 
     render() {
+        const modal_width = (window.innerWidth < 600) ? "10%": undefined;
+
         return (
             <>
                 <MainHeader/>
                 <Container className="mt-4" fluid>
                     <Row>
-                        <Col xs="4" style={{borderRight: '1px solid #333'}}>
-                <span className="ml-4 mt-4 avatar avatar-xl rounded-circle">
+                        <Col id="avatar-col" xs="4" style={{borderRight: '1px solid #333'}}>
+                <span className="ml-4 mt-4 avatar avatar-xl rounded-circle"
+                      style={{ boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'}}
+                        >
                       <img
                           alt="..."
                           src={`${this.state.imageSrc}?${this.state.imageHash}`}
@@ -184,7 +189,7 @@ class UserProfilePage extends React.Component {
 
                         </Col>
 
-                        <Col xs="8">
+                        <Col xs="8" id="info-col">
                             <Form>
                                 <h6 className="heading-small text-muted mb-4">
                                     Connection and Security
@@ -256,6 +261,7 @@ class UserProfilePage extends React.Component {
                                     <DetailModal
                                         isOpen={this.state.is_pass_modal_open}
                                         onRequestClose={this.closePassModal}
+                                        width = {modal_width}
                                     >
                                         <ChangePassModal
                                             closeModal={this.closePassModal}
@@ -324,6 +330,7 @@ class UserProfilePage extends React.Component {
                     </Row>
                     <DetailModal
                         isOpen={this.state.is_contact_modal_open}
+                        width = {modal_width}
                         onRequestClose={this.closeContactModal}
                     >
                         <ChangeUserInfoModal

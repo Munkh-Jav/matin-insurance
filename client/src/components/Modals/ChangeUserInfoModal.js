@@ -54,7 +54,7 @@ class ChangeUserInfoModal extends React.Component {
         return (
             <Card className={`shadow`}>
                 <Form className="m-5" onSubmit={this.onSubmitContactInfo}>
-                    <h1 className="ml--3 mb-3">Change Personal Information</h1>
+                    <h1 className="ml--3 mb-3" >Change Personal Information</h1>
 
                 <Col xs="12">
                 <InputGroup className="input-group-alternative mt-3">

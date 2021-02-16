@@ -51,7 +51,7 @@ class BookAppointmentPage extends React.Component {
             if(e.detail.success){
                 //SAOUD
                 //a changer le redirect
-                history.push('/video/list')
+                history.push('/video')
             }else{
                 this.showSnackBar("Please make sure to enter all information");
                 this.setState({error : true});

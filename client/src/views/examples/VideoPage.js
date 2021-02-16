@@ -19,6 +19,7 @@ import _ from "lodash";
 import UserAddCommentModal from "components/Modals/UserAddCommentModal";
 import authCheck from "../../utils/authCheck";
 import validateEmail from "../../utils/validateEmail";
+import history from "../../history";
 
 
 class VideoPage extends React.Component {
@@ -42,6 +43,9 @@ class VideoPage extends React.Component {
 
         if (this.state.description.length === 0 && !_.isEmpty(this.props.video)) {
             this.getVideoDetails();
+        }
+        if(this.props.video_error.length !== 0){
+            history.push("/video");
         }
     }
 
@@ -188,6 +192,7 @@ class VideoPage extends React.Component {
 const mapStateToProps = (state) => {
     return {
         video: state.videos.video,
+        video_error: state.videos.videos_error,
         comments: state.comments.comments,
         user : state.auth.user
     }

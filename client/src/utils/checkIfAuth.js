@@ -10,7 +10,7 @@ export default function (ComposedComponent) {
                 if(this.props.user.admin.toLowerCase() === 'true')
                     history.push('/admin/index');
                 else
-                    history.push('/video/list');
+                    history.push('/video');
             }
         }
 
@@ -19,7 +19,7 @@ export default function (ComposedComponent) {
                 if(nextProps.user.admin.toLowerCase() === 'true')
                     history.push('/admin/index');
                 else
-                    history.push('/video/list');
+                    history.push('/video');
             }
         };
 

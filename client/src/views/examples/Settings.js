@@ -115,6 +115,8 @@ class Settings extends React.Component {
   }
 
   render() {
+    const modal_width = (window.innerWidth < 600) ? "10%": undefined;
+
     return (
       <>
         <UserHeader />
@@ -198,6 +200,7 @@ class Settings extends React.Component {
                       <DetailModal
                           isOpen={this.state.is_pass_modal_open}
                           onRequestClose={this.closePassModal}
+                          width = {modal_width}
                           >
                             <ChangePassModal
                                   closeModal={this.closePassModal}
@@ -320,6 +323,7 @@ class Settings extends React.Component {
                     <DetailModal
                       isOpen={this.state.is_contact_modal_open}
                       onRequestClose={this.closeContactModal}
+                      width={modal_width}
                       >
                       <ChangeContactModal
                         contact={this.state.contact}

@@ -13,7 +13,7 @@ class User extends React.Component {
   }
   getRoutes = routes => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/user") {
+      if (prop.layout === "/profile") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -48,7 +48,7 @@ class User extends React.Component {
           />
           <Switch>
             {this.getRoutes(routes)}
-            <Redirect from="*" to="/user" />
+            <Redirect from="*" to="/profile" />
           </Switch>
 
         </div>

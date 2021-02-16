@@ -23,7 +23,7 @@ export const getVideo = (video_id) => async dispatch => {
     }catch(e){
         if(!e.response)
             return dispatch({type: GET_VIDEO_FAIL, error: 'Server error'});
-        dispatch({type: GET_VIDEO_FAIL, error: e.response.data});
+        dispatch({type: GET_VIDEO_FAIL, error: "Not found"});
     }
 }
 

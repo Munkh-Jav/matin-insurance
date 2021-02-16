@@ -35,8 +35,9 @@ ReactDOM.render(
             <Route path="/auth" component={checkIfAuth(AuthLayout)} />
             <Route path="/video" component={VideoLayout} />
             <Route path="/appointment" component={AppointmentLayout} />
-            <Route path="/user" component={requireAuth(UserLayout)}/>
+            <Route path="/profile" component={requireAuth(UserLayout)}/>
             <Redirect from="/" to="/auth/login" />
+
         </Switch>
       </Router>
     </Provider>,
