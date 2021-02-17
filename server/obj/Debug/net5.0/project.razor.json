@@ -1,5 +1,5 @@
 {
-  "FilePath": "d:\\.Projects\\matin-insurance\\server\\server.csproj",
+  "FilePath": "d:\\Anis\\Documents\\Work\\Projects\\Website\\Insurance\\server\\server.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "5.0",
@@ -13550,6 +13550,61 @@
         }
       },
       {
+        "HashCode": 8243079,
+        "Kind": "ITagHelper",
+        "Name": "Microsoft.AspNetCore.SpaServices.Prerendering.PrerenderTagHelper",
+        "AssemblyName": "Microsoft.AspNetCore.SpaServices",
+        "CaseSensitive": false,
+        "TagMatchingRules": [
+          {
+            "TagName": "*",
+            "Attributes": [
+              {
+                "Name": "asp-prerender-module"
+              }
+            ]
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "ITagHelper",
+            "Name": "asp-prerender-module",
+            "TypeName": "System.String",
+            "Metadata": {
+              "Common.PropertyName": "ModuleName"
+            }
+          },
+          {
+            "Kind": "ITagHelper",
+            "Name": "asp-prerender-export",
+            "TypeName": "System.String",
+            "Metadata": {
+              "Common.PropertyName": "ExportName"
+            }
+          },
+          {
+            "Kind": "ITagHelper",
+            "Name": "asp-prerender-data",
+            "TypeName": "System.Object",
+            "Metadata": {
+              "Common.PropertyName": "CustomDataParameter"
+            }
+          },
+          {
+            "Kind": "ITagHelper",
+            "Name": "asp-prerender-timeout",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "TimeoutMillisecondsParameter"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "ITagHelper",
+          "Common.TypeName": "Microsoft.AspNetCore.SpaServices.Prerendering.PrerenderTagHelper"
+        }
+      },
+      {
         "HashCode": 1912741130,
         "Kind": "Components.Bind",
         "Name": "Bind",
@@ -15603,38 +15658,38 @@
   "RootNamespace": "server",
   "Documents": [
     {
-      "FilePath": "d:\\.Projects\\matin-insurance\\server\\Views\\Shared\\Error.cshtml",
-      "TargetPath": "Views\\Shared\\Error.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\.Projects\\matin-insurance\\server\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
-      "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\.Projects\\matin-insurance\\server\\Views\\_ViewStart.cshtml",
+      "FilePath": "d:\\Anis\\Documents\\Work\\Projects\\Website\\Insurance\\server\\Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "d:\\.Projects\\matin-insurance\\server\\Views\\Home\\Index.cshtml",
-      "TargetPath": "Views\\Home\\Index.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\.Projects\\matin-insurance\\server\\Views\\Home\\Privacy.cshtml",
-      "TargetPath": "Views\\Home\\Privacy.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\.Projects\\matin-insurance\\server\\Views\\Shared\\_Layout.cshtml",
+      "FilePath": "d:\\Anis\\Documents\\Work\\Projects\\Website\\Insurance\\server\\Views\\Shared\\_Layout.cshtml",
       "TargetPath": "Views\\Shared\\_Layout.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "d:\\.Projects\\matin-insurance\\server\\Views\\_ViewImports.cshtml",
+      "FilePath": "d:\\Anis\\Documents\\Work\\Projects\\Website\\Insurance\\server\\Views\\Shared\\Error.cshtml",
+      "TargetPath": "Views\\Shared\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\Anis\\Documents\\Work\\Projects\\Website\\Insurance\\server\\Views\\Home\\Index.cshtml",
+      "TargetPath": "Views\\Home\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\Anis\\Documents\\Work\\Projects\\Website\\Insurance\\server\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\Anis\\Documents\\Work\\Projects\\Website\\Insurance\\server\\Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\Anis\\Documents\\Work\\Projects\\Website\\Insurance\\server\\Views\\Home\\Privacy.cshtml",
+      "TargetPath": "Views\\Home\\Privacy.cshtml",
       "FileKind": "mvc"
     }
   ],

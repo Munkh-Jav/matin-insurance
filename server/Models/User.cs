@@ -20,6 +20,8 @@ namespace server.Models
 
         public Boolean admin {get; set; }
 
+        public string changePassToken { get; set; }
+
     }
     
 }

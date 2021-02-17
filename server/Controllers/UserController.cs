@@ -42,6 +42,17 @@ namespace UsersApi.Controllers
             return Ok(response);
         }
 
+        [HttpPost("change-pass-forgot")]
+        public ActionResult ChangePassForgot(ChangePassByTokenModel model)
+        {
+            var response = _UserService.ChangePassByToken(model);
+
+            if (response == null)
+                return BadRequest("We couldn't process your request" );
+
+            return Ok(response);
+        }
+
         [HttpPost("change-email")]
         public ActionResult ChangeEmail(ChangeEmailRequest model)
         {
@@ -84,6 +95,29 @@ namespace UsersApi.Controllers
 
             if (response == null)
                 return BadRequest(new { message = "Email already exists" });
+
+            return Ok(response);
+        }
+
+        [HttpGet("generate-pass-token/{email}")]
+        public ActionResult GeneratePassToken(string email)
+        {
+            var response = _UserService.GeneratePassToken(email);
+
+            if (response == null)
+                return NotFound(new { message = "Invalid email" });
+
+            return Ok(response);
+        }
+
+        [HttpGet("check-pass-id/{id}")]
+        public ActionResult CheckPassId(string id)
+        {
+            Console.WriteLine(id);
+            var response = _UserService.CheckPassId(id);
+
+            if (response == null)
+                return NotFound(new { message = "Invalid ID" });
 
             return Ok(response);
         }

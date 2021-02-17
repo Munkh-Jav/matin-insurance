@@ -9,6 +9,7 @@ import MainHeader from "components/Headers/MainHeader.js";
 import {connect} from 'react-redux';
 import _ from "lodash";
 import history from "../../history";
+import {requestPass} from "../../actions/userActions";
 
 
 class Forgot extends React.Component {
@@ -31,13 +32,24 @@ class Forgot extends React.Component {
     }
 
     componentDidMount() {
-      
+        document.addEventListener('request_pass', e=> {
+            if(e.detail.success){
+                console.log("VALID");
+            }else{
+                console.log("INVALID");
+            }
+        }, false);
     }
 
    
 
     onChange(e) {
-        this.setState({content: {...this.state.content, [e.target.name]: e.target.value}});
+        this.setState({[e.target.name]: e.target.value});
+    }
+
+    submit(e){
+        e.preventDefault();
+        this.props.requestPass(this.state.email);
     }
 
    
@@ -87,13 +99,5 @@ class Forgot extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        video: state.videos.video,
-        video_error: state.videos.videos_error,
-        comments: state.comments.comments,
-        user : state.auth.user
-    }
-}
 
-export default connect(mapStateToProps, {})(Forgot);
+export default connect(null, {requestPass})(Forgot);

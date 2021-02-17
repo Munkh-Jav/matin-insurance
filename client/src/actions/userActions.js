@@ -58,9 +58,19 @@ export const changePass = (formValues) => async (dispatch, getState) => {
         document.dispatchEvent(new CustomEvent('change_pass', { detail : {success: true} }));
         updateToken(dispatch, data);
     }catch(e){
+        document.dispatchEvent(new CustomEvent('change_pass', { detail : {success: false} }));
         if(!e.response)
             return dispatch({type: CHANGE_PASS_ERROR, error: 'Server error'});
         dispatch({type: CHANGE_PASS_ERROR, error: e.response.data});
+    }
+}
+
+export const changePassByToken = (token, pw) => async () => {
+    try{
+        await server.post(user_route + "/change-pass-forgot", {token: token, password : pw});
+        document.dispatchEvent(new CustomEvent('change_pass_forgot', { detail : {success: true} }));
+    }catch(e){
+        document.dispatchEvent(new CustomEvent('change_pass_forgot', { detail : {success: false} }));
     }
 }
 
@@ -75,6 +85,26 @@ export const changeEmail = (email) => async (dispatch, getState) => {
         if(!e.response)
             return dispatch({type: CHANGE_EMAIL_ERROR, error: 'Server error'});
         dispatch({type: CHANGE_EMAIL_ERROR, error: e.response.data});
+
+    }
+}
+
+export const requestPass = (email) => async () => {
+    try{
+        await server.get(user_route + "/generate-pass-token/" + email);
+        document.dispatchEvent(new CustomEvent('request_pass', { detail : {success: true} }));
+    }catch(e){
+        document.dispatchEvent(new CustomEvent('request_pass', { detail : {success: false} }));
+
+    }
+}
+
+export const checkPassId = (id) => async () => {
+    try{
+        await server.get(user_route + "/check-pass-id/" + id);
+        document.dispatchEvent(new CustomEvent('check_pass_id', { detail : {success: true} }));
+    }catch(e){
+        document.dispatchEvent(new CustomEvent('check_pass_id', { detail : {success: false} }));
 
     }
 }

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using BC = BCrypt.Net.BCrypt;
+using Microsoft.AspNetCore.Http;
 
 namespace server.Services
 {
@@ -18,8 +19,9 @@ namespace server.Services
         private readonly IMongoCollection<User> _Users;
         private readonly IMongoCollection<Stats> _Stats;
         private readonly AppSettings _appSettings;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserService(IDatabaseSettings settings, IOptions<AppSettings> appSettings)
+        public UserService(IDatabaseSettings settings, IOptions<AppSettings> appSettings, IHttpContextAccessor httpContextAccessor)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
@@ -27,6 +29,7 @@ namespace server.Services
             _Users = database.GetCollection<User>("Users");
             _Stats = database.GetCollection<Stats>("Stats");
             _appSettings = appSettings.Value;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
@@ -61,6 +64,20 @@ namespace server.Services
             return generateJwtToken(user);
         }
 
+        public string ChangePassByToken(ChangePassByTokenModel model)
+        {
+            if(model.token == "") return null;
+            var user = _Users.Find(x => x.changePassToken == model.token).SingleOrDefault();
+            if (user == null) return null;
+
+            user.password = BC.HashPassword(model.password);
+            user.changePassToken = "";
+
+            _Users.ReplaceOne(sub => sub.changePassToken == model.token, user);
+
+            return generateJwtToken(user);
+        }
+
         public string ChangeEmail(ChangeEmailRequest model)
         {
             var user = _Users.Find(x => x.Id == model.id).SingleOrDefault();
@@ -83,7 +100,6 @@ namespace server.Services
             user.profile_img = avatar;
 
             _Users.ReplaceOne(sub => sub.Id == id, user);
-
 
             return generateJwtToken(user);
         }
@@ -108,6 +124,30 @@ namespace server.Services
             var token = generateJwtToken(newUser);
 
             return new AuthenticateResponse(token);
+        }
+
+        public string CheckPassId(string id)
+        {
+            if(id == "") return null;
+
+            var user = _Users.Find(x => x.changePassToken == id).SingleOrDefault();
+            if (user == null) return null;
+
+            return "found";
+        }
+
+        public string GeneratePassToken(string email){
+            Guid guid = Guid.NewGuid();
+            string token = guid.ToString();
+            var user = _Users.Find(x => x.email == email).SingleOrDefault();
+            if (user == null) return null;
+
+            user.changePassToken = token;
+            string host = _httpContextAccessor.HttpContext.Request.Host.Value;
+            EmailService.Send("Reset your password", "Your password reset link is: http://" + host+"/auth/forgot/restore/" + token, new string[]{user.email});
+
+            _Users.ReplaceOne(sub => sub.email == email, user);
+            return "generated";
         }
 
         private string generateJwtToken(User user)

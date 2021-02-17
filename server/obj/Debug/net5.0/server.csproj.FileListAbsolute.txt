@@ -110,3 +110,10 @@ D:\Anis\Documents\Work\Projects\Website\Insurance\server\bin\Debug\net5.0\Micros
 D:\.Projects\matin-insurance\server\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Anis\Documents\Work\Projects\Website\Insurance\server\bin\Debug\net5.0\BCrypt.Net-Next.dll
 D:\.Projects\matin-insurance\server\bin\Debug\net5.0\BCrypt.Net-Next.dll
+D:\Anis\Documents\Work\Projects\Website\Insurance\server\bin\Debug\net5.0\MailKit.dll
+D:\Anis\Documents\Work\Projects\Website\Insurance\server\bin\Debug\net5.0\MimeKit.dll
+D:\Anis\Documents\Work\Projects\Website\Insurance\server\bin\Debug\net5.0\BouncyCastle.Crypto.dll
+D:\Anis\Documents\Work\Projects\Website\Insurance\server\obj\Debug\net5.0\server.MvcApplicationPartsAssemblyInfo.cs
+D:\Anis\Documents\Work\Projects\Website\Insurance\server\bin\Debug\net5.0\Microsoft.AspNetCore.NodeServices.dll
+D:\Anis\Documents\Work\Projects\Website\Insurance\server\bin\Debug\net5.0\Microsoft.AspNetCore.SpaServices.dll
+D:\Anis\Documents\Work\Projects\Website\Insurance\server\bin\Debug\net5.0\Microsoft.AspNetCore.SpaServices.Extensions.dll

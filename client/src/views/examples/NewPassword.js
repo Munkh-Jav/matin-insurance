@@ -9,6 +9,7 @@ import MainHeader from "components/Headers/MainHeader.js";
 import {connect} from 'react-redux';
 import _ from "lodash";
 import history from "../../history";
+import {changePassByToken, checkPassId} from "../../actions/userActions";
 
 
 class Forgot extends React.Component {
@@ -16,31 +17,46 @@ class Forgot extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            is_modal_open: false,
-            is_confirm_modal_open: false,
-            description: "",
-            content: {
-                new_comment: ''
-            },
+            password:"",
+            password_confirm: "",
             error: '',
             isLoading: false
         }
         this.onChange = this.onChange.bind(this)
+        this.submit = this.submit.bind(this)
     }
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
 
-       
     }
 
     componentDidMount() {
-      
+        this.props.checkPassId(this.props.match.params.id);
+        document.addEventListener('check_pass_id', e=> {
+            if(e.detail.success){
+                console.log("VALID");
+            }else{
+                console.log("INVALID");
+            }
+        }, false);
+        document.addEventListener('change_pass_forgot', e=> {
+            if(e.detail.success){
+                console.log("UPDATED");
+            }else{
+                console.log("NOT UPDATED");
+            }
+        }, false);
     }
 
    
 
     onChange(e) {
-        this.setState({content: {...this.state.content, [e.target.name]: e.target.value}});
+        this.setState({[e.target.name]: e.target.value});
+    }
+
+    submit(e){
+        e.preventDefault();
+        this.props.changePassByToken(this.props.match.params.id, this.state.password);
     }
 
    
@@ -70,7 +86,7 @@ class Forgot extends React.Component {
                         <i className="fas fa-unlock" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="New password" name="email" type="email"  onChange={this.onChange}/>
+                    <Input placeholder="New password" name="password" type="password" value={this.state.password}  onChange={this.onChange}/>
                   </InputGroup>
                 </FormGroup>
                 <FormGroup className="mb-3">
@@ -80,7 +96,7 @@ class Forgot extends React.Component {
                         <i className="fas fa-unlock" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Confirm new password" name="email" type="email"  onChange={this.onChange}/>
+                    <Input placeholder="Confirm new password" name="password_confirm" type="password" value={this.state.password_confirm} onChange={this.onChange}/>
                   </InputGroup>
                 </FormGroup>
 
@@ -100,13 +116,5 @@ class Forgot extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        video: state.videos.video,
-        video_error: state.videos.videos_error,
-        comments: state.comments.comments,
-        user : state.auth.user
-    }
-}
 
-export default connect(mapStateToProps, {})(Forgot);
+export default connect(null, {checkPassId, changePassByToken})(Forgot);

@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.8576cfbe.chunk.css",
+    "main.js": "/static/js/main.e95b0556.chunk.js",
+    "main.js.map": "/static/js/main.e95b0556.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.3a97b1ab.js",
+    "runtime-main.js.map": "/static/js/runtime-main.3a97b1ab.js.map",
+    "static/css/2.2f4bd28e.chunk.css": "/static/css/2.2f4bd28e.chunk.css",
+    "static/js/2.aa37f70b.chunk.js": "/static/js/2.aa37f70b.chunk.js",
+    "static/js/2.aa37f70b.chunk.js.map": "/static/js/2.aa37f70b.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.2f4bd28e.chunk.css.map": "/static/css/2.2f4bd28e.chunk.css.map",
+    "static/css/main.8576cfbe.chunk.css.map": "/static/css/main.8576cfbe.chunk.css.map",
+    "static/js/2.aa37f70b.chunk.js.LICENSE.txt": "/static/js/2.aa37f70b.chunk.js.LICENSE.txt",
+    "static/media/all.min.css": "/static/media/fa-solid-900.afbdcbcc.woff",
+    "static/media/nucleo.css": "/static/media/nucleo-icons.d6a66724.ttf",
+    "static/media/argon-dashboard-react.scss": "/static/media/play_white.aae42eda.png",
+    "static/media/profile-cover.jpg": "/static/media/profile-cover.80bf0f3e.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3a97b1ab.js",
+    "static/css/2.2f4bd28e.chunk.css",
+    "static/js/2.aa37f70b.chunk.js",
+    "static/css/main.8576cfbe.chunk.css",
+    "static/js/main.e95b0556.chunk.js"
+  ]
+}

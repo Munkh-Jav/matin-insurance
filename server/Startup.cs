@@ -11,6 +11,8 @@ using Microsoft.Extensions.Options;
 using server.Models;
 using server.Services;
 using server.Helpers;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace server
 {
@@ -34,9 +36,15 @@ namespace server
             services.AddSingleton<CommentService>();
             services.AddSingleton<StatsService>();
             services.AddSingleton<UserService>();      
-            services.AddSingleton<AdminInfoService>();         
+            services.AddSingleton<AdminInfoService>();     
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();    
             services.AddControllersWithViews();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            services.AddMvc(option => option.EnableEndpointRouting = false);
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "wwwroot/build";
+            });
 
             // configure DI for application services
             services.AddScoped<UserService>();
@@ -55,6 +63,17 @@ namespace server
             }
             app.UseDefaultFiles(); 
             app.UseStaticFiles();
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
+            app.UseMvc();
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = Path.Join(env.ContentRootPath, "");
+
+            });
+
 
             app.UseRouting();
 

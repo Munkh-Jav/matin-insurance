@@ -67,14 +67,14 @@ var routes = [
     layout: "/auth"
   },
   {
-    path: "/forgotten/newpass",
-    name: "NewPass",
+    path: "/forgot/restore/:id",
+    name: "New Password",
     icon: "",
     component: NewPassword,
     layout: "/auth"
   },
   {
-    path: "/forgotten",
+    path: "/forgot",
     name: "Forgot",
     icon: "",
     component: Forgot,
