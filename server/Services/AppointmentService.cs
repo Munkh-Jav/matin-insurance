@@ -33,7 +33,7 @@ namespace server.Services
             }
             stat.value++;
             _Stats.ReplaceOne(sub => sub.type == "active-appointments", stat);
-            EmailService.Send("NEW APPOINTMENT", "YOU GOT A NEW APPOINTMENT: " + Appointment, new string[]{"anisbrachemi@hotmail.com"});
+            EmailService.Send("NEW APPOINTMENT", "YOU GOT A NEW APPOINTMENT: " + Appointment, new string[]{"saoudmessaoudi@hotmail.fr"});
             return Appointment;
         }
 

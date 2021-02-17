@@ -19,7 +19,7 @@ class Forgot extends React.Component {
         this.state = {
             email: "",
             error: '',
-            loading: false
+            loading: false,
         }
         this.submit = this.submit.bind(this);
         this.onChange = this.onChange.bind(this)
@@ -32,10 +32,16 @@ class Forgot extends React.Component {
     }
 
     componentDidMount() {
+
         document.addEventListener('request_pass', e=> {
+
+
             if(e.detail.success){
-                console.log("VALID");
+             
+                this.sendDisplayValid();
+
             }else{
+              this.sendDisplayError();
                 console.log("INVALID");
             }
         }, false);
@@ -50,9 +56,23 @@ class Forgot extends React.Component {
     submit(e){
         e.preventDefault();
         this.props.requestPass(this.state.email);
+      }
+
+    sendDisplayValid(){     
+      document.getElementById('send-email').style.display = "none";
+      document.getElementById("resend-email").style.display="inline-block";
+      document.getElementById("email-sent-message").style.display="inline-block";
+  
+    }
+    sendDisplayError(){
+      document.getElementById('send-email').style.display = "none";
+      document.getElementById("resend-email").style.display="inline-block";
+      document.getElementById("email-sent-message-error").style.display="inline-block";
+  
     }
 
-   
+    renterEmail(){
+    }
 
     showSnackBar(message){
         const x = document.getElementById("snackbar");
@@ -79,14 +99,25 @@ class Forgot extends React.Component {
                         <i className="ni ni-email-83" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Email" name="email" type="email"  onChange={this.onChange}/>
+                    <Input placeholder="Email" name="email" type="email"  onChange={this.onChange} required/>
                   </InputGroup>
                 </FormGroup>
-
+              
                 <div className="text-center">
-                  <Button color="primary" type="submit">
+                  <Button color="primary" type="submit" id="send-email">
                     Send code
                   </Button>
+                  <p id="email-sent-message" style={{display : 'none', color : 'green'}}><em>An email has been sent</em></p>
+                  <p id="email-sent-message-error" style={{display : 'none', color : 'red'}}><em>No account is linked to this address</em></p>
+                  <Row>
+                  <Button 
+                    className="bg-info center mt-2"
+                     style={{width: '40%', height: '40%', display : 'none'}}
+                     id="resend-email"
+                     onClick={() => window.location.reload(false)}>
+                    Re-enter e-mail
+                  </Button>
+                  </Row>
                 </div>
               </Form>
             </CardBody>

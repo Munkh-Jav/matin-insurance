@@ -7,14 +7,12 @@ import {
 import MainHeader from "components/Headers/MainHeader.js";
 import DetailModal from "../../components/Modals/DetailModal";
 import {connect} from 'react-redux';
-import Comment from "../../components/Groups/Comment";
-import getVideoDetails from "../../utils/getVideoDetails";
 import _ from "lodash";
 import ChangePassModal from "../../components/Modals/ChangePassModal";
 
 import ChangeUserInfoModal from "components/Modals/ChangeUserInfoModal";
 import UploadPicModal from "components/Modals/UploadPicModal";
-import {changeAvatar, changePass, changeEmail} from "../../actions/userActions";
+import {changeAvatar, changePass, changeEmail, updateUserInfo} from "../../actions/userActions";
 import validateEmail from "../../utils/validateEmail";
 import filepath from "../../filepath";
 
@@ -114,7 +112,7 @@ class UserProfilePage extends React.Component {
     }
 
     modalSubmitContact = (formContent) => {
-        this.props.updateAdminInfo(formContent);
+        this.props.updateUserInfo(formContent);
     }
 
     //Upload Picture Modal Handlers
@@ -353,4 +351,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {changeAvatar, changeEmail, changePass})(UserProfilePage);
+export default connect(mapStateToProps, {changeAvatar, changeEmail, changePass, updateUserInfo})(UserProfilePage);

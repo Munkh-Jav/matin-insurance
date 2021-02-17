@@ -34,9 +34,10 @@ class Forgot extends React.Component {
         this.props.checkPassId(this.props.match.params.id);
         document.addEventListener('check_pass_id', e=> {
             if(e.detail.success){
-                console.log("VALID");
+                console.log("VALIDD");
             }else{
-                console.log("INVALID");
+              history.push("/auth/forgot")
+              console.log("no work");
             }
         }, false);
         document.addEventListener('change_pass_forgot', e=> {

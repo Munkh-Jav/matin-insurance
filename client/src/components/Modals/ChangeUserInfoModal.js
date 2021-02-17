@@ -17,7 +17,8 @@ class ChangeUserInfoModal extends React.Component {
         super(props);
         this.state= {
             content : {
-                name : this.props.user.name
+                fname : (this.props.user.name)?this.props.user.name.split(" ")[0]: "",
+                lname : (this.props.user.name && this.props.user.name.split(" ")[1])?this.props.user.name.split(" ")[1]: ""
             },
            
             error: '',
@@ -31,9 +32,11 @@ class ChangeUserInfoModal extends React.Component {
     }
 
     componentDidMount() {
-        document.addEventListener('change_contact', e => {
+        document.addEventListener('change_name', e => {
             if(e.detail.success){
                 this.props.closeModal(undefined, true);
+                window.location.reload(false)
+
             }else{
                 this.props.closeModal(undefined, false, true);
             }
@@ -44,6 +47,7 @@ class ChangeUserInfoModal extends React.Component {
     onSubmitContactInfo = (e) =>{
         e.preventDefault()
         this.props.onSubmit(this.state.content);
+        
     }
 
 
@@ -64,7 +68,7 @@ class ChangeUserInfoModal extends React.Component {
 
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input placeholder="New First Name" type="text" name="fname" value={(this.props.user.name)?this.props.user.name.split(" ")[0]: ""} onChange={this.onChange}/>
+                  <Input placeholder="New First Name" type="text" name="fname" value={this.state.content.fname} onChange={this.onChange}/>
                 </InputGroup>
                 </Col>
                 <Col xs="12">
@@ -74,11 +78,9 @@ class ChangeUserInfoModal extends React.Component {
                       <i className= "fas fa-signature"/>
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input placeholder="New New Last Name" type="text" name="lname" value={(this.state.content.name && this.state.content.name.split(" ")[1])?this.props.user.name.split(" ")[1]: ""} onChange={this.onChange}/>
+                  <Input placeholder="New Last Name" type="text" name="lname" value={this.state.content.lname} onChange={this.onChange}/>
                 </InputGroup>
-                </Col>
-
-                    
+                </Col>   
                     {error && <p style={{color: 'red', fontSize: 12}}>{error}</p>}
               <div className=" mt-3">
                   <Button color="primary"

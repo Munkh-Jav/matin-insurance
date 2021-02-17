@@ -64,6 +64,11 @@ namespace server
             app.UseDefaultFiles(); 
             app.UseStaticFiles();
 
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+                
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
@@ -77,10 +82,6 @@ namespace server
 
             app.UseRouting();
 
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
 
             app.UseMiddleware<JwtMiddleware>();
 

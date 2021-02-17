@@ -16,6 +16,7 @@ import UserLayout from "layouts/User.js";
 import {Provider} from 'react-redux'
 import history from "./history";
 import requireAuth from "./utils/requireAuth";
+import requireAdmin from "./utils/requireAdmin";
 import checkIfAuth from "./utils/checkIfAuth";
 import setAuthorizationToken from "./utils/setAuthorizationToken";
 import {SIGN_IN} from "./actions/types";
@@ -31,7 +32,7 @@ ReactDOM.render(
     <Provider store={store}>
       <Router history={history}>
         <Switch>
-            <Route path="/admin" component={requireAuth(AdminLayout)} />
+            <Route path="/admin" component={requireAdmin(AdminLayout)} />
             <Route path="/auth" component={checkIfAuth(AuthLayout)} />
             <Route path="/video" component={VideoLayout} />
             <Route path="/appointment" component={AppointmentLayout} />
