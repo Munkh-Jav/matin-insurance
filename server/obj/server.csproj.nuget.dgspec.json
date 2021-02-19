@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\.Projects\\matin-insurance\\server\\server.csproj": {}
+    "D:\\Anis\\Documents\\Work\\Projects\\Website\\Insurance\\server\\server.csproj": {}
   },
   "projects": {
-    "D:\\.Projects\\matin-insurance\\server\\server.csproj": {
+    "D:\\Anis\\Documents\\Work\\Projects\\Website\\Insurance\\server\\server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\.Projects\\matin-insurance\\server\\server.csproj",
+        "projectUniqueName": "D:\\Anis\\Documents\\Work\\Projects\\Website\\Insurance\\server\\server.csproj",
         "projectName": "server",
-        "projectPath": "D:\\.Projects\\matin-insurance\\server\\server.csproj",
-        "packagesPath": "C:\\Users\\Noha\\.nuget\\packages\\",
-        "outputPath": "D:\\.Projects\\matin-insurance\\server\\obj\\",
+        "projectPath": "D:\\Anis\\Documents\\Work\\Projects\\Website\\Insurance\\server\\server.csproj",
+        "packagesPath": "C:\\Users\\kbrac\\.nuget\\packages\\",
+        "outputPath": "D:\\Anis\\Documents\\Work\\Projects\\Website\\Insurance\\server\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Noha\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\MicroFocus.VisualStudio.Offline.config",
+          "D:\\Anis\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "D:\\NuGetPackages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

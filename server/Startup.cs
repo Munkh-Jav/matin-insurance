@@ -68,6 +68,11 @@ namespace server
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
+
+            app.UseRouting();    
+            app.UseMiddleware<JwtMiddleware>();
+
+            app.UseAuthorization();
                 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -80,12 +85,8 @@ namespace server
             });
 
 
-            app.UseRouting();
+            
 
-
-            app.UseMiddleware<JwtMiddleware>();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
