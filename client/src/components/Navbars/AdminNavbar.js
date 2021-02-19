@@ -34,6 +34,7 @@ class AdminNavbar extends React.Component {
 
   render() {
     const {user} = this.props;
+    console.log(user);
     return (
       <>
         <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -44,7 +45,7 @@ class AdminNavbar extends React.Component {
               {this.props.brandText}
             </span>
             
-            <Nav className="align-items-center d-md-flex navbar-nav" navbar id="user-nav"> 
+            <Nav className="align-items-center d-md-flex navbar-nav d-none" navbar id="user-nav"> 
               <UncontrolledDropdown nav>
                 <DropdownToggle className="pr-0" nav>
                   <Media className="align-items-center">

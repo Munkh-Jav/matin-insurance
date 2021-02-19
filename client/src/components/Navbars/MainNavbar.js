@@ -24,6 +24,7 @@ import {
 } from "reactstrap";
 import filepath from "../../filepath";
 var HtmlHeader = require("../../statics/header.html")
+
 // import HtmlHeader from '../../statics/header.html'
 
 class MainNavbar extends React.Component {
@@ -32,26 +33,29 @@ class MainNavbar extends React.Component {
     e.preventDefault();
     this.props.logout();
   }
+ 
+ 
 
   render() {
     const {user} = this.props;
     return (
       <>
-        <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main" style={{
+      
+      <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main" style={{
           background: "#106eea",
           padding: "0"}}>
           <Container fluid className="pl-0">
               <span dangerouslySetInnerHTML={{__html: HtmlHeader}}></span>
 
-
-            <Nav className="align-items-center d-md-flex navbar-nav" navbar id="user-nav"> 
+        
+              <Nav className="align-items-center d-md-flex navbar-nav" navbar id="user-nav"> 
               <UncontrolledDropdown nav>
                 <DropdownToggle className="pr-0" nav>
                   <Media className="align-items-center">
                     <span className="avatar avatar-sm rounded-circle">
                       <img
                         alt="..."
-                        src={filepath + `/profile-pics/${user.profile_img}`}
+                        src={filepath + `/profile-pics/${(this.props.logged_in) ? user.profile_img : "not-logged-in.png"}`}
                       />
                     </span>
                     <Media className="ml-2 d-none d-lg-block" >
@@ -65,10 +69,13 @@ class MainNavbar extends React.Component {
                   <DropdownItem className="noti-title" header tag="div">
                     <h6 className="text-overflow m-0">Welcome!</h6>
                   </DropdownItem>
+                  
                   <DropdownItem to="/profile" tag={Link}>
                     <i className="ni ni-single-02" />
-                    <span>My profile</span>
+                    <span>{(this.props.logged_in) ? 'My profile' : 'Login'}</span>
                   </DropdownItem>
+                  
+                
                   <DropdownItem className="d-block d-lg-none" divider />
                   <DropdownItem to="/" className="d-block d-lg-none" tag={Link}>
                     <i className="fas fa-home" />
@@ -82,11 +89,17 @@ class MainNavbar extends React.Component {
                     <i className="fas fa-id-card" />
                     <span>Contact</span>
                   </DropdownItem>
-                  <DropdownItem divider />
+              
+                  {(this.props.logged_in) && <>
+                    <DropdownItem divider />
                   <DropdownItem onClick={this.logout}>
                     <i className="ni ni-user-run" />
                     <span>Logout</span>
                   </DropdownItem>
+                  </>
+                  }
+                  
+
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
@@ -97,7 +110,9 @@ class MainNavbar extends React.Component {
   }
 }
 const mapStateToProps = (state) => {
-  return {user: state.auth.user}
+  return {user: state.auth.user, 
+    logged_in : state.auth.logged_in 
+  }
 }
 
 

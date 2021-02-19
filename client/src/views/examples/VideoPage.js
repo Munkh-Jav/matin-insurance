@@ -6,20 +6,17 @@ import {
     Col, Container, Row, FormGroup, InputGroup, InputGroupAddon, InputGroupText, Input, Button, Form
 } from "reactstrap";
 import MainHeader from "components/Headers/MainHeader.js";
-import DetailModal from "../../components/Modals/DetailModal";
 import {connect} from 'react-redux';
 import ContentCard from "../../components/Cards/ContentCard";
 import {getVideo, cleanVideo} from "../../actions/videoActions";
 import Comment from "../../components/Groups/Comment";
 import {addComment, getComments} from "../../actions/commentActions";
-import {CLEAN_VIDEO} from "../../actions/types";
 import getVideoDetails from "../../utils/getVideoDetails";
 import ReactPlayer from "react-player";
 import _ from "lodash";
-import UserAddCommentModal from "components/Modals/UserAddCommentModal";
 import authCheck from "../../utils/authCheck";
-import validateEmail from "../../utils/validateEmail";
 import history from "../../history";
+import MainFooter from "components/Footers/MainFooter";
 
 
 class VideoPage extends React.Component {
@@ -184,6 +181,7 @@ class VideoPage extends React.Component {
                         </Row>
                     </div>
                 </Container>
+                <MainFooter/>
                 <div id="snackbar">{this.state.snackbar_message}</div>
             </>
         );

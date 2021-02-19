@@ -30,6 +30,7 @@ import {connect} from 'react-redux';
 import _ from "lodash";
 import ConfirmModal from "../../components/Modals/ConfirmModal";
 import DetailModal from "../../components/Modals/DetailModal";
+import MainFooter from "components/Footers/MainFooter";
 
 class Appointments extends React.Component {
 
@@ -137,6 +138,7 @@ class Appointments extends React.Component {
             </div>
           </Row>
         </Container>
+        <MainFooter/>
       </>
     );
   }

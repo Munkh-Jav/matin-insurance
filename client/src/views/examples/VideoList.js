@@ -7,13 +7,12 @@ import {
   Col, Container, Row
 } from "reactstrap";
 import MainHeader from "components/Headers/MainHeader.js";
-import Header from "components/Headers/Header.js";
 import {connect} from 'react-redux';
 import {getVideos} from "../../actions/videoActions";
 import getVideoDetails from "../../utils/getVideoDetails";
 import history from "../../history";
 import _ from "lodash";
-import MainNavbar from "components/Navbars/MainNavbar";
+import MainFooter from "components/Footers/MainFooter";
 
 
 class VideoList extends React.Component {
@@ -73,7 +72,7 @@ class VideoList extends React.Component {
                     >
                     <img style={{width: '100%', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'}} src={this.state.thumbnails[video.id]}/>
                     {this.state.thumbnails[video.id] && <div className="overlay card-img-overlay"> <div className="play"></div></div>}
-                    {/*this.state.thumbnails[i] && */}
+                   
                   </Col>
                 </div>
                 <hr className="mb-1 mt-4"/>
@@ -93,7 +92,7 @@ class VideoList extends React.Component {
   render() {
     return (
       <>
-          <MainHeader/>
+              <MainHeader/>
       
         <Container className="mt-2" fluid>
         <h1 className="mt-3 mb-4 display-1 text-center text-muted">Video Gallery</h1>
@@ -106,6 +105,7 @@ class VideoList extends React.Component {
               </Col>
             </div>
         </Container>
+        <MainFooter/>
       </>
     );
   }

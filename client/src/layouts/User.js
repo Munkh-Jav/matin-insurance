@@ -4,6 +4,8 @@ import { Route, Switch, Redirect } from "react-router-dom";
 
 import routes from "routes.js";
 import MainNavbar from "../components/Navbars/MainNavbar";
+import MainFooter from "../components/Footers/MainFooter";
+
 
 class User extends React.Component {
   componentDidUpdate(e) {
@@ -50,7 +52,7 @@ class User extends React.Component {
             {this.getRoutes(routes)}
             <Redirect from="*" to="/profile" />
           </Switch>
-
+          <MainFooter/>
         </div>
       </>
     );

@@ -91,17 +91,14 @@ class Login extends React.Component {
             </CardBody>
           </Card>
           <Row className="mt-3">
-            <Col xs="6">
-              <Link
-                className="text-light"
-                to="/auth/forgot"
-                onClick={e => e.preventDefault()}
-              >
-                <small>Forgot password?</small>
-              </Link>
+            <Col xs="5">
+              <a href="/auth/forgot">Forgot Password?</a>
             </Col>
-
+            <Col xs="5" className="ml-5">
+            <a href="/auth/register">Create an account</a>
+            </Col>
           </Row>
+        
         </Col>
       </>
     );

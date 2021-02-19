@@ -19,6 +19,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
 import history from "../../history";
+import MainFooter from "components/Footers/MainFooter";
 
 
 
@@ -253,6 +254,7 @@ class BookAppointmentPage extends React.Component {
                     </Row>
 
                 </Container>
+                <MainFooter/>
                 <div id="snackbar">{this.state.snackbar_message}</div>
 
             </>

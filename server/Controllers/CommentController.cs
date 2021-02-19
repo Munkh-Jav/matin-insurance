@@ -20,7 +20,7 @@ namespace CommentsApi.Controllers
         public ActionResult<List<Comment>> Get() =>
             _CommentService.Get();
 
-        [HttpGet("{id:length(24)}", Name = "GetComment")]
+        [HttpGet("{id}", Name = "GetComment")]
         public ActionResult<Comment> Get(string id)
         {
             var Comment = _CommentService.Get(id);
@@ -33,7 +33,7 @@ namespace CommentsApi.Controllers
             return Comment;
         }
 
-        [HttpGet("by-video/{id:length(24)}")]
+        [HttpGet("by-video/{id}")]
         public ActionResult<List<Comment>> GetByVideo(string id)
         {
             var Comment = _CommentService.GetByVideo(id);

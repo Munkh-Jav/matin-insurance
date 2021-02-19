@@ -117,28 +117,7 @@ class Register extends React.Component {
                     <span className={`${strength.class} font-weight-700`}>{strength.text}</span>
                   </small>
                 </div>
-                <Row className="my-4">
-                  <Col xs="12">
-                    <div className="custom-control custom-control-alternative custom-checkbox">
-                      <input
-                        className="custom-control-input"
-                        id="customCheckRegister"
-                        type="checkbox"
-                      />
-                      <label
-                        className="custom-control-label"
-                        htmlFor="customCheckRegister"
-                      >
-                        <span className="text-muted">
-                          I agree with the{" "}
-                          <a href="#pablo" onClick={e => e.preventDefault()}>
-                            Privacy Policy
-                          </a>
-                        </span>
-                      </label>
-                    </div>
-                  </Col>
-                </Row>
+                
                 <div className="text-center">
                   <Button className="mt-4" color="primary" type="submit">
                     Create account

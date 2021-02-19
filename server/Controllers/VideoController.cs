@@ -21,7 +21,7 @@ namespace VideosApi.Controllers
         public ActionResult<List<Video>> Get() =>
             _VideoService.Get();
 
-        [HttpGet("{id:length(24)}", Name = "GetVideo")]
+        [HttpGet("{id}", Name = "GetVideo")]
         public ActionResult<Video> Get(string id)
         {
             var Video = _VideoService.Get(id);

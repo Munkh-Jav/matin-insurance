@@ -156,7 +156,7 @@ class UserProfilePage extends React.Component {
         return (
             <>
                 <MainHeader/>
-                <Container className="mt-4" fluid>
+                <Container className="mt-4" fluid className = "mb-5">
                     <Row>
                         <Col id="avatar-col" xs="4" style={{borderRight: '1px solid #333'}}>
                 <span className="ml-4 mt-4 avatar avatar-xl rounded-circle"
@@ -338,6 +338,7 @@ class UserProfilePage extends React.Component {
                         />
                     </DetailModal>
                 </Container>
+                
                 <div id="snackbar">{this.state.snackbar_message}</div>
             </>
         );
