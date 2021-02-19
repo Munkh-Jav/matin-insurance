@@ -138,13 +138,14 @@ class VideoPage extends React.Component {
                 </Container>
                 <Container className="mt-4 mb-4">
                     <div style={{alignItems: 'center', justifyContent: 'center'}}>
-                        <Row>
+                        <Row >
                             <div style={{width: '100%'}}>
                                 <ContentCard
                                     title="Comments"
                                     hide_top_button={true}
                                     toggleComments={true}
                                     can_add_comment={true}
+
                                 >
                                     <div className="ml-2 mr-2 mb-2">
                                         {authCheck() &&

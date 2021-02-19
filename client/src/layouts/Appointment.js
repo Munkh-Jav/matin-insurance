@@ -42,15 +42,7 @@ class Appointment extends React.Component {
   render() {
     return (
       <>
-        <Sidebar
-            {...this.props}
-            routes={routes}
-            logo={{
-              innerLink: "/admin/index",
-              /*imgSrc: require("assets/img/brand/novem-logo.png").default,
-              imgAlt: "..."*/
-            }}
-        />
+    
         <div className="main-content" ref="mainContent">
           <MainNavbar
             {...this.props}

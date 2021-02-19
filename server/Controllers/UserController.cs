@@ -31,6 +31,18 @@ namespace UsersApi.Controllers
             return Ok(response);
         }
 
+        [HttpPost("change-name")]
+        public ActionResult ChangeName(ChangeNameRequest model)
+        {
+            var response = _UserService.ChangeName(model);
+
+            if (response == null)
+                return BadRequest("Something went wrong..." );
+
+            return Ok(response);
+        }
+
+
         [HttpPost("change-pass")]
         public ActionResult ChangePass(ChangePassRequest model)
         {

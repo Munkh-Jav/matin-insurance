@@ -15,7 +15,7 @@ namespace server.Services
         {
             MimeMessage message = new MimeMessage();
 
-            MailboxAddress from = new MailboxAddress("Admin", "anis@novem.dev");
+            MailboxAddress from = new MailboxAddress("Admin", "saoud@novem.dev");
             message.From.Add(from);
 
             foreach(string to in tos){
@@ -32,7 +32,7 @@ namespace server.Services
             SmtpClient client = new SmtpClient();
             client.CheckCertificateRevocation = false;
             client.Connect("smtp.dreamhost.com");
-            client.Authenticate("anis@novem.dev", "Bruhmoment01!");
+            client.Authenticate("saoud@novem.dev", "Bruhmoment01!");
             client.Send(message);
             client.Disconnect(true);
             client.Dispose();

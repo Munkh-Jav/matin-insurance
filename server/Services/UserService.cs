@@ -92,6 +92,19 @@ namespace server.Services
             return generateJwtToken(user);
         }
 
+        public string ChangeName(ChangeNameRequest model)
+        {
+            var user = _Users.Find(x => x.Id == model.id).SingleOrDefault();
+            if (user == null) return null;
+
+
+            user.name = model.name;
+
+            _Users.ReplaceOne(sub => sub.Id == model.id, user);
+
+
+            return generateJwtToken(user);
+        }
         public string ChangeAvatar(string id, string avatar){
             var user = _Users.Find(x => x.Id == id).SingleOrDefault();
             if (user == null) return null;

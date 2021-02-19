@@ -28,7 +28,7 @@ namespace server.Services
             }
             stat.value++;
             _Stats.ReplaceOne(sub => sub.type == "comments", stat);
-            EmailService.Send("NEW COMMENT", "A NEW COMMENT REQUIRES APPROVAL: " + Comment, new string[]{"anisbrachemi@hotmail.com"});
+            EmailService.Send("NEW COMMENT", "A NEW COMMENT REQUIRES APPROVAL: " + Comment, new string[]{"saoudmessaoudi@hotmail.fr"});
             return Comment;
         }
 

@@ -13,6 +13,8 @@ import {
 import {signup_route, user_route} from "../utils/serverRoutes";
 import history from "../history";
 import server from "../api/server";
+import {UPDATE_INFO, UPDATE_INFO_FAIL} from "./types";
+import axios from "axios";
 
 export const logout = () => dispatch => {
     localStorage.removeItem('jwtToken');
@@ -132,5 +134,29 @@ export const updateToken = (dispatch, data) => {
     setAuthorizationToken(data);
     dispatch({type: UPDATE_TOKEN, user: jwtDecode(data)});
 }
+
+export const updateUserInfo = (info) => async (dispatch, getState) => {
+    try{
+        const id = getState().auth.user.id;
+        const model = {
+            id : id,
+            name : info.fname + " " + info.lname
+        }
+        const {data} = await server.post(user_route + "/change-name", model,{
+            headers: {
+                'Authorization': axios.defaults.headers.common['Authorization']
+            }
+        });
+        document.dispatchEvent(new CustomEvent('change_name', { detail : {success: true} }));
+        updateToken(dispatch, data);
+    }catch(e){
+        document.dispatchEvent(new CustomEvent('change_name', { detail : {success: false} }));
+        if(!e.response)
+            return dispatch({type: UPDATE_INFO_FAIL, error: 'Server error'});
+
+        dispatch({type: UPDATE_INFO_FAIL, error: e.response.data});
+    }
+}
+
 
 
