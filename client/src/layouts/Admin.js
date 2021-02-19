@@ -9,6 +9,7 @@ import AdminFooter from "components/Footers/AdminFooter.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 
 import routes from "routes.js";
+import MainNavbar from "components/Navbars/MainNavbar";
 
 class Admin extends React.Component {
   componentDidUpdate(e) {
@@ -56,10 +57,7 @@ class Admin extends React.Component {
           }}
         />
         <div className="main-content" ref="mainContent">
-          <AdminNavbar
-            {...this.props}
-            brandText={this.getBrandText(this.props.location.pathname)}
-          />
+          <AdminNavbar/>
           <Switch>
             {this.getRoutes(routes)}
             <Redirect from="*" to="/admin/index" />

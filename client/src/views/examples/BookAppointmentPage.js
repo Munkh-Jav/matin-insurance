@@ -35,6 +35,7 @@ class BookAppointmentPage extends React.Component {
             first_name: (this.props.user.name)?this.props.user.name.split(" ")[0]: "",
             last_name: (this.props.user.name && this.props.user.name.split(" ")[1])?this.props.user.name.split(" ")[1]: "",
             email: this.props.user.email,
+            phone : "",
             type: "TFSA",
             selectedDate: ""
         }
@@ -49,9 +50,8 @@ class BookAppointmentPage extends React.Component {
         document.addEventListener('book_appointment', e=> {
             this.setState({loading: false})
             if(e.detail.success){
-                //SAOUD
-                //a changer le redirect
-                history.push('/video')
+                
+                history.push('/')
             }else{
                 this.showSnackBar("Please make sure to enter all information");
                 this.setState({error : true});
@@ -150,8 +150,8 @@ class BookAppointmentPage extends React.Component {
                                                         <i className="far fa-id-badge"/>
                                                     </InputGroupText>
                                                 </InputGroupAddon>
-                                                <Input placeholder="First Name"  type="text" name="first_name" defaultValue={(this.props.user.name)?this.props.user.name.split(" ")[0]: ""}
-                                                       onChange={this.onChange}/>
+                                                <Input placeholder="First Name"  type="text" name="first_name" value={this.state.first_name} defaultValue={(this.props.user.name)?this.props.user.name.split(" ")[0]: ""}
+                                                       onChange={this.onChange} required/>
                                             </InputGroup>
                                         </Col>
                                         <Col xl="6">
@@ -161,29 +161,47 @@ class BookAppointmentPage extends React.Component {
                                                         <i className="fas fa-id-badge"/>
                                                     </InputGroupText>
                                                 </InputGroupAddon>
-                                                <Input placeholder="Last Name" defaultValue={(this.props.user.name && this.props.user.name.split(" ")[1])?this.props.user.name.split(" ")[1]: ""} type="text" name="last_name"
-                                                       onChange={this.onChange}/>
+                                                <Input placeholder="Last Name" value={this.state.last_name}  defaultValue={(this.props.user.name && this.props.user.name.split(" ")[1])?this.props.user.name.split(" ")[1]: ""} type="text" name="last_name"
+                                                       onChange={this.onChange} required/>
                                             </InputGroup>
                                         </Col>
                                     </Row>
+                                    <Row>
+                                        <Col xl = "6">
                                     <InputGroup className="input-group-alternative">
                                         <InputGroupAddon addonType="prepend">
                                             <InputGroupText>
                                                 <i className="fas fa-envelope"/>
                                             </InputGroupText>
                                         </InputGroupAddon>
-                                        <Input placeholder="Email address" defaultValue={(this.props.user.email)} type="email" name="email"
+                                        <Input placeholder="Email address" defaultValue={(this.props.user.email)} value={this.state.email}  type="email" name="email"
+                                               onChange={this.onChange} required/>
+                                    </InputGroup>
+                                        </Col>
+                                        <Col xl="6">
+                                        <InputGroup className="input-group-alternative">
+                                        <InputGroupAddon addonType="prepend">
+                                            <InputGroupText>
+                                                <i className="fas fa-phone"/>
+                                            </InputGroupText>
+                                        </InputGroupAddon>
+                                        <Input placeholder="Phone number (Optional)" value={this.state.phone} type="phone" name="phone"
                                                onChange={this.onChange}/>
                                     </InputGroup>
-                                    <Row>
-                                        <label for="insurance-types"><h3 className="mt-2 ml-2">Choose a type of service </h3></label>
+                                        </Col>
                                     </Row>
                                     <Row>
-                                    <select name="type" onChange={this.onChange} id="insurance-types" className="input-group-alternative ml-3 border-white form-control">
-                                        <option value="TFSA">TFSA</option>
-                                        <option value="RRSP">RRSP</option>
+                                        <label htmlFor="insurance-types"><h3 className="mt-2 ml-2">Choose a type of service </h3></label>
+                                    </Row>
+                                    <Row>
+                                    <select name="type" onChange={this.onChange} id="insurance-types" className="input-group-alternative ml-3 border-white form-control" required>
+                                        <option value="Life Insurance">Life Insurance</option>
+                                        <option value="Mortgage Insurance">Mortgage Insurance</option>
+                                        <option value="Personal Insurance">Personal Insurance</option>
+                                        <option value="HomeCar Insurance">Home & Car Insurance</option>
+                                        <option value="Travel Insurance">Travel Insurance</option>
                                         <option value="Savings">Savings</option>
-                                        <option value="Loans">Loans</option>
+                                        <option value="Other">Other</option>
                                     </select>
                                     
                                     </Row>

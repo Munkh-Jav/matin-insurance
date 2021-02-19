@@ -174,8 +174,27 @@
   #info-col {
     margin-left : 15px;
   }
- 
+  #header-title {
+    font-size : 190% !important
+  }
+  #user-nav {
+    margin-right : 20px !important
+  }
+  
+  #user-dropdown-menu{
+    transform: scale(2) !important;
+    margin-left: -150px !important ; 
+    margin-top: 180px !important; 
+  }
+
+  .appear-when-small {
+    display : inline-block !important
+  }
+
 }
+
+
+
 @media only screen and (min-width: 600px) {
 
   #title_book_appointment{
@@ -184,9 +203,9 @@
 
   #title_book_appointment #title_p {
     font-size: 600%
-    
-
   }
+
+  
 }
 
 @media only screen and (max-width: 768px) {

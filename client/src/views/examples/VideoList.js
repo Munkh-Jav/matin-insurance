@@ -7,11 +7,13 @@ import {
   Col, Container, Row
 } from "reactstrap";
 import MainHeader from "components/Headers/MainHeader.js";
+import Header from "components/Headers/Header.js";
 import {connect} from 'react-redux';
 import {getVideos} from "../../actions/videoActions";
 import getVideoDetails from "../../utils/getVideoDetails";
 import history from "../../history";
 import _ from "lodash";
+import MainNavbar from "components/Navbars/MainNavbar";
 
 
 class VideoList extends React.Component {
@@ -62,7 +64,8 @@ class VideoList extends React.Component {
       if(!video_id)
         return null;
       return (
-          <Col xl="4" className="mb-5">            
+
+          <Col key={i} xl="4" className="mb-5">
                 <div className="pl-1 pr-1">
                   <Col xl="12"
                    onClick={() => this.redirectToVideo(video.id)}
@@ -90,13 +93,14 @@ class VideoList extends React.Component {
   render() {
     return (
       <>
-        <MainHeader />
-        
-        <h1 className="mt-3 mb-4 text-center display-1 text-muted">Video Gallery</h1>
+          <MainHeader/>
+      
         <Container className="mt-2" fluid>
+        <h1 className="mt-3 mb-4 display-1 text-center text-muted">Video Gallery</h1>
+        <hr/>
             <div>
               <Col>
-                <Row className="mr-6 ml-6">
+                <Row className="mr-md-6 ml-md-6">
                   {this.displayVideos()}
                 </Row>
               </Col>

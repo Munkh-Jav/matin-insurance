@@ -158,8 +158,12 @@ class Sidebar extends React.Component {
                   <i className="ni ni-calendar-grid-58" />
                   <span>Activity</span>
                 </DropdownItem>
+                <DropdownItem to="/video" tag={Link}>
+                    <i className="fas fa-chevron-circle-left" />
+                    <span>Back to Main</span>
+                  </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem href="#pablo" onClick={this.logout}>
+                <DropdownItem onClick={this.logout}>
                   <i className="fas fa-door-open" />
                   <span>Logout</span>
                 </DropdownItem>

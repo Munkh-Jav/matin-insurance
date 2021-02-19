@@ -42,7 +42,7 @@ class Appointment extends React.Component {
   render() {
     return (
       <>
-    d
+    
         <div className="main-content" ref="mainContent">
           <MainNavbar
             {...this.props}
