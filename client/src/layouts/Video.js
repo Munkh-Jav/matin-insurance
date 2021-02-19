@@ -2,10 +2,8 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 // reactstrap components
-import { Container } from "reactstrap";
 // core components
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
-import AdminFooter from "components/Footers/AdminFooter.js";
+import MainFooter from "../components/Footers/MainFooter";
 
 import routes from "routes.js";
 import MainNavbar from "../components/Navbars/MainNavbar";
@@ -57,6 +55,8 @@ class Video extends React.Component {
           </Switch>
 
         </div>
+        <MainFooter/>
+
       </>
     );
   }

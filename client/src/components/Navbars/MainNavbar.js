@@ -77,7 +77,7 @@ class MainNavbar extends React.Component {
                   
                 
                   <DropdownItem className="d-block d-lg-none" divider />
-                  <DropdownItem to="/" className="d-block d-lg-none" tag={Link}>
+                  <DropdownItem to="/index.html" className="d-block d-lg-none">
                     <i className="fas fa-home" />
                     <span>Home</span>
                   </DropdownItem>

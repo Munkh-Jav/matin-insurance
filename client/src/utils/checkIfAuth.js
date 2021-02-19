@@ -9,8 +9,10 @@ export default function (ComposedComponent) {
             if (this.props.logged_in) {
                 if(this.props.user.admin.toLowerCase() === 'true')
                     history.push('/admin/index');
-                else
-                    history.push('/video');
+                else{
+                    history.push('/index.html');
+                    window.location.reload(false)
+                }
             }
         }
 
@@ -18,8 +20,10 @@ export default function (ComposedComponent) {
             if (nextProps.logged_in) {
                 if(nextProps.user.admin.toLowerCase() === 'true')
                     history.push('/admin/index');
-                else
-                    history.push('/video');
+                else {
+                    history.push('/index.html');
+                    window.location.reload(false)
+                }
             }
         };
 

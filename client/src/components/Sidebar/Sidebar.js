@@ -164,7 +164,7 @@ class Sidebar extends React.Component {
                     <span>My profile</span>
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem to="/" tag={Link}>
+                  <DropdownItem to="/index.html" tag={Link}>
                     <i className="fas fa-home" />
                     <span>Home</span>
                   </DropdownItem>

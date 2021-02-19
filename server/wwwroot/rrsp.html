@@ -10,9 +10,14 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
   <!-- CSS Files -->
 
+    
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
     <link href="assets/vendor/aos/aos.css" rel="stylesheet">
@@ -29,65 +34,122 @@
   <!-- CSS Files -->
   <link href="css/bootstrap-reboot.min.css" rel="stylesheet" type="text/css">
   <link href="css/CSS.css" rel = "stylesheet" type="text/css">
+  <link href="css/clean-blog.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- ======= Header ======= -->
-  <header id="header">
-    <div class="container d-flex align-items-center">
-
-      <h1 class="logo mr-auto"><a href="index.html">Matin's Insurance<span>.</span></a></h1>
-
-
-      <nav class="nav-menu d-none d-lg-block">
-        <ul>
-          <li class="active"><a href="index.html">Home</a></li>
-          <li class="has-submenu">
-            <a class="dropdown-item dropdown-toggle" onclick="expand()"> Coverage </a>
-            <div class="megasubmenu dropdown-menu" id ="myExpand" style="display: none;">
-            <div class="row">
-                 <div class="col-md-6">
-                         <h6 class="title">Insurance</h6>
-                         <ul class="list-unstyled">
-                             <li><a href="personal.html">Personal Insurance</a></li>
-                             <li><a href="life.html">Life Insurance</a></li>
-                             <li><a href="mortgage.html">Mortgage Insurance</a></li>
-                             <li><a href="critical.html">Critical illness and Disability Insurance</a></li>
-                         </ul>
-                 </div><!-- end col-3 -->
-                 <div class="col-md-6">
-                     <h6 class="title">Savings and retirement</h6>
-                         <ul class="list-unstyled">
-                             <li><a href="resp.html">RESP</a></li>
-                             <li><a href="rrsp.html">RRSP</a></li>
-                             <li><a href="tfsa.html">TFSA</a></li>
-                         </ul>
-                 </div><!-- end col-3 -->
-             </div><!-- end row -->
-             <div class="row">
-              <div class="col-md-6">
-                      <h6 class="title">Home and Car Insurance</h6>
-              </div><!-- end col-3 -->
-              <div class="col-md-6">
-                  <h6 class="title">Travel Insurance</h6>
-              </div><!-- end col-3 -->
-          </div><!-- end row -->
-          </div>
-       </li>
-          <li><a href="#contact">Videos</a></li>
-          <li><a href="#contact">Admin Pannel</a></li>
-          <li><a href="appointment.html">Contact</a></li>
-          <li><a href="#FR">FR</a></li>
-
-        </ul>
-      </nav>
-
-    </div>
-    
+     <!-- ======= Header ======= -->
+     <header id="header" style="background: none;box-shadow: none">
+      <div class="container d-flex align-items-center">
+  
+          <h1 class="logo mr-auto" id="header-title"><a href="index.html">Matin's Insurance.<span></span></a></h1>
+  
+  
+          <nav class="nav-menu d-none d-lg-block">
+              <ul>
+                  <li class="active"><a href="index.html">Home</a></li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Coverage
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" id = "coverage-menu">
+                      <p class="downdown-item" style="color : #106eea; margin:0px; margin-bottom: 10px"><strong>Insurance</strong></p>
+                          <a class="dropdown-item" href="/life.html">Life</a>
+                          <a class="dropdown-item" href="mortgage.html">Mortgage</a>
+                          <a class="dropdown-item" href="critical.html">Disability</a>
+                          <a class="dropdown-item" href="homeCar.html">Home & Car</a>
+                          <a class="dropdown-item" href="travel.html">Travel</a>
+                          <div class="dropdown-divider" style="background-color: #106eea"></div>
+                          <a class="dropdown-item" href="resp.html">RESP</a>
+                          <a class="dropdown-item" href="rrsp.html">RRSP</a>
+                          <a class="dropdown-item" href="tfsa.html">TFSA</a>
+                        </div>
+                  </li>
+                  <li><a href="/video">Videos</a></li>
+                  <li><a href="/appointment">Book an Appointment</a></li>
+  
+              </ul>
+          </nav>
+  
+      </div>
+  
+  </header>
   </header><!-- End Header -->
 
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+
+          <h2 class="section-heading">RRSP</h2>
+          <p>Registered Retirement Savings Plan</p><hr>
+
+          <span class="caption">A registered retirement savings plan (RRSP) helps you save tax-free until you retire. By investing in an RRSP, you can also generate cashflow for your current needs through tax returns.</span>
+          <a href="" class="picText">
+            <img class="img-fluid" src="img/rrsp.jpg" alt="plants growing on coins to show the importance of savings">
+          </a>
+          <span class="caption text-muted font-italic">When it comes to saving for retirement, RRSPs are pretty hard to beat.</span>
+          <h6 class ="section-body">Benefits of a RRSP:</h6>
+          <p><li>Contributions and investment income are not taxed until they are withdrawn</li></p>
+          <p><li>Contributions are tax deductible</li></p>
+          <p><li>Unused contribution room can be carried forward</li></p>
+        </div>
+      </div>
+    </div>
+  </article>
+  <hr>
   <div id="preloader"></div>
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
 
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>Matin's Insurance<span>.</span></h3>
+            <p>
+              2000 McGill College Ave, Montreal, Quebec <br>H3A 3J1 <br><br>
+              <strong>Phone:</strong> 1-866-650-4641<br>
+              <strong>Email:</strong> matin.tirehdast@gmail.com<br>
+            </p>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="/">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/video">Videos</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/appointment">Book An Appointment</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="/life.html">Life Insurance</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/mortgage.html">Mortgage Insurance</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/critical.html">Critical illness and <br><br> Disability Insurance</a></li>
+              
+            </ul>
+          </div>
+
+          
+          <div class="col-lg-3 col-md-6 footer-links">
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="/resp.html">RESP</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/rrsp.html">RRSP</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/tfsa.html">TFSA</a></li>
+            </ul>
+          </div>
+          <a style="text-align: right;" href="/admin">Admin Pannel</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+<!-- End Footer -->
   <!-- Vendor JS Files -->
   <script src="assets/vendor/jquery/jquery.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

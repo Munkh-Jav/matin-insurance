@@ -40,80 +40,61 @@
 
 <body>
 
-  <!-- ======= Header ======= -->
-  <header id="header">
+  <header id="header" style="background: none;box-shadow: none">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo mr-auto"><a href="index.html">Matin's Insurance<span>.</span></a></h1>
+        <h1 class="logo mr-auto" id="header-title"><a href="index.html">Matin's Insurance.<span></span></a></h1>
 
 
-      <nav class="nav-menu d-none d-lg-block">
-        <ul>
-          <li class="active"><a href="index.html">Home</a></li>
-          <li class="has-submenu">
-            <a class="dropdown-item dropdown-toggle" onclick="expand()"> Coverage </a>
-            <div class="megasubmenu dropdown-menu" id ="myExpand" style="display: none;">
-            <div class="row">
-                 <div class="col-md-6">
-                         <h6 class="title">Insurance</h6>
-                         <ul class="list-unstyled">
-                             <li><a href="personal.html">Personal Insurance</a></li>
-                             <li><a href="life.html">Life Insurance</a></li>
-                             <li><a href="mortgage.html">Mortgage Insurance</a></li>
-                             <li><a href="critical.html">Critical illness and Disability Insurance</a></li>
-                         </ul>
-                 </div><!-- end col-3 -->
-                 <div class="col-md-6">
-                     <h6 class="title">Savings and retirement</h6>
-                         <ul class="list-unstyled">
-                             <li><a href="resp.html">RESP</a></li>
-                             <li><a href="rrsp.html">RRSP</a></li>
-                             <li><a href="tfsa.html">TFSA</a></li>
-                         </ul>
-                 </div><!-- end col-3 -->
-             </div><!-- end row -->
-             <div class="row">
-              <div class="col-md-6">
-                      <h6 class="title">Home and Car Insurance</h6>
-              </div><!-- end col-3 -->
-              <div class="col-md-6">
-                  <h6 class="title">Travel Insurance</h6>
-              </div><!-- end col-3 -->
-          </div><!-- end row -->
-          </div>
-       </li>
-          <li><a href="/video">Videos</a></li>
-          <li><a href="/admin">Admin Pannel</a></li>
-          <li><a href="/appointment">Contact</a></li>
-          <li><a href="#FR">FR</a></li>
+        <nav class="nav-menu d-none d-lg-block">
+            <ul>
+                <li class="active"><a href="index.html">Home</a></li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Coverage
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown" id = "coverage-menu">
+                    <p class="downdown-item" style="color : #106eea"><strong>Insurance</strong></p>                        <a class="dropdown-item" href="/life.html">Life</a>
+                        <a class="dropdown-item" href="mortgage.html">Mortgage</a>
+                        <a class="dropdown-item" href="critical.html">Disability</a>
+                        <a class="dropdown-item" href="homeCar.html">Home & Car</a>
+                        <a class="dropdown-item" href="travel.html">Travel</a>
+                        <div class="dropdown-divider" style="background-color: #106eea"></div>
+                        <a class="dropdown-item" href="resp.html">RESP</a>
+                        <a class="dropdown-item" href="rrsp.html">RRSP</a>
+                        <a class="dropdown-item" href="tfsa.html">TFSA</a>
+                      </div>
+                </li>
+                <li><a href="/video">Videos</a></li>
+                <li><a href="/appointment">Book an Appointment</a></li>
 
-        </ul>
-      </nav>
+            </ul>
+        </nav>
 
     </div>
-    
-  </header><!-- End Header -->
 
+</header>
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
     <div class="container" data-aos="zoom-out" data-aos-delay="100">
       <h1>Welcome to <span>Matin's Insurance</spa>
       </h1>
       <h2>Why is life insurance important?</h2>
-        <ul class = "headerTextStyle">
+        <ol>
           <li class ="headerText">It allows your family to maintain their standard of living. </li>
           <li class ="headerText">It covers death-related expenses.</li>
           <li class ="headerText">It allows you to leave a legacy. </li>
           <li class ="headerText">It ensures business continuity. </li>
           <li class ="headerText">It completes life insurance coverage offered through your employer.</li>
-        </ul>
+        </ol>
 
       <div class="d-flex">
-        <a href="#about" class="btn-get-started scrollto">Get a quote</a>
-        <a href="https://www.youtube.com/watch?v=5qap5aO4i9A&ab_channel=ChilledCow" class="venobox btn-watch-video" data-vbtype="video" data-autoplay="true"> Watch Video <i class="icofont-play-alt-2"></i></a>
+        <a href="/appointment" class="btn-get-started scrollto">Book an Appointment</a>
+        <a href="https://www.youtube.com/watch?v=3ctoSEQsY54&ab_channel=ConcerningReality" class="venobox btn-watch-video" data-vbtype="video" data-autoplay="true"> Watch Video <i class="icofont-play-alt-2"></i></a>
       </div>
     </div>
   </section><!-- End Hero -->
+ 
 
   <main id="main">
 
@@ -252,7 +233,7 @@
           <div class="col-lg-3 col-md-6">
             <div class="count-box">
               <i class="icofont-simple-smile"></i>
-              <span data-toggle="counter-up">462</span>
+              <span data-toggle="counter-up">100</span>
               <p>Happy Clients</p>
             </div>
           </div>
@@ -260,7 +241,7 @@
           <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
             <div class="count-box">
               <i class="icofont-document-folder"></i>
-              <span data-toggle="counter-up">253</span>
+              <span data-toggle="counter-up">6</span>
               <p>Insurance services</p>
             </div>
           </div>
@@ -341,26 +322,7 @@
 
   </main><!-- End #main -->
 
-  <!-- ======= Footer ======= -->
   <footer id="footer">
-
-    <!--
-
-    
-    <div class="footer-newsletter">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-6">
-            <h4>Join Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
--->
     <div class="footer-top">
       <div class="container">
         <div class="row">
@@ -377,39 +339,37 @@
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/video">Videos</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/appointment">Book An Appointment</a></li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Our Services</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Insurance</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Savings and retirement</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Loans</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/life.html">Life Insurance</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/mortgage.html">Mortgage Insurance</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/critical.html">Critical illness and <br><br> Disability Insurance</a></li>
+              
             </ul>
           </div>
 
+          
           <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Social Networks</h4>
-            <p>Follow to get special prizes</p>
-            <div class="social-links mt-3">
-              <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-            </div>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="/resp.html">RESP</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/rrsp.html">RRSP</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/tfsa.html">TFSA</a></li>
+            </ul>
+          </div>
+          <a style="text-align: right;" href="/admin">Admin Pannel</a>
           </div>
 
         </div>
       </div>
     </div>
-  </footer><!-- End Footer -->
+  </footer>
 
   <div id="preloader"></div>
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
@@ -428,6 +388,7 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
 
 </body>
 

@@ -75,7 +75,7 @@ class AdminNavbar extends React.Component {
                     <span>My profile</span>
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem to="/" tag={Link}>
+                  <DropdownItem to="/index.html">
                     <i className="fas fa-home" />
                     <span>Home</span>
                   </DropdownItem>

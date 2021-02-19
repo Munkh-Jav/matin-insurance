@@ -37,7 +37,7 @@ ReactDOM.render(
             <Route path="/video" component={VideoLayout} />
             <Route path="/appointment" component={AppointmentLayout} />
             <Route path="/profile" component={requireAuth(UserLayout)}/>
-            <Redirect from="/" to="/auth/login" />
+            {/*<Redirect from="/" to="/auth/login" />*/}
 
         </Switch>
       </Router>

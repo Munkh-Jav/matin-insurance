@@ -31,6 +31,8 @@ export const login = (formValues) => async dispatch => {
         dispatch({type: SIGN_IN, user: jwtDecode(data.token)});
         history.push('/admin/index');
     }catch(e){
+        if(!e.response)
+            return dispatch({type: CHANGE_PASS_ERROR, error: 'Server error'});
         dispatch({type: SIGN_IN_ERROR, error: e.response.data});
     }
 }
@@ -44,7 +46,10 @@ export const singup = (formValues) => async dispatch => {
         setAuthorizationToken(data.token);
         dispatch({type: SIGN_UP, user: jwtDecode(data.token)});
         history.push('/auth/login');
+        
     }catch(e){
+        if(!e.response)
+            return dispatch({type: CHANGE_PASS_ERROR, error: 'Server error'});
         dispatch({type: SIGN_UP_ERROR, error: e.response.data});
         console.log(e.response);
 

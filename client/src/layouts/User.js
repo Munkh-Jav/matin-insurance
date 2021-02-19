@@ -52,8 +52,9 @@ class User extends React.Component {
             {this.getRoutes(routes)}
             <Redirect from="*" to="/profile" />
           </Switch>
-          <MainFooter/>
+       
         </div>
+        <MainFooter/>
       </>
     );
   }

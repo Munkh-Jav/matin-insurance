@@ -1,51 +1,36 @@
 module.exports = `
 <header id="header" style="background: none;box-shadow: none">
-    <div class="container d-flex align-items-center">
+  <div class="container d-flex align-items-center">
 
-        <h1 class="logo mr-auto" id="header-title"><a href="index.html">Matin's Insurance.<span></span></a></h1>
+      <h1 class="logo mr-auto" id="header-title"><a href="index.html">Matin's Insurance.<span></span></a></h1>
 
 
-        <nav class="nav-menu d-none d-lg-block">
-            <ul>
-                <li class="active"><a href="index.html">Home</a></li>
-                <li class="has-submenu">
-                    <a class="dropdown-item dropdown-toggle" onclick="expand()"> Coverage </a>
-                    <div class="megasubmenu dropdown-menu" id ="myExpand" style="display: none;">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h6 class="title">Insurance</h6>
-                                <ul class="list-unstyled">
-                                    <li><a href="personal.html">Personal Insurance</a></li>
-                                    <li><a href="life.html">Life Insurance</a></li>
-                                    <li><a href="mortgage.html">Mortgage Insurance</a></li>
-                                    <li><a href="critical.html">Critical illness and Disability Insurance</a></li>
-                                </ul>
-                            </div><!-- end col-3 -->
-                            <div class="col-md-6">
-                                <h6 class="title">Savings and retirement</h6>
-                                <ul class="list-unstyled">
-                                    <li><a href="resp.html">RESP</a></li>
-                                    <li><a href="rrsp.html">RRSP</a></li>
-                                    <li><a href="tfsa.html">TFSA</a></li>
-                                </ul>
-                            </div><!-- end col-3 -->
-                        </div><!-- end row -->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h6 class="title">Home and Car Insurance</h6>
-                            </div><!-- end col-3 -->
-                            <div class="col-md-6">
-                                <h6 class="title">Travel Insurance</h6>
-                            </div><!-- end col-3 -->
-                        </div><!-- end row -->
+      <nav class="nav-menu d-none d-lg-block">
+          <ul>
+              <li class="active"><a href="index.html">Home</a></li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Coverage
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id = "coverage-menu">
+                  <p class="downdown-item" style="color : #106eea; margin:0px; margin-bottom: 10px"><strong>Insurance</strong></p>
+                      <a class="dropdown-item" href="/life.html">Life</a>
+                      <a class="dropdown-item" href="mortgage.html">Mortgage</a>
+                      <a class="dropdown-item" href="critical.html">Disability</a>
+                      <a class="dropdown-item" href="homeCar.html">Home & Car</a>
+                      <a class="dropdown-item" href="travel.html">Travel</a>
+                      <div class="dropdown-divider" style="background-color: #106eea"></div>
+                      <a class="dropdown-item" href="resp.html">RESP</a>
+                      <a class="dropdown-item" href="rrsp.html">RRSP</a>
+                      <a class="dropdown-item" href="tfsa.html">TFSA</a>
                     </div>
-                </li>
-                <li><a href="/video">Videos</a></li>
-                <li><a href="/appointment">Book an Appointment</a></li>
+              </li>
+              <li><a href="/video">Videos</a></li>
+              <li><a href="/appointment">Book an Appointment</a></li>
 
-            </ul>
-        </nav>
+          </ul>
+      </nav>
 
-    </div>
+  </div>
 
 </header>`

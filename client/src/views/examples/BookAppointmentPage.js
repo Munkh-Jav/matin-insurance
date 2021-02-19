@@ -130,7 +130,7 @@ class BookAppointmentPage extends React.Component {
 
 
                 <MainHeader/>
-                <Container className="mt-4" fluid>
+                <Container className="mt-4 mb-5" fluid>
 
                     <Row>
                         <Col xl="5" id="title_book_appointment">
@@ -254,7 +254,7 @@ class BookAppointmentPage extends React.Component {
                     </Row>
 
                 </Container>
-                <MainFooter/>
+
                 <div id="snackbar">{this.state.snackbar_message}</div>
 
             </>

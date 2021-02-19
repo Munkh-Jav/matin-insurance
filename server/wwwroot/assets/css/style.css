@@ -47,7 +47,7 @@ h1, h2, h3, h4, h5, h6 {
   position: fixed;
   top: calc(50% - 30px);
   left: calc(50% - 30px);
-  border: 6px solid #106eea;
+  border: 6px solid #106eea !important;
   border-top-color: #e2eefd;
   border-radius: 50%;
   width: 60px;
@@ -161,12 +161,29 @@ h1, h2, h3, h4, h5, h6 {
 # Header
 --------------------------------------------------------------*/
 #header {
-  background: #106eea;
+  background: #106eea !important;
   transition: all 0.5s;
   z-index: 997;
   padding: 25px 0;
   top: 40px;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+#coverage-menu{
+  padding:10px;
+  font-family : "Roboto", sans-serif
+}
+
+#coverage-menu a:hover { 
+  color : #106eea
+}
+
+@media only screen and (max-width: 600px) {
+  #coverage-menu{
+    padding : 50px;
+    font-size: 150%
+  }
+
 }
 
 #header.header-scrolled {
@@ -1083,7 +1100,7 @@ section {
 # Footer
 --------------------------------------------------------------*/
 #footer {
-  background: #fff;
+  background: #e5f0ff;
   padding: 0 0 30px 0;
   color: #444444;
   font-size: 14px;
@@ -1107,7 +1124,7 @@ section {
 
 #footer .footer-newsletter form {
   margin-top: 30px;
-  background: #fff;
+  background: #e5f0ff;
   padding: 6px 10px;
   position: relative;
   border-radius: 4px;
@@ -1143,7 +1160,7 @@ section {
 
 #footer .footer-top {
   padding: 60px 0 30px 0;
-  background: #fff;
+  background: #e5f0ff;;
 }
 
 #footer .footer-top .footer-contact {

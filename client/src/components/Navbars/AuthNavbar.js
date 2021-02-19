@@ -47,14 +47,14 @@ class AdminNavbar extends React.Component {
               </div>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  <NavLink
+                  <a
                       className="nav-link-icon"
-                      to="/main-site"
-                      tag={Link}
+                      href="/index.html"
+                      style={{color : 'white', fontSize : '150%'}}
                   >
                     <i className="ni ni-bold-right" />
-                    <span className="nav-link-inner--text">Back to main site</span>
-                  </NavLink>
+                    <span className="nav-link-inner--text ml-2">Back to main site</span>
+                  </a>
                 </NavItem>
 
               </Nav>

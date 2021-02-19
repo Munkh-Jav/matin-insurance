@@ -105,7 +105,6 @@ class VideoList extends React.Component {
               </Col>
             </div>
         </Container>
-        <MainFooter/>
       </>
     );
   }

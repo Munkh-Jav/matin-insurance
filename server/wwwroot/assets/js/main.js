@@ -15,6 +15,7 @@ if ($(window).width() < 992) {
         })
     });
 }
+
 function expand() {
   var x = document.getElementById("myExpand");
   if (x.style.display === "none") {

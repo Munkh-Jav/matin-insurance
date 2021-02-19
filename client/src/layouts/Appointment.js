@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 
 import routes from "routes.js";
 import MainNavbar from "../components/Navbars/MainNavbar";
-import Sidebar from "../components/Sidebar/Sidebar";
+import MainFooter from "../components/Footers/MainFooter";
 
 class Appointment extends React.Component {
   componentDidUpdate(e) {
@@ -54,6 +54,8 @@ class Appointment extends React.Component {
           </Switch>
 
         </div>
+        <MainFooter/>
+
       </>
     );
   }

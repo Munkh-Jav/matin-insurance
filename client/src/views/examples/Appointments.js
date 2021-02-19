@@ -138,7 +138,6 @@ class Appointments extends React.Component {
             </div>
           </Row>
         </Container>
-        <MainFooter/>
       </>
     );
   }

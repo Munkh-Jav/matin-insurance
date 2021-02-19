@@ -181,7 +181,6 @@ class VideoPage extends React.Component {
                         </Row>
                     </div>
                 </Container>
-                <MainFooter/>
                 <div id="snackbar">{this.state.snackbar_message}</div>
             </>
         );
