@@ -1,32 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "D:\\.Projects\\matin-insurance\\server\\server.csproj": {}
+    "C:\\Users\\Jav\\Desktop\\FinalProjectGIT\\matin-insurance\\server\\server.csproj": {}
   },
   "projects": {
-    "D:\\.Projects\\matin-insurance\\server\\server.csproj": {
+    "C:\\Users\\Jav\\Desktop\\FinalProjectGIT\\matin-insurance\\server\\server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\.Projects\\matin-insurance\\server\\server.csproj",
+        "projectUniqueName": "C:\\Users\\Jav\\Desktop\\FinalProjectGIT\\matin-insurance\\server\\server.csproj",
         "projectName": "server",
-        "projectPath": "D:\\.Projects\\matin-insurance\\server\\server.csproj",
-        "packagesPath": "C:\\Users\\Noha\\.nuget\\packages\\",
-        "outputPath": "D:\\.Projects\\matin-insurance\\server\\obj\\",
+        "projectPath": "C:\\Users\\Jav\\Desktop\\FinalProjectGIT\\matin-insurance\\server\\server.csproj",
+        "packagesPath": "C:\\Users\\Jav\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Jav\\Desktop\\FinalProjectGIT\\matin-insurance\\server\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Noha\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\MicroFocus.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Jav\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "D:\\NuGetPackages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

@@ -15,4 +15,3 @@ $(document).on('click', '.dropdown-menu', function (e) {
           })
       });
   }
-  echo "Helo";
